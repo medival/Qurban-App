@@ -39,6 +39,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <li class="<?php echo $this->uri->segment(2) == 'kelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/kelas'); ?>">Kelas</a></li>
         </ul>
       </li>
+      <li class="dropdown <?php echo $this->uri->segment(2) == 'operator' ? 'active' : ''; ?>">
+        <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i> <span>Operator</span></a>
+        <ul class="dropdown-menu">
+          <li class="<?php echo $this->uri->segment(2) == 'operator' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/operator'); ?>"> Data Operator </a></li>
+        </ul>
+      </li>
     </ul>
 
     <ul class="sidebar-menu">

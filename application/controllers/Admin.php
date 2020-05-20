@@ -9,6 +9,7 @@ class Admin extends CI_Controller
         parent::__construct();
         $this->load->model('nasabah_model');
         $this->load->model('kelas_model');
+        $this->load->model('operator_model');
     }
 
     public function index()
@@ -25,6 +26,27 @@ class Admin extends CI_Controller
             'title' => 'Data Nasabah'
         );
         $this->load->view('admin/v_nasabah', $data);
+    }
+
+    public function operator()
+    {
+        $data = array(
+            'title' => 'Data Operator'
+        );
+
+        $this->load->view('admin/v_operator', $data);
+    }
+
+    public function listoperator()
+    {
+        $data = $this->operator_model->getAll();
+        echo json_encode($data);
+    }
+
+    public function inputoperator()
+    {
+        $data = $this->operator_model->input();
+        echo json_encode($data);
     }
 
     public function data_nasabah()

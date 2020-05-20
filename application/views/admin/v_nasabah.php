@@ -375,7 +375,6 @@ $this->load->view('admin/_partials/header');
         }
 
         function datetoepoch(date) {
-
             return new Date(date).getTime() / 1000;
         }
 
