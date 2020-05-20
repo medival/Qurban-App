@@ -63,7 +63,25 @@ class Kelas_model extends CI_Model
         $post = $this->input->post();
         $this->kelas = $post['kelas'];
 
-        return $this->db->insert('tb_kelas', $this);
+        $data = $this->db->insert('tb_kelas', $this);
+        return $data;
+    }
+    public function postupdatekelas()
+    {
+        $post = $this->input->post();
+        $this->id_kelas =  $post['id_kelas'];
+        $this->kelas = $post['kelas'];
+
+        return $this->db->update('tb_kelas', $this, array('id_kelas' => $post['id_kelas']));
+    }
+
+    public function postdeletekelas()
+    {
+        $post = $this->input->post();
+        $this->id_kelas =  $post['id_kelas'];
+
+        $data = $this->db->delete('tb_kelas', array('id_kelas' => $post['id_kelas']));
+        return $data;
     }
 
     public function pilih()

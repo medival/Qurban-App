@@ -95,6 +95,27 @@ class Admin extends CI_Controller
         $data = $this->kelas_model->pilih();
         echo json_encode($data);
     }
+
+    public function updatedatakelas()
+    {
+        $data = $this->kelas_model->postupdatekelas();
+        echo json_encode($data);
+    }
+
+    public function deletekelas()
+    {
+        $data = $this->kelas_model->postdeletekelas();
+        echo json_encode($data);
+    }
+
+    public function kelas()
+    {
+        $data = array(
+            'title' => 'Data Kelas'
+        );
+        $this->load->view('admin/v_kelas', $data);
+    }
+
     public function setting()
     {
         $data = array(

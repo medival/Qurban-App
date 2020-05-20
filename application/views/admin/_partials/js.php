@@ -19,7 +19,7 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
   <script src="<?php echo base_url(); ?>assets/modules/summernote/summernote-bs4.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <?php
-} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "ruangkelas")) { ?>
+} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas")) { ?>
   <script src="<?php echo base_url(); ?>assets/modules/cleave-js/dist/cleave.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/select2/dist/js/select2.full.min.js"></script>

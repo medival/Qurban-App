@@ -35,8 +35,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <li class="dropdown <?php echo $this->uri->segment(2) == 'kelas' || $this->uri->segment(2) == 'ruangkelas' ? 'active' : ''; ?>">
         <a href="#" class="nav-link has-dropdown"><i class="fas fa-university"></i> <span>Kelas</span></a>
         <ul class="dropdown-menu">
-          <li class="<?php echo $this->uri->segment(2) == 'kelas' || $this->uri->segment(2) == 'ruangkelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/ruangkelas'); ?>">Ruang Kelas </a></li>
-          <li><a href="<?php echo base_url('admin/kelas'); ?>">Kelas</a></li>
+          <li class="<?php echo $this->uri->segment(2) == 'ruangkelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/ruangkelas'); ?>">Ruang Kelas </a></li>
+          <li class="<?php echo $this->uri->segment(2) == 'kelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/kelas'); ?>">Kelas</a></li>
         </ul>
       </li>
     </ul>
