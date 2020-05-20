@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // date_default_timezone_set('Asia/Jakarta');
-$config['base_url'] = 'http://localhost:8888/tabungan/';
+$config['base_url'] = 'http://localhost:8888/apptabungan/';
 
 /*
 |--------------------------------------------------------------------------
