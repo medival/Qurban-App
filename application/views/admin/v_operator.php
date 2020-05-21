@@ -172,11 +172,12 @@ $this->load->view('admin/_partials/header');
     </div>
     <!-- End of Modal Edit Operator -->
 
-    <div class="modal fade" tabindex="" role="dialog" id="modalHapusNasabah">
+    <!-- Modal Delete Operator -->
+    <div class="modal fade" tabindex="" role="dialog" id="modalDeleteOperator">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Hapus Nasabah </h5>
+                    <h5 class="modal-title"> Data Operator </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -184,16 +185,17 @@ $this->load->view('admin/_partials/header');
                 <div class="modal-body">
                     <div class="form-group">
                         <p class="text-center"> Data yang dihapus tidak bisa dikembalikan? </p>
-                        <input type="hidden" class="form-control" id="deleteNIS" name="deleteNIS">
+                        <input type="text" class="form-control" id="deleteNIP" name="deleteNIP">
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="btnDeleteNasabah"> Hapus Data </button>
+                    <button type="submit" class="btn btn-danger" id="btnDeleteOperator"> Hapus Data </button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- End of Modal Delete Operator -->
 </div>
 
 <?php $this->load->view('admin/_partials/footer'); ?>
@@ -242,6 +244,33 @@ $this->load->view('admin/_partials/header');
         function datetoepoch(date) {
             return new Date(date).getTime() / 1000;
         }
+        $('#table_operator').on('click', '.deleteOperator', function() {
+            var nip = $(this).data('nip');
+
+            $('#modalDeleteOperator').modal('show');
+            $('[name="deleteNIP"]').val(nip);
+
+            console.log(nip);
+        })
+
+        $('#btnDeleteOperator').on('click', function() {
+            var nip = $('#deleteNIP').val();
+            console.log(nip);
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url('admin/deletedataoperator') ?>",
+                dataType: 'JSON',
+                data: {
+                    nip: nip
+                },
+                success: function(data) {
+                    $('#modalDeleteOperator').modal('hide');
+                    show_operator();
+                }
+            });
+            return false;
+        })
 
         $('#table_operator').on('click', '.editOperator', function() {
             var nip = $(this).data('nip');
@@ -268,7 +297,6 @@ $this->load->view('admin/_partials/header');
             var nip = nip.replace('.', '')
             var nip = nip.replace('.', '')
             var nama = $('#inputNama').val();
-            // var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
             var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
             var id_ruang = $('#pkelas').find(':selected').val();
 

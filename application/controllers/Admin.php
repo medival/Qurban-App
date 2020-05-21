@@ -55,6 +55,12 @@ class Admin extends CI_Controller
         echo json_encode($data);
     }
 
+    public function deletedataoperator()
+    {
+        $data = $this->operator_model->delete();
+        echo json_encode($data);
+    }
+
     public function data_nasabah()
     {
         $data = $this->nasabah_model->getAll();
