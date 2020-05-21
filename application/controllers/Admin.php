@@ -10,6 +10,7 @@ class Admin extends CI_Controller
         $this->load->model('nasabah_model');
         $this->load->model('kelas_model');
         $this->load->model('operator_model');
+        $this->load->model('transaksi_model');
     }
 
     public function index()
@@ -64,6 +65,12 @@ class Admin extends CI_Controller
     public function data_nasabah()
     {
         $data = $this->nasabah_model->getAll();
+        echo json_encode($data);
+    }
+
+    public function getnis()
+    {
+        $data = $this->nasabah_model->getnis();
         echo json_encode($data);
     }
 
@@ -181,6 +188,12 @@ class Admin extends CI_Controller
         );
 
         $this->load->view('admin/v_transaksi', $data);
+    }
+
+    public function aktivasimember()
+    {
+        $data = $this->transaksi_model->aktivasiuser();
+        echo json_encode($data);
     }
 
     public function profile()

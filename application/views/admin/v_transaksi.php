@@ -10,8 +10,8 @@ $this->load->view('admin/_partials/header');
                 <h3><?= $title; ?></h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalTambahSaldo">
-                            <i class="fa fa-user-plus"></i> Tambah
+                        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAktivasi" id="btnModalAktivasi">
+                            <i class="fa fa-user-plus"></i> Aktivasi
                         </button>
 
                         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalSetor">
@@ -325,12 +325,12 @@ $this->load->view('admin/_partials/header');
             </div>
     </section>
 </div>
-<!-- Modal Tambah Saldo -->
-<div class="modal fade" tabindex="" role="dialog" id="modalTambahSaldo">
+<!-- Modal Aktivasi -->
+<div class="modal fade" tabindex="" role="dialog" id="modalAktivasi">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> Tambah Saldo </h5>
+                <h5 class="modal-title"> Aktivasi Nasabah </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -339,42 +339,24 @@ $this->load->view('admin/_partials/header');
                 <div class="form-group">
                     <label> Cari Nasabah</label>
                     <div class="input" id="inputNasabah">
-                        <select class="form-control select2" style="width: 28.25rem">
-                            <option>Nasabah 1</option>
-                            <option>Nasabah 2</option>
-                            <option>Nasabah 3</option>
-                            <option>Nasabah 4</option>
-                            <option>Nasabah 5</option>
-                            <option>Nasabah 6</option>
-                            <option>Nasabah 7</option>
-                            <option>Nasabah 8</option>
-                            <option>Nasabah 9</option>
-                            <option>Nasabah 10</option>
-                            <option>Nasabah 12</option>
-                            <option>Nasabah 13</option>
+                        <select class="form-control select2 findNasabah" style="width: 28.25rem" id="findNasabah">
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label> Nominal </label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                Rp
-                            </div>
-                        </div>
-                        <input type="text" class="form-control currency">
-                    </div>
+                    <p class="text-center"> Anda akan mengaktivasi? </p>
+                    <h5 class="text-center" id="idAktivasi"> Username </h5>
+                    <input type="hidden" class="form-control" name="inputidaktivasi" id="inputidaktivasi">
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" id="btnAktivasi">Aktivasi</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal End of Tambah Saldo -->
+<!-- Modal End of Aktivasi -->
 
 <!-- Modal Setor  -->
 <div class="modal fade" tabindex="" role="dialog" id="modalSetor">
@@ -496,3 +478,69 @@ $this->load->view('admin/_partials/header');
 </div>
 <!-- End of Modal Tarik  -->
 <?php $this->load->view('admin/_partials/footer'); ?>
+
+<script>
+    $(document).ready(function() {
+
+        $('.findNasabah').select2({
+            placeholder: "Cari Nasabah",
+            allowClear: true
+        })
+
+        $('#findNasabah').on('change', function() {
+            var nama = $('#findNasabah').find(':selected').text();
+            var nis = $('#findNasabah').find(':selected').val();
+            $('#idAktivasi').html(nama);
+
+            $('[name="inputidaktivasi"]').val(nis);
+
+            console.log(nama, nis);
+        });
+
+        $('#btnModalAktivasi').on('click', function() {
+            carinasabah();
+        });
+
+        $('#btnAktivasi').on('click', function() {
+            var nis = $('#inputidaktivasi').val();
+
+            console.log(nis);
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('admin/aktivasimember') ?>',
+                dataType: 'JSON',
+                data: {
+                    nis: nis,
+                    nisa: nis,
+                    niss: nis
+                },
+                success: function(data) {
+                    // $("#idAktivasi").html("Username");
+                    $('#modalAktivasi').modal('hide');
+                    alert('sccc');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("data exist");
+                }
+            })
+        });
+
+        function carinasabah() {
+            $.ajax({
+                type: "ajax",
+                url: '<?= base_url('admin/getnis') ?>',
+                async: false,
+                dataType: "JSON",
+                success: function(data) {
+                    var html = '';
+                    var ini = '<option></option>';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].nis + '"> ' + `  ${data[i].nama}` + '</option>'
+                    }
+                    $('#findNasabah').html(ini + html);
+                }
+            });
+        }
+    });
+</script>

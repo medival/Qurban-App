@@ -19,10 +19,12 @@ class Kelas_model extends CI_Model
 
     public function getruangkelas()
     {
-        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang
+        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang, o.nip, o.nama
         FROM tb_kelas AS k
         JOIN tb_ruang AS r
-        ON k.id_kelas = r.id_kelas")->result();
+        ON k.id_kelas = r.id_kelas
+        JOIN tb_operator AS o
+        ON r.id_ruang = o.id_ruang")->result();
         return $data;
     }
 

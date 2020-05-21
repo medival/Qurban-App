@@ -396,7 +396,7 @@ $this->load->view('admin/_partials/header');
                         html += '<option value="' + data[i].id_ruang + '"> ' + data[i].kelas + ' ' + data[i].ruang + ' </option>'
                     }
                     $('#pkelas').html(ini + html);
-                    $('#ekelas').html(ini + html);
+                    $('#ekelas').html(html);
                 }
             })
             show_nasabah();

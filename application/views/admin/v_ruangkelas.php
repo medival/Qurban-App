@@ -26,8 +26,9 @@ $this->load->view('admin/_partials/header');
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID Ruang</th>
-                                <th>ID Kelas</th>
+                                <!-- <th>ID Ruang</th>
+                                <th>ID Kelas</th> -->
+                                <!-- <th>Jumlah</th> -->
                                 <th>Kelas</th>
                                 <th>Wali Kelas </th>
                                 <th>Aksi</th>
@@ -346,10 +347,11 @@ $this->load->view('admin/_partials/header');
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
                             '<td style="width: 2rem">' + i + '</td>' +
-                            '<td>' + `${data[i].id_ruang}` + '</td>' +
-                            '<td>' + `${data[i].id_kelas}` + '</td>' +
+                            // '<td>' + `${data[i].id_ruang}` + '</td>' +
+                            // '<td>' + `${data[i].id_kelas}` + '</td>' +
+                            // '<td>' + 'jml' + '</td>' +
                             '<td>' + `${data[i].kelas}` + ` ${data[i].ruang}` + '</td>' +
-                            '<td>' + "Walikelas" + '</td>' +
+                            '<td>' + `${data[i].nama}` + '</td>' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editruangkelas" data-id_ruang="' + data[i].id_ruang + '" data-id_kelas="' + data[i].id_kelas + '" data-ruang="' + data[i].ruang + '"><i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteruangkelas" data-id_ruang="' + data[i].id_ruang + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';
