@@ -285,7 +285,7 @@ $this->load->view('admin/_partials/header');
                     var ini = '<option></option>';
                     var i;
                     for (i = 0; i < data.length; i++) {
-                        ini;
+                        // ini;
                         html += '<option value="' + data[i].id_kelas + '">' + data[i].kelas + ' </option>';
                     }
                     $('#pkelas').html(ini + html);

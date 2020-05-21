@@ -38,6 +38,7 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </section>
+    <!-- Modal Tambah Operator -->
     <div class="modal fade" tabindex="" role="dialog" id="modalTambahOperator">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -53,7 +54,7 @@ $this->load->view('admin/_partials/header');
                         <div class="form-group">
                             <label for="" class=" col-form-label">NIP</label>
                             <div class="col-sm">
-                                <input type="text" class="form-control inputNIP" name="inputNIP" id="inputNIP" placeholder="123.45.678910" required>
+                                <input type="text" class="form-control inputNIP" name="inputNIP" id="inputNIP" placeholder="123.45.678910" required minlength="12">
                                 <div class="invalid-feedback">
                                     Masukan NIP lengkap operator?
                                 </div>
@@ -85,7 +86,7 @@ $this->load->view('admin/_partials/header');
                                 Oops! masukan jenis kelamin calon nasabah
                             </div>
                         </div>
-  
+
                         <div class="form-group">
                             <label class="col-form-label"> Kelas </label>
                             <div class="col-10">
@@ -102,6 +103,74 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </div>
+    <!-- End of Modal Tambah Operator -->
+
+    <!-- Modal Edit Operator -->
+    <div class="modal fade" tabindex="" role="dialog" id="modalEditOperator">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Edit Data Operator </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="needs-validation" novalidate="">
+                        <p class="text-muted"> Informasi Pribadi </p>
+                        <div class="form-group">
+                            <label for="" class=" col-form-label">NIP</label>
+                            <div class="col-sm">
+                                <input type="text" class="form-control editNIP" name="editNIP" id="editNIP" placeholder="123.45.678910" required minlength="12">
+                                <div class="invalid-feedback">
+                                    Masukan NIP lengkap operator?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class=" col-form-label">Nama Lengkap</label>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" name="editNama" id="editNama" placeholder="Nama" required>
+                                <div class="invalid-feedback">
+                                    Masukan nama lengkap operator?
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Jenis Kelamin</label>
+                            <div class="col-sm row ml-2">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="editLakiLaki" name="jenis_kelamin" class="custom-control-input" required value="L">
+                                    <label class="custom-control-label" for="editLakiLaki">Laki - Laki</label>
+                                </div>
+                                <div class="custom-control custom-radio ml-3">
+                                    <input type="radio" id="editPerempuan" name="jenis_kelamin" class="custom-control-input" required value="P">
+                                    <label class="custom-control-label" for="editPerempuan">Perempuan</label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback">
+                                Oops! masukan jenis kelamin calon nasabah
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label"> Kelas </label>
+                            <div class="col-10">
+                                <select class="form-control select2 inputkkelas" style="width: 26.25rem" id="ekelas">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnEditOperator"> Update Data </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal Edit Operator -->
 
     <div class="modal fade" tabindex="" role="dialog" id="modalHapusNasabah">
         <div class="modal-dialog" role="document">
@@ -139,7 +208,7 @@ $this->load->view('admin/_partials/header');
             delimiter: '.',
             blocks: [3, 2, 7]
         })
-        
+
         $('.inputkkelas').select2({
             placeholder: "Pilih Kelas",
             allowClear: true
@@ -174,9 +243,27 @@ $this->load->view('admin/_partials/header');
             return new Date(date).getTime() / 1000;
         }
 
-        
+        $('#table_operator').on('click', '.editOperator', function() {
+            var nip = $(this).data('nip');
+            var nama = $(this).data('nama');
+            var jenis_kelamin = $(this).data('jenis_kelamin');
+            var id_ruang = $(this).data('id_ruang');
 
-        $('#btnAddOperator').on('click', function(){
+            // console.log(nip, nama, jenis_kelamin, id_ruang)
+
+            $('#modalEditOperator').modal('show');
+            pilihkelas();
+            $('[name="editNIP"]').val(nip);
+            $('[name="editNama"]').val(nama);
+            if (jenis_kelamin == "L") {
+                document.getElementById("editLakiLaki").checked = true;
+            } else if (jenis_kelamin == "P") {
+                document.getElementById("editPerempuan").checked = true;
+            }
+            document.getElementById('ekelas').value = id_ruang;
+        });
+
+        $('#btnAddOperator').on('click', function() {
             var nip = $('#inputNIP').val();
             var nip = nip.replace('.', '')
             var nip = nip.replace('.', '')
@@ -184,43 +271,72 @@ $this->load->view('admin/_partials/header');
             // var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
             var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
             var id_ruang = $('#pkelas').find(':selected').val();
-            
-            console.log(id_ruang);
 
-            // $.ajax({
-            //     type: 'POST',
-            //     url: "<?= base_url('admin/inputoperator')?>",
-            //     dataType: "JSON",
-            //     data: {
-            //         nip: nip,
-            //         nama: nama,
-            //         jenis_kelamin: jenis_kelamin,
-            //         id_ruang: id_ruang
-            //     }
-            // })
+            $.ajax({
+                type: 'POST',
+                url: "<?= base_url('admin/inputoperator') ?>",
+                dataType: "JSON",
+                data: {
+                    nip: nip,
+                    nama: nama,
+                    jenis_kelamin: jenis_kelamin,
+                    id_ruang: id_ruang
+                },
+                success: function(data) {
+                    $('#modalTambahOperator').modal('hide');
+                    show_operator();
+                }
+            })
+            return false;
         });
 
+        $('#btnEditOperator').on('click', function() {
+            var nip = $('#editNIP').val();
+            var nama = $('#editNama').val();
+            var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            var id_ruang = $('#ekelas').find(':selected').val();
 
+            $.ajax({
+                type: 'POST',
+                url: "<?= base_url('admin/updateoperator'); ?>",
+                dataType: "JSON",
+                data: {
+                    nip: nip,
+                    nama: nama,
+                    jenis_kelamin: jenis_kelamin,
+                    id_ruang: id_ruang
+                },
+                success: function(data) {
+                    $('#modalEditOperator').modal('hide');
+                    show_operator();
+                }
+            })
+            return false;
+        });
 
-        $('#btnModalAddOperator').on('click', function() {
+        function pilihkelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?= base_url('admin/getruangkelas');?>",
+                url: "<?= base_url('admin/getruangkelas'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
                     var html = '';
-                    var selopt = "<option></option";
+                    var ini = '<option></option>';
                     var i;
-                    for (i=0; i < data.length; i++) {
-                        selopt;
-                        html += '<option value="' + data[i].id_ruang + '"> ' + data[i].kelas + data[i].id_ruang + '</option>';
+                    for (i = 0; i < data.length; i++) {
+                        ini;
+                        html += '<option value="' + data[i].id_ruang + '"> ' + data[i].kelas + ' ' + data[i].ruang + '</option>';
                     }
-                    // $('#pkelas').html(selopt);
-                    $('#pkelas').html(selopt + html);
+                    $('#pkelas').html(ini + html);
+                    $('#ekelas').html(ini + html);
                 }
             })
             show_operator();
+        }
+
+        $('#btnModalAddOperator').on('click', function() {
+            pilihkelas();
         });
 
         $('#table_operator').on('click', '.deleteNasabah', function() {
@@ -248,52 +364,6 @@ $this->load->view('admin/_partials/header');
             return false;
         })
 
-        $('#btnAddNasabah').on('click', function() {
-
-            var nis = $('#inputNIP').val();
-            var nama = $('#inputNama').val();
-            var alamat = $('#inputAlamat').val();
-            var tempat_lahir = $('#inputTempatLahir').val();
-            var tanggal_lahir = $('#inputTanggalLahir').val();
-            var nama_ortu = $('#inputNamaOrtu').val();
-            var kontak_orangtua = $('#inputKontakOrangTua').val();
-            var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
-            var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
-            var id_ruang = "1";
-            var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-
-            $.ajax({
-                type: 'POST',
-                url: "<?= base_url('admin/inputnasabah'); ?>",
-                dataType: "JSON",
-                data: {
-                    nis: nis,
-                    nama: nama,
-                    alamat: alamat,
-                    tempat_lahir: tempat_lahir,
-                    tanggal_lahir: tanggal_lahir,
-                    nama_ortu: nama_ortu,
-                    kontak_orangtua: kontak_orangtua,
-                    id_ruang: id_ruang,
-                    jenis_kelamin: jenis_kelamin,
-                },
-                success: function(data) {
-                    $('[name="inputNIP"]').val("");
-                    $('[name="inputNama"]').val("");
-                    $('[name="inputAlamat"]').val("");
-                    $('[name="inputTempatLahir"]').val("");
-                    $('[name="inputTanggalLahir"]').val("");
-                    $('[name="inputNamaOrtu"]').val("");
-                    $('[name="inputKontakOrangTua"]').val("");
-                    $('[name="inputKontakOrangTua"]').val("");
-                    $('#modalTambahOperator').modal('hide');
-                    show_operator();
-                }
-            })
-
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
-        })
-
         function show_operator() {
             $.ajax({
                 type: "ajax",
@@ -306,7 +376,7 @@ $this->load->view('admin/_partials/header');
                     for (i = 0; i < data.length; i++) {
                         if (data[i].is_active == '1') {
                             var aktif = "Aktif";
-                        } else if(data[i].is_active =='0'){
+                        } else if (data[i].is_active == '0') {
                             var aktif = "Tidak Aktif";
                         }
 
@@ -317,7 +387,7 @@ $this->load->view('admin/_partials/header');
                             '<td>' + `${data[i].kelas}` + ` ${data[i].ruang}` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
                             '<td>' + `${aktif}` + '</td >' +
-                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editOperator" data-nip="' + data[i].nip + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-id_ruang="' + data[i].id_ruang +'"> <i class="fa fa-file-alt"></i> </a> ' +
+                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editOperator" data-nip="' + data[i].nip + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-id_ruang="' + data[i].id_ruang + '"> <i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteOperator" data-nip="' + data[i].nip + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';
                     }

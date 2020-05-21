@@ -49,6 +49,12 @@ class Admin extends CI_Controller
         echo json_encode($data);
     }
 
+    public function updateoperator()
+    {
+        $data = $this->operator_model->update();
+        echo json_encode($data);
+    }
+
     public function data_nasabah()
     {
         $data = $this->nasabah_model->getAll();

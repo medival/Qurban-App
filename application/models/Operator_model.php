@@ -26,9 +26,10 @@ class Operator_model extends CI_Model
     {
         $post = $this->input->post();
         $this->nip =  $post['nip'];
-        $this->nama = $post['nama'];
+        $this->nama = trim($post['nama']);
         $this->jenis_kelamin =  $post['jenis_kelamin'];
         $this->id_ruang =  $post['id_ruang'];
+        $this->created_at =  strtotime("now");
 
         $result = $this->db->insert($this->_tb_operator, $this);
         return $result;
