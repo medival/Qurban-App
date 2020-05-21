@@ -34,6 +34,18 @@ class Operator_model extends CI_Model
         $result = $this->db->insert($this->_tb_operator, $this);
         return $result;
     }
+
+    public function update()
+    {
+        $post = $this->input->post();
+        $this->nip = $post['nip'];
+        $this->nama = trim($post['nama']);
+        $this->jenis_kelamin =  $post['jenis_kelamin'];
+        $this->id_ruang =  $post['id_ruang'];
+
+        $result = $this->db->update($this->_tb_operator, $this, array('nip' => $post['nip']));
+        return $result;
+    }
 }
 
 /* End of file: Operator_mode.php */
