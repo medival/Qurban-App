@@ -250,12 +250,10 @@ $this->load->view('admin/_partials/header');
             $('#modalDeleteOperator').modal('show');
             $('[name="deleteNIP"]').val(nip);
 
-            console.log(nip);
         })
 
         $('#btnDeleteOperator').on('click', function() {
             var nip = $('#deleteNIP').val();
-            console.log(nip);
 
             $.ajax({
                 type: 'POST',

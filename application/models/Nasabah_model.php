@@ -13,7 +13,13 @@ class Nasabah_model extends CI_Model
 
     public function getAll()
     {
-        $hasil =  $this->db->get('tb_siswa');
+
+        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang
+                                    FROM tb_siswa AS s
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_kelas AS k
+                                    ON r.id_kelas = k.id_kelas");
         return $hasil->result();
     }
 

@@ -10,7 +10,7 @@ $this->load->view('admin/_partials/header');
                 <h3> <?= $title; ?> </h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button href="<?= base_url('admin/tambahnasabah'); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah">
+                        <button href="<?= base_url('admin/tambahnasabah'); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
                             <i class="fa fa-user-plus"></i> Tambah Nasabah
                         </button>
                     </div>
@@ -38,6 +38,8 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </section>
+
+    <!-- Modal Tambah Nasabah -->
     <div class="modal fade" tabindex="" role="dialog" id="modalTambahNasabah">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -144,13 +146,7 @@ $this->load->view('admin/_partials/header');
                         <div class="form-group">
                             <label class="col-form-label"> Kelas </label>
                             <div class="col-10">
-                                <select class="form-control select2" style="width: 26.25rem">
-                                    <option>Kelas 1</option>
-                                    <option>Kelas 2</option>
-                                    <option>Kelas 3</option>
-                                    <option>Kelas 4</option>
-                                    <option>Kelas 5</option>
-                                    <option>Kelas 6</option>
+                                <select class="form-control select2 pkelas" style="width: 26.25rem" id="pkelas">
                                 </select>
                             </div>
                         </div>
@@ -163,7 +159,9 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </div>
+    <!-- End of Modal Tambah Nasabah -->
 
+    <!-- Modal Edit Nasabah -->
     <div class="modal fade" tabindex="" role="dialog" id="modalEditNasabah">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -270,13 +268,7 @@ $this->load->view('admin/_partials/header');
                         <div class="form-group">
                             <label class="col-form-label"> Kelas </label>
                             <div class="col-10">
-                                <select class="form-control select2" style="width: 26.25rem">
-                                    <option>Kelas 1</option>
-                                    <option>Kelas 2</option>
-                                    <option>Kelas 3</option>
-                                    <option>Kelas 4</option>
-                                    <option>Kelas 5</option>
-                                    <option>Kelas 6</option>
+                                <select class="form-control select2" style="width: 26.25rem" id="ekelas">
                                 </select>
                             </div>
                         </div>
@@ -289,7 +281,9 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </div>
+    <!-- End of Modal Edit Nasabah -->
 
+    <!-- Modal Delete Nasabah -->
     <div class="modal fade" tabindex="" role="dialog" id="modalHapusNasabah">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -312,6 +306,7 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
     </div>
+    <!-- End of Modal Delete Nasabah -->
 </div>
 
 <?php $this->load->view('admin/_partials/footer'); ?>
@@ -349,6 +344,15 @@ $this->load->view('admin/_partials/header');
             blocks: [4, 4, 4]
         })
 
+        $('.pkelas').select2({
+            placeholder: "Pilih Kelas",
+            allowClear: true
+        });
+
+        $('#btnModalAddNasabah').on('click', function() {
+            pilihkelas();
+        })
+
         function epochtodate(epoch) {
 
             // Months array
@@ -378,6 +382,25 @@ $this->load->view('admin/_partials/header');
             return new Date(date).getTime() / 1000;
         }
 
+        function pilihkelas() {
+            $.ajax({
+                type: "ajax",
+                url: "<?= base_url('admin/getruangkelas'); ?>",
+                async: false,
+                dataType: "JSON",
+                success: function(data) {
+                    var html = '';
+                    var ini = "<option></option>";
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].id_ruang + '"> ' + data[i].kelas + ' ' + data[i].ruang + ' </option>'
+                    }
+                    $('#pkelas').html(ini + html);
+                    $('#ekelas').html(ini + html);
+                }
+            })
+            show_nasabah();
+        }
         $('#table_nasabah').on('click', '.deleteNasabah', function() {
             var nis = $(this).data('nis');
 
@@ -404,6 +427,8 @@ $this->load->view('admin/_partials/header');
         })
 
         $('#table_nasabah').on('click', '.editNasabah', function() {
+            pilihkelas();
+
             var nis = $(this).data('nis');
             var nama = $(this).data('nama');
             var alamat = $(this).data('alamat');
@@ -429,6 +454,7 @@ $this->load->view('admin/_partials/header');
             } else if (jenis_kelamin == "P") {
                 document.getElementById("editPerempuan").checked = true;
             }
+            document.getElementById('ekelas').value = id_ruang;
         })
 
         $('#btnEditNasabah').on('click', function() {
@@ -441,9 +467,10 @@ $this->load->view('admin/_partials/header');
             var kontak_orangtua = $('#editKontakOrangTua').val();
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
-            var id_ruang = "1";
             var jenis_kelamin = document.querySelector('input[name="edit_jenis_kelamin"]:checked').value;
             var tanggal_lahir1 = datetoepoch(tanggal_lahir);
+            var id_ruang = $('#ekelas').find(':selected').val();
+
             console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir1, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $.ajax({
                 type: 'POST',
@@ -473,6 +500,7 @@ $this->load->view('admin/_partials/header');
                     show_nasabah();
                 }
             })
+            return false;
         })
 
         $('#btnAddNasabah').on('click', function() {
@@ -486,8 +514,8 @@ $this->load->view('admin/_partials/header');
             var kontak_orangtua = $('#inputKontakOrangTua').val();
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
-            var id_ruang = "1";
             var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            var id_ruang = $('#ekelas').find(':selected').val();
 
             $.ajax({
                 type: 'POST',
@@ -533,12 +561,14 @@ $this->load->view('admin/_partials/header');
                     for (i = 0; i < data.length; i++) {
                         if (data[i].is_active == '1') {
                             var aktif = "Aktif";
+                        } else if (data[i].is_active == '0') {
+                            var aktif = "Tidak Aktif"
                         }
                         html += '<tr>' +
                             '<td style="width: 2rem">' + i + '</td>' +
                             '<td>' + `${data[i].nis}` + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
-                            '<td>' + 'kelas' + '</td>' +
+                            '<td>' + ` ${data[i].kelas} ` + `${data[i].ruang}` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
                             '<td>' + `${aktif}` + '</td >' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editNasabah" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +

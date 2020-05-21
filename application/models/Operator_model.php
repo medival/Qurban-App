@@ -51,7 +51,6 @@ class Operator_model extends CI_Model
     {
         $post = $this->input->post();
         $this->nip = $post['nip'];
-        // var_dump($this->nip);
 
         $result = $this->db->delete($this->_tb_operator, array('nip' => $post['nip']));
         return $result;
