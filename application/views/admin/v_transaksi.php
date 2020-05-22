@@ -512,8 +512,8 @@ $this->load->view('admin/_partials/header');
                 dataType: "JSON",
                 success: function(data) {
                     var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
+                    var number = 1;
+                    for (var i = 0; i < data.length; i++) {
                         if (data[i].kredit_debet == "kredit") {
                             var debet = "-";
                             var kredit = CurrencyID(data[i].nominal);
@@ -530,7 +530,7 @@ $this->load->view('admin/_partials/header');
                             var saldo = CurrencyID(0);
                         }
                         html += '<tr>' +
-                            '<td>' + i + '</td>' +
+                            '<td>' + number++ + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
                             '<td class="text-right">' + `${kredit}` + '</td>' +
