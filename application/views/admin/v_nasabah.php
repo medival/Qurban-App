@@ -533,19 +533,19 @@ $this->load->view('admin/_partials/header');
                     jenis_kelamin: jenis_kelamin,
                 },
                 success: function(data) {
-                    $('[name="inputNIS"]').val("");
-                    $('[name="inputNama"]').val("");
-                    $('[name="inputAlamat"]').val("");
-                    $('[name="inputTempatLahir"]').val("");
-                    $('[name="inputTanggalLahir"]').val("");
-                    $('[name="inputNamaOrtu"]').val("");
-                    $('[name="inputKontakOrangTua"]').val("");
-                    $('[name="inputKontakOrangTua"]').val("");
+                    // $('[name="inputNIS"]').val("");
+                    // $('[name="inputNama"]').val("");
+                    // $('[name="inputAlamat"]').val("");
+                    // $('[name="inputTempatLahir"]').val("");
+                    // $('[name="inputTanggalLahir"]').val("");
+                    // $('[name="inputNamaOrtu"]').val("");
+                    // $('[name="inputKontakOrangTua"]').val("");
+                    // $('[name="inputKontakOrangTua"]').val("");
                     $('#modalTambahNasabah').modal('hide');
                     show_nasabah();
                 }
-            })
-
+            });
+            return false;
             // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
         })
 

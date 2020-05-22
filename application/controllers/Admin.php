@@ -210,7 +210,87 @@ class Admin extends CI_Controller
 
     public function inputdatakredit()
     {
-        $data = $this->transaksi_model->input();
+        $nis = $this->input->post('nis');
+        $nominal = $this->input->post('nominal');
+
+        // $nis = 5386;
+        // $nominal = 1000;
+        $result = $this->db->query("SELECT saldo
+                                    FROM tb_tabungan
+                                    WHERE nis=" . $nis)->result();
+        foreach ($result as $row) {
+            $saldo_tabungan = $row->saldo;
+            if ($saldo_tabungan == 0) {
+                $saldo_akhir = $nominal;
+            } else if ($saldo_tabungan > 0) {
+                $saldo_akhir = $nominal + $saldo_tabungan;
+            }
+        }
+        $kredit_debet = "kredit";
+        $tanggal = strtotime("now");
+
+        $data = array(
+            'nis' => $nis,
+            'tanggal' => $tanggal,
+            'kredit_debet' => $kredit_debet,
+            'nominal' => $nominal,
+            'saldo' => $saldo_akhir
+        );
+        $data2 = array(
+            // 'nis' => $nis,
+            'saldo' => $saldo_akhir
+        );
+        $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
+        $this->db->insert('tb_transaksi', $data);
+        // $data = $this->transaksi_model->input();
+        echo json_encode($data);
+    }
+
+    public function inputdatadebet()
+    {
+        $nis = $this->input->post('nis');
+        $nominal = $this->input->post('nominal');
+
+        // $nis = 5386;
+        // $nominal = 1000;
+        $result = $this->db->query("SELECT saldo
+                                    FROM tb_tabungan
+                                    WHERE nis = " . $nis)->result();
+
+        foreach ($result as $row) {
+            $saldo_tabungan = $row->saldo;
+            if ($saldo_tabungan > 0) {
+                $saldo_akhir = $saldo_tabungan - $nominal;
+            } else if ($saldo_tabungan == 0 || $saldo_tabungan < 0) {
+                $saldo_akhir = 0;
+                redirect('admin/transaksi');
+            }
+        }
+
+        // var_dump($saldo_akhir);
+        // var_dump($saldo_tabungan);
+        $kredit_debet = "debet";
+        $tanggal = strtotime("now");
+        $inputtbtransaksi = array(
+            'nis' => $nis,
+            'tanggal' => $tanggal,
+            'kredit_debet' => $kredit_debet,
+            'nominal' => $nominal,
+            'saldo' => $saldo_akhir
+        );
+
+        $this->db->insert('tb_transaksi', $inputtbtransaksi);
+
+        $inputtbtabungan = array(
+            'saldo' => $saldo_akhir
+        );
+
+        $this->db->update('tb_tabungan', $inputtbtabungan, array('nis' => $nis));
+    }
+
+    public function gettransaksi()
+    {
+        $data = $this->transaksi_model->list();
         echo json_encode($data);
     }
 

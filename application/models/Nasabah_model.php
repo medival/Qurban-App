@@ -11,7 +11,7 @@ class Nasabah_model extends CI_Model
         parent::__construct();
     }
 
-    public function getNIS()
+    public function getnis()
     {
         $result = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang
                                     FROM tb_siswa AS s
