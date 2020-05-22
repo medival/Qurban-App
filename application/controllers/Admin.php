@@ -208,7 +208,11 @@ class Admin extends CI_Controller
         echo json_encode($data);
     }
 
-
+    public function inputdatakredit()
+    {
+        $data = $this->transaksi_model->input();
+        echo json_encode($data);
+    }
 
     public function profile()
     {

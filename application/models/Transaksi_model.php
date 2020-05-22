@@ -42,6 +42,22 @@ class Transaksi_model extends CI_Model
                                     WHERE nis = $nis");
         return $result->result();
     }
+
+    public function input()
+    {
+
+        $data = array(
+            'nis' => $this->input->post('nis'),
+            'nominal' => $this->input->post('nominal'),
+            'kredit_debet' => $this->input->post('kredit_debet'),
+            'tanggal' => strtotime("now"),
+            'saldo' => NULL,
+            'nip' => NULL
+        );
+        $this->db->insert('tb_transaksi', $data);
+
+        // return $result->result();
+    }
 }
 
 /* End of file: Transaksi_model.php */

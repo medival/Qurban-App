@@ -402,13 +402,14 @@ $this->load->view('admin/_partials/header');
                                 Rp
                             </div>
                         </div>
-                        <input type="text" class="form-control inputNominalKredit" name="inputNominalKredit">
+                        <input type="text" name="inputNISKredit" id="inputNISKredit" class="form-control">
+                        <input type="text" class="form-control inputNominalKredit" name="inputNominalKredit" id="inputNominalKredit">
                     </div>
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btnInputKredit">Save changes</button>
             </div>
         </div>
     </div>
@@ -503,12 +504,7 @@ $this->load->view('admin/_partials/header');
         $('#findNasabahKredit').on('change', function() {
             var nis = $('#findNasabahKredit').find(':selected').val();
             var nama = $('#findNasabahKredit').find(':selected').text();
-            // var saldo = $(this).data('saldo');
-            // console.log(nama);
-            // console.log(nis);
-            // console.log(saldo);
             var baseURL = "<?php echo base_url('admin/getMemberSaldo/'); ?>" + nis;
-            // console.log(baseURL);
             $.ajax({
                 type: 'ajax',
                 url: baseURL,
@@ -518,12 +514,12 @@ $this->load->view('admin/_partials/header');
                     Jumlahsaldo = data[0].saldo;
                 }
             })
-
             var formatter = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
                 minimumFractionDigits: 0
             })
+            $('[name="inputNISKredit"]').val(nis);
             $('#userKredit').html(nama);
             $('#userJumlahSaldo').html(formatter.format(Jumlahsaldo));
         })
@@ -550,7 +546,6 @@ $this->load->view('admin/_partials/header');
             var nama = $('#findNasabah').find(':selected').text();
             var nis = $('#findNasabah').find(':selected').val();
             $('#idAktivasi').html(nama);
-
             $('[name="inputidaktivasi"]').val(nis);
 
             console.log(nama, nis);
@@ -562,6 +557,29 @@ $this->load->view('admin/_partials/header');
 
         $('#btnKredit').on('click', function() {
             memberaktif();
+        })
+
+        $('#btnInputKredit').on('click', function() {
+            var nis = $('#inputNISKredit').val();
+            var nominal = $('#inputNominalKredit').val();
+            nominal = nominal.replace(/,/g, '');
+            nominal = nominal.replace(/,/g, '');
+            var kredit_debet = "kredit";
+            console.log(nis, nominal, kredit_debet);
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('admin/inputdatakredit'); ?>',
+                dataType: 'JSON',
+                data: {
+                    nis: nis,
+                    kredit_debet: kredit_debet,
+                    nominal: nominal
+                },
+                success: function(data) {
+                    $('#modalKredit').modal('hide');
+                }
+            })
         })
 
         $('#btnAktivasi').on('click', function() {
