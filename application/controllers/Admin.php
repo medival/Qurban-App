@@ -292,6 +292,12 @@ class Admin extends CI_Controller
         $this->db->update('tb_tabungan', $inputtbtabungan, array('nis' => $nis));
     }
 
+    public function getrekapdata($nis)
+    {
+        $data = $this->transaksi_model->get($nis);
+        echo json_encode($data);
+    }
+
     public function gettransaksi()
     {
         $data = $this->transaksi_model->list();

@@ -52,7 +52,6 @@ class Transaksi_model extends CI_Model
 
     public function input()
     {
-
         $data = array(
             'nis' => $this->input->post('nis'),
             'nominal' => $this->input->post('nominal'),
@@ -62,8 +61,17 @@ class Transaksi_model extends CI_Model
             'nip' => NULL
         );
         $this->db->insert('tb_transaksi', $data);
-
         // return $result->result();
+    }
+
+    public function get($nis)
+    {
+        $result = $this->db->query("SELECT t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo
+                                    FROM tb_transaksi AS t
+                                    JOIN tb_siswa AS s
+                                    ON t.nis = s.nis
+                                    AND t.nis = $nis");
+        return $result->result();
     }
 }
 

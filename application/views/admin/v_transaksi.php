@@ -21,9 +21,9 @@ $this->load->view('admin/_partials/header');
                         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDebet" id="btnDebet">
                             <i class="fa fa-minus"></i> Tarik Tunai
                         </button>
-                        <a href="#" class="btn btn-outline-info btn-icon icon-left">
+                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalRekapit" id="btnRekap">
                             <i class="fa fa-suitcase"></i> Rekap
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ $this->load->view('admin/_partials/header');
                         <thead>
                             <tr>
                                 <th style="width: 2rem"> No </th>
-                                <th> NIS </th>
+                                <th> Nama </th>
                                 <!-- <th>Alamat</th> -->
                                 <th> Tanggal </th>
                                 <th> Kredit </th>
@@ -208,11 +208,50 @@ $this->load->view('admin/_partials/header');
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="btnInputDebet">Save changes</button>
                     </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
 <!-- End of Modal Debet  -->
+
+<!-- Modal Rekap -->
+<div class="modal fade" tabindex="" role="dialog" id="modalRekapit">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Modal Rekap </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label> Cari Nasabah</label>
+                    <select class="form-control select2 findRekapNasabah" style="width: 28.25rem" id="findRekapNasabah">
+                    </select>
+                </div>
+                <input type="hidden" name="inputNISRekap" id="inputNISRekap" class="form-control">
+                <div class="row" style="width: 28.125rem; margin-left: 0.10rem">
+                    <div class="card card-primary text-center col-12">
+                        <div class="card-body">
+                            <label class="card-title">Username</label>
+                            <h6 class="username" id="userRekap">
+                                username
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnRekapData">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Rekap -->
+
 <?php $this->load->view('admin/_partials/footer'); ?>
 
 <script>
@@ -233,6 +272,11 @@ $this->load->view('admin/_partials/header');
         })
 
         $('.findNasabahDebet').select2({
+            placeholder: "Cari Nasabah",
+            allowClear: true
+        })
+
+        $('.findRekapNasabah').select2({
             placeholder: "Cari Nasabah",
             allowClear: true
         })
@@ -265,6 +309,11 @@ $this->load->view('admin/_partials/header');
             $('#inputNISDebet').val("");
             $('#cekSaldo').val("");
             $('#userJumlahSaldo2').html(0)
+        })
+
+        $('#modalRekap').on('hidden.bs.modal', function() {
+            $('#inputNISRekap').val("");
+            $('#userRekap').html('username');
         })
 
         $('#findNasabahKredit').on('change', function() {
@@ -317,6 +366,59 @@ $this->load->view('admin/_partials/header');
             }
         })
 
+        $('#findRekapNasabah').on('change', function() {
+            var nis = $('#findRekapNasabah').find(':selected').val();
+            var nama = $('#findRekapNasabah').find(':selected').text();
+
+            $('#userRekap').html(nama);
+            $('[name="inputNISRekap"]').val(nis);
+        })
+
+        $('#btnRekapData').on('click', function() {
+            var nis = $('#findRekapNasabah').val();
+            // console.log(nis);
+            var baseUrl = "<?php echo base_url('admin/getrekapdata/'); ?>" + nis;
+            $.ajax({
+                type: 'ajax',
+                url: baseUrl,
+                async: false,
+                dataType: "JSON",
+                success: function(data) {
+                    var html = '';
+                    var no = 1;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].kredit_debet == "kredit") {
+                            var debet = "-";
+                            var kredit = CurrencyID(data[i].nominal);
+                            // var kredit = "Kredit";
+                        } else if (data[i].kredit_debet == "debet") {
+                            var debet = CurrencyID(data[i].nominal);
+                            // var debet = "Debet";
+                            var kredit = "-";
+                        }
+                        if (data[i].saldo != null) {
+                            var saldo = CurrencyID(data[i].saldo);
+                        } else if (data[i].saldo == null) {
+                            var saldo = CurrencyID(0);
+                        }
+
+                        html += '<tr>' +
+                            '<td>' + no++ + '</td>' +
+                            '<td>' + data[i].nama + '</td>' +
+                            '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
+                            '<td class="text-right">' + `${kredit}` + '</td>' +
+                            '<td class="text-right">' + `${debet}` + '</td>' +
+                            '<td class="text-right">' + `${saldo}` + '</td>' +
+                            // '<td>' + '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-info-circle"></i> </a></td> ' +
+                            '<td>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('#tb_transaksi').html(html);
+                }
+            })
+        });
+
         function CurrencyID(nominal) {
             var formatter = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -341,6 +443,7 @@ $this->load->view('admin/_partials/header');
                     }
                     $('#findNasabahKredit').html(ini + html);
                     $('#findNasabahDebet').html(ini + html);
+                    $('#findRekapNasabah').html(ini + html);
                 }
             });
         }
@@ -364,21 +467,10 @@ $this->load->view('admin/_partials/header');
 
         $('#btnDebet').on('click', function() {
             memberaktif();
+        })
 
-            // const nominal = document.getElementById('inputNominalDebet');
-            // const testtt = document.getElementById('testt');
-            // // const cekSaldo = document.getElementById('cekSaldo');
-            // const btnDebet = document.getElementById('btnInputDebet');
-
-            // console.log(nominal, btnDebet);
-
-
-            // const inputHandler = function(e) {
-            //     btnDebet.innerHTML = e.target.value;
-            // }
-
-            // nominal.addEventListener('input', inputHandler);
-
+        $('#btnRekap').on('click', function() {
+            memberaktif();
         })
 
         $('#btnInputKredit').on('click', function() {
@@ -481,9 +573,17 @@ $this->load->view('admin/_partials/header');
             // Day
             var day = date.getDate();
 
+            // Hours
+            var hours = date.getHours();
+
+            // Minutes
+            var minutes = "0" + date.getMinutes();
+
+            // Seconds
+            var seconds = "0" + date.getSeconds();
             // Display date time in MM-dd-yyyy h:m:s format
-            // return convdataTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-            return convdataTime = year + '-' + month + '-' + day;
+            return convdataTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            // return convdataTime = year + '-' + month + '-' + day;
         }
 
         function carinasabah() {
