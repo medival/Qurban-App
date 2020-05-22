@@ -259,10 +259,14 @@ class Admin extends CI_Controller
 
         foreach ($result as $row) {
             $saldo_tabungan = $row->saldo;
-            if ($saldo_tabungan > 0) {
+            if (($saldo_tabungan > 0) && ($nominal <= $saldo_tabungan)) {
                 $saldo_akhir = $saldo_tabungan - $nominal;
-            } else if ($saldo_tabungan == 0 || $saldo_tabungan < 0) {
-                $saldo_akhir = 0;
+            } else if (($saldo_tabungan <= 0)) {
+                $saldo_akhir = $saldo_tabungan;
+                // $nominal = 0;
+                redirect('admin/transaksi');
+            } else if (($nominal > $saldo_tabungan)) {
+                $nominal = 0;
                 redirect('admin/transaksi');
             }
         }

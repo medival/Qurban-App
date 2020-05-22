@@ -186,7 +186,7 @@ $this->load->view('admin/_partials/header');
                         </div>
                     </div>
 
-                    <h6 class="text-center text-danger" id="text-info" id="testt"> Warning </h6>
+                    <!-- <h6 class="text-center text-danger" id="text-info" id="testt"> Warning </h6> -->
                     <input type="hidden" name="inputNISDebet" id="inputNISDebet" class="form-control">
                     <input type="hidden" name="cekSaldo" id="cekSaldo" class="form-control">
 
@@ -409,34 +409,34 @@ $this->load->view('admin/_partials/header');
 
         $('#btnInputDebet').on('click', function() {
             var nis = $('#inputNISDebet').val();
-            var nominal = $('#inputNominalDebet').val();
             var saldo = $('#cekSaldo').val();
+            var nominal = $('#inputNominalDebet').val();
             nominal = nominal.replace(/,/g, '');
             nominal = nominal.replace(/,/g, '');
 
-            if (nominal < saldo) {
-                // alert('fff');
-                // $(btnDebet).prop('disabled', false);
-                // $.ajax({
-                //     type: 'POST',
-                //     url: '<?php echo base_url('admin/inputdatadebet'); ?>',
-                //     Datatype: 'JSON',
-                //     data: {
-                //         nis: nis,
-                //         nominal: nominal
-                //     },
-                //     success: function(data) {
-                //         $('#modalDebet').modal('hide');
-                //         show_transaksi();
-                //     }
-                // })
-                console.log("acc");
-            } else if (nominal > saldo) {
-                console.log("no");
-            }
-            console.log(nis, "nominal " + nominal, "Saldo " + saldo)
+            // if (nominal < saldo) {
+            // alert('fff');
+            // $(btnDebet).prop('disabled', false);
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('admin/inputdatadebet'); ?>',
+                Datatype: 'JSON',
+                data: {
+                    nis: nis,
+                    nominal: nominal
+                },
+                success: function(data) {
+                    $('#modalDebet').modal('hide');
+                    show_transaksi();
+                }
+            })
+            //     console.log("acc");
+            // } else if (nominal > saldo) {
+            //     console.log("no");
+            // }
+            // console.log(nis, "nominal " + nominal, "Saldo " + saldo)
 
-            // return false;
+            return false;
         })
 
         $('#btnAktivasi').on('click', function() {
@@ -523,13 +523,19 @@ $this->load->view('admin/_partials/header');
                             // var debet = "Debet";
                             var kredit = "-";
                         }
+
+                        if (data[i].saldo != null) {
+                            var saldo = CurrencyID(data[i].saldo);
+                        } else if (data[i].saldo == null) {
+                            var saldo = CurrencyID(0);
+                        }
                         html += '<tr>' +
                             '<td>' + i + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
-                            '<td class="text-right">' + CurrencyID(`${data[i].saldo}`) + '</td>' +
+                            '<td class="text-right">' + `${saldo}` + '</td>' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
                             '</td> ' +
