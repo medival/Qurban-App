@@ -14,7 +14,7 @@ $this->load->view('admin/_partials/header');
                             <i class="fa fa-user-plus"></i> Aktivasi
                         </button>
 
-                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalSetor">
+                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalKredit" id="btnKredit">
                             <i class="fa fa-plus"></i> Setor Tunai
                         </button>
 
@@ -358,12 +358,12 @@ $this->load->view('admin/_partials/header');
 </div>
 <!-- Modal End of Aktivasi -->
 
-<!-- Modal Setor  -->
-<div class="modal fade" tabindex="" role="dialog" id="modalSetor">
+<!-- Modal Kredit  -->
+<div class="modal fade" tabindex="" role="dialog" id="modalKredit">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"> Setor Tunai </h5>
+                <h5 class="modal-title"> Kredit Tunai </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -371,28 +371,26 @@ $this->load->view('admin/_partials/header');
             <div class="modal-body">
                 <div class="form-group">
                     <label> Cari Nasabah</label>
-                    <select class="form-control select2" style="width: 28.25rem">
-                        <option>Nasabah 1</option>
-                        <option>Nasabah 2</option>
-                        <option>Nasabah 3</option>
-                        <option>Nasabah 4</option>
-                        <option>Nasabah 5</option>
-                        <option>Nasabah 6</option>
-                        <option>Nasabah 7</option>
-                        <option>Nasabah 8</option>
-                        <option>Nasabah 9</option>
-                        <option>Nasabah 10</option>
-                        <option>Nasabah 12</option>
-                        <option>Nasabah 13</option>
+                    <select class="form-control select2 findNasabahKredit" style="width: 28.25rem" id="findNasabahKredit">
                     </select>
                 </div>
 
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h6> Nasabah 1 </h6>
+                <div class="form-group row text-center">
+                    <div class="card card-primary col-6">
+                        <div class="card-body">
+                            <label class="card-title">Username</label>
+                            <h6 class="username" id="userKredit">
+                                username
+                            </h6>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5> Rp. 9.000.000 </h5>
+                    <div class="card card-danger col-6">
+                        <div class="card-body">
+                            <label class="card-title"> Saldo </label>
+                            <h5 class="userJumlahSaldo" id="userJumlahSaldo">
+                                0
+                            </h5>
+                        </div>
                     </div>
                 </div>
 
@@ -404,18 +402,18 @@ $this->load->view('admin/_partials/header');
                                 Rp
                             </div>
                         </div>
-                        <input type="text" class="form-control setorTunai">
+                        <input type="text" class="form-control inputNominalKredit" name="inputNominalKredit">
                     </div>
                 </div>
             </div>
-            <div class="modal-footer bg-whitesmoke br">
+            <div class="modal-footer bg-whitesmoke">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
-<!-- End of Modal Setor  -->
+<!-- End of Modal Kredit  -->
 
 <!-- Modal Tarik  -->
 <div class="modal fade" tabindex="" role="dialog" id="modalTarik">
@@ -487,6 +485,67 @@ $this->load->view('admin/_partials/header');
             allowClear: true
         })
 
+        $('.findNasabahKredit').select2({
+            placeholder: "Cari Nasabah",
+            allowClear: true
+        })
+
+        var cleaveKredit = new Cleave('.inputNominalKredit', {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand',
+        })
+
+        var cleaveJumlahSaldo = new Cleave('.userJumlahSaldo', {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        })
+
+        $('#findNasabahKredit').on('change', function() {
+            var nis = $('#findNasabahKredit').find(':selected').val();
+            var nama = $('#findNasabahKredit').find(':selected').text();
+            // var saldo = $(this).data('saldo');
+            // console.log(nama);
+            // console.log(nis);
+            // console.log(saldo);
+            var baseURL = "<?php echo base_url('admin/getMemberSaldo/'); ?>" + nis;
+            // console.log(baseURL);
+            $.ajax({
+                type: 'ajax',
+                url: baseURL,
+                async: false,
+                dataType: "JSON",
+                success: function(data) {
+                    Jumlahsaldo = data[0].saldo;
+                }
+            })
+
+            var formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            })
+            $('#userKredit').html(nama);
+            $('#userJumlahSaldo').html(formatter.format(Jumlahsaldo));
+        })
+
+        function memberaktif() {
+            $.ajax({
+                type: 'ajax',
+                url: '<?php echo base_url('admin/getMemberList'); ?>',
+                dataType: 'JSON',
+                async: false,
+                success: function(data) {
+                    var html = '';
+                    var ini = '<option></option>';
+                    var i;
+                    for (i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].nis + '"> ' + `${data[i].nama}` + '</option>';
+                    }
+                    $('#findNasabahKredit').html(ini + html);
+                }
+            });
+        }
+
         $('#findNasabah').on('change', function() {
             var nama = $('#findNasabah').find(':selected').text();
             var nis = $('#findNasabah').find(':selected').val();
@@ -501,6 +560,10 @@ $this->load->view('admin/_partials/header');
             carinasabah();
         });
 
+        $('#btnKredit').on('click', function() {
+            memberaktif();
+        })
+
         $('#btnAktivasi').on('click', function() {
             var nis = $('#inputidaktivasi').val();
 
@@ -510,9 +573,7 @@ $this->load->view('admin/_partials/header');
                 url: '<?= base_url('admin/aktivasimember') ?>',
                 dataType: 'JSON',
                 data: {
-                    nis: nis,
-                    nisa: nis,
-                    niss: nis
+                    nis: nis
                 },
                 success: function(data) {
                     // $("#idAktivasi").html("Username");
@@ -536,7 +597,7 @@ $this->load->view('admin/_partials/header');
                     var ini = '<option></option>';
                     var i;
                     for (i = 0; i < data.length; i++) {
-                        html += '<option value="' + data[i].nis + '"> ' + `  ${data[i].nama}` + '</option>'
+                        html += '<option value="' + data[i].nis + '">' + `${data[i].nama}` + '</option>';
                     }
                     $('#findNasabah').html(ini + html);
                 }

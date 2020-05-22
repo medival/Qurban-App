@@ -196,6 +196,20 @@ class Admin extends CI_Controller
         echo json_encode($data);
     }
 
+    public function getMemberList()
+    {
+        $data = $this->transaksi_model->getMemberAktif();
+        echo json_encode($data);
+    }
+
+    public function getMemberSaldo($nis)
+    {
+        $data = $this->transaksi_model->getMemberSaldo($nis);
+        echo json_encode($data);
+    }
+
+
+
     public function profile()
     {
         $data = array(

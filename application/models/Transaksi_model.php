@@ -25,6 +25,23 @@ class Transaksi_model extends CI_Model
         $result = $this->db->insert('tb_tabungan', $this);
         return $result;
     }
+
+    public function getMemberAktif()
+    {
+        $result = $this->db->query("SELECT t.nis, t.saldo, t.nip, s.nama
+                                    FROM tb_tabungan AS t
+                                    JOIN tb_siswa AS s
+                                    ON t.nis = s.nis");
+        return $result->result();
+    }
+
+    public function getMemberSaldo($nis)
+    {
+        $result = $this->db->query("SELECT saldo
+                                    FROM tb_tabungan
+                                    WHERE nis = $nis");
+        return $result->result();
+    }
 }
 
 /* End of file: Transaksi_model.php */
