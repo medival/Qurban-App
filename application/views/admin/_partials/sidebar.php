@@ -24,9 +24,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <i class="fas fa-tachometer-alt fa-fw"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li class="<?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>">
-        <a class="nav-link" href="<?php echo base_url("admin/transaksi"); ?> ">
-          <i class="fas fa-coins fa-fw"></i> <span>Transaksi</span></a>
+      <li class="dropdown <?php echo $this->uri->segment(2) == 'transaksi' || $this->uri->segment(2) == 'rekap' ? 'active' : ''; ?>">
+        <a href="#" class="nav-link has-dropdown"><i class="fas fa-coins"></i> <span>Transaksi</span></a>
+        <ul class="dropdown-menu">
+          <li class="<?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/transaksi'); ?>">Transaksi </a></li>
+          <li class="<?php echo $this->uri->segment(2) == 'rekap' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/rekap'); ?>"> Rekap </a></li>
+        </ul>
       </li>
       <li class="<?php echo $this->uri->segment(2) == 'nasabah' ? 'active' : ''; ?>">
         <a class="nav-link" href="<?php echo base_url("admin/nasabah"); ?> ">

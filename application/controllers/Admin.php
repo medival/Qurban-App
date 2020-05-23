@@ -38,6 +38,14 @@ class Admin extends CI_Controller
         $this->load->view('admin/v_operator', $data);
     }
 
+    public function rekap()
+    {
+        $data = array(
+            'title' => 'Rekap Data'
+        );
+
+        $this->load->view('admin/v_rekap', $data);
+    }
     public function listoperator()
     {
         $data = $this->operator_model->getAll();
@@ -320,6 +328,42 @@ class Admin extends CI_Controller
         );
 
         $this->load->view('admin/v_userprofile', $data);
+    }
+
+    public function export()
+    {
+        $result = $this->transaksi_model->list();
+        $pdf = new \TCPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('', 'B', 20);
+        $pdf->Cell(115, 0, "Report ");
+        $pdf->setAutoPageBreak(true, 0);
+
+        $pdf->Ln(10);
+        $pdf->SetFont('', 'B', 12);
+        $pdf->Cell(10, 8, "#", 1, 0, 'C');
+        $pdf->Cell(55, 8, "Nama", 1, 0, 'C');
+        $pdf->Cell(35, 8, "Tanggal", 1, 0, 'C');
+        $pdf->Cell(15, 8, "Kredit_Debet", 1, 0, 'C');
+        $pdf->Cell(25, 8, "Saldo", 1, 0, 'C');
+        $pdf->SetFont('', '', 12);
+
+        foreach ($result as $data => $row) {
+            // var_dump($row->id_transaksi);
+            $this->addRow($pdf, $data + 1, $row);
+        }
+
+        $pdf->Output('Laporan : ');
+        // var_dump($result);
+    }
+
+    private function addRow($pdf, $no, $row)
+    {
+        $pdf->Cell(10, 8, $no, 1, 0, 'C');
+        $pdf->Cell(55, 8, $row->nama, 1, 0, 'C');
+        $pdf->Cell(35, 8, $row->tanggal, 1, 0, 'C');
+        $pdf->Cell(15, 8, $row->kredit_debet, 1, 0, 'C');
+        $pdf->Cell(25, 8, $row->saldo, 1, 0, 'C');
     }
 }
 

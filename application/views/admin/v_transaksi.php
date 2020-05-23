@@ -21,38 +21,60 @@ $this->load->view('admin/_partials/header');
                         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDebet" id="btnDebet">
                             <i class="fa fa-minus"></i> Tarik Tunai
                         </button>
-                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalRekapit" id="btnRekap">
+                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalRekap" id="btnRekap">
                             <i class="fa fa-suitcase"></i> Rekap
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="paper">
+                <!-- <div class="card"> -->
+                <div class="card-header">
+                    <h4> Informasi Tambahan </h4>
+                    <div class="card-header-action">
+                        <a data-collapse="#mycard-collapse" class="btn btn-icon" href="#"><i class="fas fa-minus"></i></a>
+                    </div>
+                </div>
+                <div class="collapse show" id="mycard-collapse">
+                    <div class="card-body row">
+                        <div class="col-md-6">
+                            <b> Nasabah</b><br>
+                            <label class="form-control-label">Nis</label> <br>
+                            <label class="form-control-label">Username</label><br>
+                            <label class="form-control-label">Kelas</label><br>
+                            <label class="form-control-label">Walikelas</label>
+                        </div>
+                        <div class="col-md-6 text-md-right">
+                            <b> Transaksi:</b><br>
+                            <label class="form-control-label">Created at</label> <br>
+                            <label class="form-control-label">Jumlah Transaksi</label><br>
+                            <label class="form-control-label">Terakhir Transaksi</label><br>
+                            <label class="form-control-label">Saldo</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <!-- </div> -->
                 <div class="table-responsive">
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
-                                <th style="width: 2rem"> No </th>
+                                <th style="width: 2rem"> # </th>
                                 <th> Nama </th>
-                                <!-- <th>Alamat</th> -->
                                 <th> Tanggal </th>
                                 <th> Kredit </th>
                                 <th> Debet </th>
                                 <th> Saldo </th>
-                                <th> Aksi </th>
+                                <!-- <th id="colAksi"> Aksi </th> -->
                             </tr>
                         </thead>
                         <tbody id="tb_transaksi">
-
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="section-body">
-                <?php
-
-                ?>
-            </div>
+        </div>
+        <button class="btn btn-primary btn-icon icon-left" id="btnCetakPDF"><i class="fas fa-print"></i> Save to PDF</button>
     </section>
 </div>
 <!-- Modal Aktivasi -->
@@ -216,7 +238,7 @@ $this->load->view('admin/_partials/header');
 <!-- End of Modal Debet  -->
 
 <!-- Modal Rekap -->
-<div class="modal fade" tabindex="" role="dialog" id="modalRekapit">
+<div class="modal fade" tabindex="" role="dialog" id="modalRekap">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -253,7 +275,8 @@ $this->load->view('admin/_partials/header');
 <!-- End of Modal Rekap -->
 
 <?php $this->load->view('admin/_partials/footer'); ?>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://simonbengtsson.github.io/jsPDF-AutoTable/dist/jspdf.plugin.autotable.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -375,8 +398,14 @@ $this->load->view('admin/_partials/header');
         })
 
         $('#btnRekapData').on('click', function() {
-            var nis = $('#findRekapNasabah').val();
             // console.log(nis);
+            getrekapp();
+        });
+
+        function getrekapp() {
+            var nis = $('#findRekapNasabah').val();
+            var nama = $('#findRekapNasabah').text();
+
             var baseUrl = "<?php echo base_url('admin/getrekapdata/'); ?>" + nis;
             $.ajax({
                 type: 'ajax',
@@ -410,14 +439,15 @@ $this->load->view('admin/_partials/header');
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
                             // '<td>' + '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-info-circle"></i> </a></td> ' +
-                            '<td>' +
-                            '</td>' +
+                            // '<td>' +
+                            // '</td>' +
                             '</tr>'
                     }
                     $('#tb_transaksi').html(html);
                 }
             })
-        });
+            return false;
+        }
 
         function CurrencyID(nominal) {
             var formatter = new Intl.NumberFormat('id-ID', {
@@ -506,9 +536,6 @@ $this->load->view('admin/_partials/header');
             nominal = nominal.replace(/,/g, '');
             nominal = nominal.replace(/,/g, '');
 
-            // if (nominal < saldo) {
-            // alert('fff');
-            // $(btnDebet).prop('disabled', false);
             $.ajax({
                 type: 'POST',
                 url: '<?php echo base_url('admin/inputdatadebet'); ?>',
@@ -522,12 +549,6 @@ $this->load->view('admin/_partials/header');
                     show_transaksi();
                 }
             })
-            //     console.log("acc");
-            // } else if (nominal > saldo) {
-            //     console.log("no");
-            // }
-            // console.log(nis, "nominal " + nominal, "Saldo " + saldo)
-
             return false;
         })
 
@@ -636,14 +657,53 @@ $this->load->view('admin/_partials/header');
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
-                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
-                            '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
-                            '</td> ' +
+                            // '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
+                            // '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
+                            // '</td> ' +
+                            // '<td>' +
+                            // '</td>' +
                             '</tr>'
                     }
                     $('#tb_transaksi').html(html);
                 }
             })
+        }
+
+        $('#btnCetakPDF').on('click', function() {
+            cetakPDF();
+        })
+
+        function cetakPDF() {
+            var doc = new jsPDF('p', 'pt');
+            var res = doc.autoTableHtmlToJson(document.getElementById("table1"));
+            // var nama = $('#findRekapNasabah').find(':selected').text();
+            // var username = doc.autoTableHtmlToJson(nama);
+            // doc.autoTable();
+            // console.log(username);
+            doc.autoTable(res.columns, res.data, {
+                margin: {
+                    top: 40
+                }
+            });
+
+            // var nasabah = function(data) {
+            //     doc.setFontSize(11);
+            //     doc.setTextColor(40);
+            //     doc.setFontStyle('normal');
+            //     //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+            //     // doc.text(username, data.settings.margin.left, 50);
+            //     // doc.text("Nasabah2", data.settings.margin.left, 70);
+            // };
+
+            // var options = {
+            //     beforePageContent: nasabah,
+            //     margin: {
+            //         top: 80
+            //     },
+            //     startY: doc.autoTableEndPosY() + 20
+            // };
+
+            doc.save("tab.pdf");
         }
     });
 </script>
