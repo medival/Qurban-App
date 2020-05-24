@@ -47,6 +47,10 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
   <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/page/forms-advanced-forms.js"></script>
+<?php
+} elseif ($this->uri->segment(2) == "ceksaldo") { ?>
+  <script src="<?php echo base_url(); ?>assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/page/features-posts.js"></script>
 <?php } ?>
 
 <!-- Template JS File -->

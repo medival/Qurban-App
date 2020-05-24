@@ -102,7 +102,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/jquery-selectric/selectric.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
   <?php
-  } elseif ($this->uri->segment(2) == "features_posts") { ?>
+  } elseif ($this->uri->segment(2) == "ceksaldo") { ?>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/jquery-selectric/selectric.css">
   <?php
   } elseif ($this->uri->segment(2) == "features_profile") { ?>
@@ -112,10 +112,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
   } elseif ($this->uri->segment(2) == "features_setting_detail") { ?>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/codemirror/theme/duotone-dark.css">
-  <?php
-  } elseif ($this->uri->segment(2) == "features_tickets") { ?>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/chocolat/dist/css/chocolat.css">
   <?php
   } ?>
 
@@ -139,13 +135,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <?php
 if ($this->uri->segment(2) == "layout_transparent") {
-  $this->load->view('admin/_partials/layout-2');
-  $this->load->view('admin/_partials/sidebar-2');
-  // }elseif ($this->uri->segment(2) == "layout_top_navigation") {
-  //   $this->load->view('admin/_partials/layout-3');
-  //   $this->load->view('admin/_partials/navbar');
+  $this->load->view('_partials/layout-2');
+  $this->load->view('_partials/sidebar-2');
+} elseif ($this->uri->segment(2) == "ceksaldo") {
+  $this->load->view('_partials/layout-3');
+  // $this->load->view('_partials/navbar');
 } elseif ($this->uri->segment(2) != "login" && $this->uri->segment(2) != "forgot_password" && $this->uri->segment(2) != "reset_password") {
-  $this->load->view('admin/_partials/layout');
-  $this->load->view('admin/_partials/sidebar');
+  $this->load->view('_partials/layout');
+  $this->load->view('_partials/sidebar');
 }
 ?>

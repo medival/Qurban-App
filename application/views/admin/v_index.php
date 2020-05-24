@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-$this->load->view('admin/_partials/header');
+$this->load->view('_partials/header');
 ?>
 <!-- Main Content -->
 <div class="main-content">
@@ -225,4 +225,4 @@ $this->load->view('admin/_partials/header');
         </div> -->
     </section>
 </div>
-<?php $this->load->view('admin/_partials/footer'); ?>
+<?php $this->load->view('_partials/footer'); ?>
