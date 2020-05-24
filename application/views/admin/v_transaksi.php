@@ -38,18 +38,18 @@ $this->load->view('admin/_partials/header');
                 <div class="collapse show" id="mycard-collapse">
                     <div class="card-body row">
                         <div class="col-md-6">
-                            <b> Nasabah</b><br>
-                            <label class="form-control-label">Nis</label> <br>
-                            <label class="form-control-label">Username</label><br>
-                            <label class="form-control-label">Kelas</label><br>
-                            <label class="form-control-label">Walikelas</label>
+
+                            NIS - <label class="font-weight-bold" id="infoNIS">-</label> <br>
+                            Username - <label class="font-weight-bold" id="infoNama">-</label><br>
+                            Kelas - <label class="font-weight-bold" id="infoKelas">-</label><br>
+                            Wali Kelas - <label class="font-weight-bold" id="infoOperator">-</label><br>
                         </div>
                         <div class="col-md-6 text-md-right">
-                            <b> Transaksi:</b><br>
-                            <label class="form-control-label">Created at</label> <br>
-                            <label class="form-control-label">Jumlah Transaksi</label><br>
-                            <label class="form-control-label">Terakhir Transaksi</label><br>
-                            <label class="form-control-label">Saldo</label>
+
+                            <label class="font-weight-bold" id="infoCreatedAt">-</label> - Terdaftar <br>
+                            <label class="font-weight-bold" id="infoJumlahTransaksi">-</label> - Total Transaksi <br>
+                            <time class="font-weight-bold timeago" id="infoTerakhirTransaksi">-</time> - Transaksi Terakhir <br>
+                            <label class="font-weight-bold" id="infoSaldo">-</label> - Saldo
                         </div>
                     </div>
                 </div>
@@ -62,6 +62,7 @@ $this->load->view('admin/_partials/header');
                                 <th style="width: 2rem"> # </th>
                                 <th> Nama </th>
                                 <th> Tanggal </th>
+                                <th> Walikelas </th>
                                 <th> Kredit </th>
                                 <th> Debet </th>
                                 <th> Saldo </th>
@@ -275,10 +276,12 @@ $this->load->view('admin/_partials/header');
 <!-- End of Modal Rekap -->
 
 <?php $this->load->view('admin/_partials/footer'); ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-<script src="https://simonbengtsson.github.io/jsPDF-AutoTable/dist/jspdf.plugin.autotable.js"></script>
 <script>
     $(document).ready(function() {
+
+        jQuery(document).ready(function() {
+            jQuery("time.timeago").timeago();
+        });
 
         show_transaksi();
 
@@ -402,6 +405,9 @@ $this->load->view('admin/_partials/header');
             getrekapp();
         });
 
+        jQuery.timeago(jQuery("#infoJumlahTransaksi"));
+
+
         function getrekapp() {
             var nis = $('#findRekapNasabah').val();
             var nama = $('#findRekapNasabah').text();
@@ -413,36 +419,68 @@ $this->load->view('admin/_partials/header');
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    var html = '';
-                    var no = 1;
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].kredit_debet == "kredit") {
-                            var debet = "-";
-                            var kredit = CurrencyID(data[i].nominal);
-                            // var kredit = "Kredit";
-                        } else if (data[i].kredit_debet == "debet") {
-                            var debet = CurrencyID(data[i].nominal);
-                            // var debet = "Debet";
-                            var kredit = "-";
-                        }
-                        if (data[i].saldo != null) {
-                            var saldo = CurrencyID(data[i].saldo);
-                        } else if (data[i].saldo == null) {
-                            var saldo = CurrencyID(0);
-                        }
 
-                        html += '<tr>' +
-                            '<td>' + no++ + '</td>' +
-                            '<td>' + data[i].nama + '</td>' +
-                            '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
-                            '<td class="text-right">' + `${kredit}` + '</td>' +
-                            '<td class="text-right">' + `${debet}` + '</td>' +
-                            '<td class="text-right">' + `${saldo}` + '</td>' +
-                            // '<td>' + '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-info-circle"></i> </a></td> ' +
-                            // '<td>' +
-                            // '</td>' +
-                            '</tr>'
+                    var infoJumlahTransaksi = data.length;
+                    if (infoJumlahTransaksi < 1) {
+                        var infoNIS = 'empty';
+                        var infoNama = 'empty';
+                        var infoKelas = 'empty';
+                        var infoCreatedAt = 'empty';
+                        var infoTerakhirTransaksi = 'empty';
+                        var infoSaldo = 'empty';
+                        var infoJumlahTransaksi = 'empty';
+                        var infoOperator = 'empty';
+                        var html = '<tr> <td colspan="6" class="text-center"> <b> DATA IS EMPTY </b> </td> </tr>';
+
+                    } else {
+                        var html = '';
+                        var no = 1;
+                        for (var i = 0; i < infoJumlahTransaksi; i++) {
+                            if (data[i].kredit_debet == "kredit") {
+                                var debet = "-";
+                                var kredit = CurrencyID(data[i].nominal);
+                                // var kredit = "Kredit";
+                            } else if (data[i].kredit_debet == "debet") {
+                                var debet = CurrencyID(data[i].nominal);
+                                // var debet = "Debet";
+                                var kredit = "-";
+                            }
+                            if (data[i].saldo != null) {
+                                var saldo = CurrencyID(data[i].saldo);
+                            } else if (data[i].saldo == null) {
+                                var saldo = CurrencyID(0);
+                            }
+                            var infoNIS = data[i].nis;
+                            var infoNama = data[i].nama;
+                            var infoKelas = `${data[i].kelas}` + `${data[i].ruang}`;
+                            var infoCreatedAt = epochtodate(data[i].created_at);
+                            var infoTerakhirTransaksi = epochtodate(data[i].tanggal);
+                            var infoSaldo = CurrencyID(data[i].saldo);
+                            var infoOperator = `${data[i].nip}`;
+                            var infoSaldoTransaksi = CurrencyID(data[i].t_saldo);
+                            html += '<tr>' +
+                                '<td>' + no++ + '</td>' +
+                                '<td>' + data[i].nama + '</td>' +
+                                '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
+                                '<td class="text-right">' + `${kredit}` + '</td>' +
+                                '<td class="text-right">' + `${debet}` + '</td>' +
+                                '<td class="text-right">' + `${infoSaldoTransaksi}` + '</td>' +
+                                // '<td>' + '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-info-circle"></i> </a></td> ' +
+                                // '<td>' +
+                                // '</td>' +
+                                '</tr>'
+                            // console.log(data[i].nama);
+                        }
                     }
+                    $('#infoNIS').html(infoNIS);
+                    $('#infoNama').html(infoNama);
+                    $('#infoKelas').html(infoKelas);
+                    $('#infoOperator').html(infoOperator);
+                    $('#infoCreatedAt').html(infoCreatedAt);
+                    $('#infoTerakhirTransaksi').html(infoTerakhirTransaksi);
+                    $('#infoJumlahTransaksi').html(infoJumlahTransaksi);
+                    $('#infoSaldo').html(infoSaldo);
+                    document.getElementById("infoTerakhirTransaksi").setAttribute("datetime", infoTerakhirTransaksi)
                     $('#tb_transaksi').html(html);
                 }
             })
@@ -610,7 +648,7 @@ $this->load->view('admin/_partials/header');
         function carinasabah() {
             $.ajax({
                 type: "ajax",
-                url: '<?= base_url('admin/getnis') ?>',
+                url: '<?= base_url('admin/getnonmember') ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
@@ -654,6 +692,7 @@ $this->load->view('admin/_partials/header');
                             '<td>' + number++ + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
+                            '<td>' + `${data[i].nama_operator}` + '</td>' +
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
@@ -670,10 +709,16 @@ $this->load->view('admin/_partials/header');
         }
 
         $('#btnCetakPDF').on('click', function() {
-            cetakPDF();
+            var fileName = $('#infoNama').text();
+            if (fileName == 'Username' || fileName == '-') {
+                var fileName = new Date();
+                cetakPDF(fileName);
+            } else {
+                cetakPDF(fileName);
+            }
         })
 
-        function cetakPDF() {
+        function cetakPDF(fileName) {
             var doc = new jsPDF('p', 'pt');
             var res = doc.autoTableHtmlToJson(document.getElementById("table1"));
             // var nama = $('#findRekapNasabah').find(':selected').text();
@@ -703,7 +748,7 @@ $this->load->view('admin/_partials/header');
             //     startY: doc.autoTableEndPosY() + 20
             // };
 
-            doc.save("tab.pdf");
+            doc.save(fileName + ".pdf");
         }
     });
 </script>

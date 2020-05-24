@@ -10,7 +10,7 @@ $this->load->view('admin/_partials/header');
                 <h3> <?= $title; ?> </h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button href="<?= base_url('admin/tambahnasabah'); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahOperator" id="btnModalAddOperator">
+                        <button class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahOperator" id="btnModalAddOperator">
                             <i class="fa fa-user-plus"></i> Tambah Data Operator
                         </button>
                     </div>
@@ -121,7 +121,7 @@ $this->load->view('admin/_partials/header');
                         <div class="form-group">
                             <label for="" class=" col-form-label">NIP</label>
                             <div class="col-sm">
-                                <input type="text" class="form-control editNIP" name="editNIP" id="editNIP" placeholder="123.45.678910" required minlength="12">
+                                <input type="text" readonly class="form-control editNIP" name="editNIP" id="editNIP" placeholder="123.45.678910" required minlength="12">
                                 <div class="invalid-feedback">
                                     Masukan NIP lengkap operator?
                                 </div>

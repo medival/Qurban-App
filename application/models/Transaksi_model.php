@@ -26,10 +26,12 @@ class Transaksi_model extends CI_Model
 
     public function list()
     {
-        $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo
+        $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, o.nip, o.nama AS nama_operator
                                     FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s
-                                    ON t.nis = s.nis");
+                                    ON t.nis = s.nis
+                                    JOIN tb_operator AS o
+                                    ON s.id_ruang = o.id_ruang");
         return $result->result();
     }
 
@@ -38,7 +40,9 @@ class Transaksi_model extends CI_Model
         $result = $this->db->query("SELECT t.nis, t.saldo, t.nip, s.nama
                                     FROM tb_tabungan AS t
                                     JOIN tb_siswa AS s
-                                    ON t.nis = s.nis");
+                                    ON t.nis = s.nis
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang");
         return $result->result();
     }
 
@@ -66,11 +70,19 @@ class Transaksi_model extends CI_Model
 
     public function get($nis)
     {
-        $result = $this->db->query("SELECT t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo
+        $result = $this->db->query("SELECT t.id_transaksi, t.nis, t.tanggal, t.saldo AS t_saldo, t.kredit_debet, tb.nip, tb.saldo, t.nominal,  s.nama, s.created_at, r.id_ruang, k.kelas, r.ruang
                                     FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s
                                     ON t.nis = s.nis
-                                    AND t.nis = $nis");
+                                    AND t.nis = $nis
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_tabungan AS tb
+                                    ON t.nis = tb.nis
+                                    JOIN tb_kelas AS k
+                                    ON r.id_kelas = k.id_kelas
+                                    ORDER BY t.id_transaksi ASC
+                                    ");
         return $result->result();
     }
 }

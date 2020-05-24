@@ -25,6 +25,7 @@ $this->load->view('admin/_partials/header');
                                 <th>NIS</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
+                                <th>Walikelas</th>
                                 <th>Terdaftar</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -569,6 +570,7 @@ $this->load->view('admin/_partials/header');
                             '<td>' + `${data[i].nis}` + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + ` ${data[i].kelas} ` + `${data[i].ruang}` + '</td>' +
+                            '<td>' + ` ${data[i].nama_operator} ` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
                             '<td>' + `${aktif}` + '</td >' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editNasabah" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +

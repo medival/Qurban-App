@@ -22,14 +22,25 @@ class Nasabah_model extends CI_Model
         return $result->result();
     }
 
+    public function getnonmember()
+    {
+        $result = $this->db->query("SELECT s.nis, s.nama
+                                    FROM tb_siswa AS s
+                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)
+                                    ");
+        return $result->result();
+    }
+
     public function getAll()
     {
-        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang
+        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang, o.nip, o.nama AS nama_operator
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
                                     JOIN tb_kelas AS k
-                                    ON r.id_kelas = k.id_kelas");
+                                    ON r.id_kelas = k.id_kelas
+                                    JOIN tb_operator AS o
+                                    ON o.id_ruang = r.id_ruang");
         return $hasil->result();
     }
 
