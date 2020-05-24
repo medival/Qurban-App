@@ -21,7 +21,7 @@ $this->load->view('admin/_partials/header');
                                 <h4> Total Saldo</h4>
                             </div>
                             <div class="card-body">
-                                Rp. 1,500 K
+                                <?= "Rp. " . number_format($info['totalSaldo']) ?>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ $this->load->view('admin/_partials/header');
                                 <h4> Total Nasabah </h4>
                             </div>
                             <div class="card-body">
-                                37
+                                <?= $info['totalNasabah'] ?>
                             </div>
                         </div>
                     </div>
@@ -45,14 +45,14 @@ $this->load->view('admin/_partials/header');
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-warning">
-                            <i class="fas fa-user-plus"></i>
+                            <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Nasabah Baru</h4>
+                                <h4>Total Operator</h4>
                             </div>
                             <div class="card-body">
-                                23
+                                <?= $info['totalOperator'] ?>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ $this->load->view('admin/_partials/header');
                                 <h4> Transaksi </h4>
                             </div>
                             <div class="card-body">
-                                47
+                                <?= $info['totalTransaksi'] ?>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ $this->load->view('admin/_partials/header');
             </div>
         </div>
 
-        <div class="section-body">
+        <!-- <div class="section-body">
             <h2 class="section-title">September 2018</h2>
             <div class="row">
                 <div class="col-12">
@@ -222,7 +222,7 @@ $this->load->view('admin/_partials/header');
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
 </div>
 <?php $this->load->view('admin/_partials/footer'); ?>

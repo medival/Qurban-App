@@ -25,6 +25,8 @@ class Kelas_model extends CI_Model
         ON k.id_kelas = r.id_kelas
         JOIN tb_operator AS o
         ON r.id_ruang = o.id_ruang")->result();
+        // $jmlSiswa = $this->db->query("")
+
         return $data;
     }
 

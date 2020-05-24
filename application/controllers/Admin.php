@@ -16,8 +16,10 @@ class Admin extends CI_Controller
     public function index()
     {
         $data = array(
+            'info' => $this->transaksi_model->infoDashboard(),
             'title' => "Dashboard"
         );
+        // var_dump($data);
         $this->load->view('admin/v_index', $data);
     }
 
@@ -215,9 +217,9 @@ class Admin extends CI_Controller
         echo json_encode($data);
     }
 
-    public function getMemberSaldo($nis)
+    public function getMemberInfo($nis)
     {
-        $data = $this->transaksi_model->getMemberSaldo($nis);
+        $data = $this->transaksi_model->getMemberSaldo_NIP($nis);
         echo json_encode($data);
     }
 
@@ -225,9 +227,7 @@ class Admin extends CI_Controller
     {
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
-
-        // $nis = 5386;
-        // $nominal = 1000;
+        $nip = $this->input->post('nip');
         $result = $this->db->query("SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis=" . $nis)->result();
@@ -247,15 +247,16 @@ class Admin extends CI_Controller
             'tanggal' => $tanggal,
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
-            'saldo' => $saldo_akhir
+            'saldo' => $saldo_akhir,
+            'nip' => $nip
         );
         $data2 = array(
             // 'nis' => $nis,
-            'saldo' => $saldo_akhir
+            'saldo' => $saldo_akhir,
+            'nip' => $nip
         );
-        $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
         $this->db->insert('tb_transaksi', $data);
-        // $data = $this->transaksi_model->input();
+        $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
         echo json_encode($data);
     }
 
@@ -263,7 +264,7 @@ class Admin extends CI_Controller
     {
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
-
+        $nip = $this->input->post('nip');
         // $nis = 5386;
         // $nominal = 1000;
         $result = $this->db->query("SELECT saldo
@@ -284,8 +285,6 @@ class Admin extends CI_Controller
             }
         }
 
-        // var_dump($saldo_akhir);
-        // var_dump($saldo_tabungan);
         $kredit_debet = "debet";
         $tanggal = strtotime("now");
         $inputtbtransaksi = array(
@@ -293,13 +292,15 @@ class Admin extends CI_Controller
             'tanggal' => $tanggal,
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
-            'saldo' => $saldo_akhir
+            'saldo' => $saldo_akhir,
+            'nip' => $nip
         );
 
         $this->db->insert('tb_transaksi', $inputtbtransaksi);
 
         $inputtbtabungan = array(
-            'saldo' => $saldo_akhir
+            'saldo' => $saldo_akhir,
+            'nip' => $nip
         );
 
         $this->db->update('tb_tabungan', $inputtbtabungan, array('nis' => $nis));
@@ -308,6 +309,12 @@ class Admin extends CI_Controller
     public function getrekapdata($nis)
     {
         $data = $this->transaksi_model->get($nis);
+        echo json_encode($data);
+    }
+
+    public function getsummary($nis)
+    {
+        $data = $this->nasabah_model->getsummary($nis);
         echo json_encode($data);
     }
 

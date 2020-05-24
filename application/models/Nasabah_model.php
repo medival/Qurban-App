@@ -11,6 +11,34 @@ class Nasabah_model extends CI_Model
         parent::__construct();
     }
 
+    public function getsummary($nis)
+    {
+        $infoBasic = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang, o.nama AS nama_operator, s.created_at
+                                                FROM tb_siswa AS s
+                                                JOIN tb_ruang AS r
+                                                ON s.id_ruang = r.id_ruang
+                                                JOIN tb_kelas AS k
+                                                ON r.id_kelas = k.id_kelas
+                                                JOIN tb_operator AS o
+                                                ON o.id_ruang = r.id_ruang
+                                                WHERE s.nis = $nis LIMIT 1")->result();
+        $infoTransaksi = $this->db->query("SELECT t.tanggal AS lasttransaksi, tb.saldo
+                                                FROM tb_tabungan as tb
+                                                JOIN tb_transaksi as t
+                                                WHERE tb.nis = $nis
+                                                ORDER BY id_transaksi DESC LIMIT 1")->result();
+        $jumlahtransaksi = $this->db->query("SELECT COUNT(*) as jml
+                                                FROM tb_transaksi
+                                                WHERE nis = $nis")->result();
+        $data = array(
+            'infobasic' => $infoBasic,
+            'infoTransaksi' => $infoTransaksi,
+            'jumlahtransaksi' => $jumlahtransaksi
+        );
+
+        return $data;
+    }
+
     public function getnis()
     {
         $result = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang
@@ -26,8 +54,9 @@ class Nasabah_model extends CI_Model
     {
         $result = $this->db->query("SELECT s.nis, s.nama
                                     FROM tb_siswa AS s
-                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)
-                                    ");
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)");
         return $result->result();
     }
 

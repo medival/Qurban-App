@@ -24,6 +24,22 @@ class Transaksi_model extends CI_Model
         return $result;
     }
 
+    public function infoDashboard()
+    {
+        $totalSaldo = $this->db->query(" SELECT SUM(saldo) AS jmlSaldo FROM tb_tabungan")->result_array();
+        $totalNasabah = $this->db->query("SELECT COUNT(*) AS jmlNasabah FROM tb_tabungan")->result_array();
+        $totalTransaksi = $this->db->query("SELECT COUNT(*) AS jmlTransaksi FROM tb_transaksi")->result_array();
+        $totalOperator = $this->db->query("SELECT COUNT(*) as jmlOperator FROM tb_operator AS o JOIN tb_ruang AS r ON r.id_ruang = o.id_ruang")->result_array();
+
+        $data = array(
+            'totalSaldo' => $totalSaldo[0]['jmlSaldo'],
+            'totalNasabah' => $totalNasabah[0]['jmlNasabah'],
+            'totalOperator' => $totalOperator[0]['jmlOperator'],
+            'totalTransaksi' => $totalTransaksi[0]['jmlTransaksi'],
+        );
+        return $data;
+    }
+
     public function list()
     {
         $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, o.nip, o.nama AS nama_operator
@@ -31,58 +47,54 @@ class Transaksi_model extends CI_Model
                                     JOIN tb_siswa AS s
                                     ON t.nis = s.nis
                                     JOIN tb_operator AS o
-                                    ON s.id_ruang = o.id_ruang");
+                                    ON s.id_ruang = o.id_ruang
+                                    ORDER BY t.id_transaksi ASC");
         return $result->result();
     }
 
     public function getMemberAktif()
     {
-        $result = $this->db->query("SELECT t.nis, t.saldo, t.nip, s.nama
-                                    FROM tb_tabungan AS t
+        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
+                                    FROM tb_tabungan AS tb
                                     JOIN tb_siswa AS s
-                                    ON t.nis = s.nis
+                                    ON tb.nis = s.nis
                                     JOIN tb_ruang AS r
-                                    ON s.id_ruang = r.id_ruang");
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_operator AS o
+                                    ON o.id_ruang = r.id_ruang");
         return $result->result();
     }
 
-    public function getMemberSaldo($nis)
+    public function getMemberSaldo_NIP($nis)
     {
-        $result = $this->db->query("SELECT saldo
+
+        $saldo = $this->db->query(" SELECT saldo
                                     FROM tb_tabungan
-                                    WHERE nis = $nis");
-        return $result->result();
-    }
-
-    public function input()
-    {
-        $data = array(
-            'nis' => $this->input->post('nis'),
-            'nominal' => $this->input->post('nominal'),
-            'kredit_debet' => $this->input->post('kredit_debet'),
-            'tanggal' => strtotime("now"),
-            'saldo' => NULL,
-            'nip' => NULL
+                                    WHERE nis = $nis")->result();
+        $nip =  $this->db->query("  SELECT nip
+                                    FROM tb_operator AS o
+                                    JOIN tb_ruang  AS r
+                                    ON r.id_ruang = o.id_ruang
+                                    JOIN tb_siswa AS s
+                                    ON r.id_ruang = s.id_ruang
+                                    WHERE s.nis = $nis")->result();
+        $result = array(
+            'saldo' => $saldo,
+            'nip' => $nip
         );
-        $this->db->insert('tb_transaksi', $data);
-        // return $result->result();
+        return $result;
     }
 
     public function get($nis)
     {
-        $result = $this->db->query("SELECT t.id_transaksi, t.nis, t.tanggal, t.saldo AS t_saldo, t.kredit_debet, tb.nip, tb.saldo, t.nominal,  s.nama, s.created_at, r.id_ruang, k.kelas, r.ruang
+        $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, o.nip, o.nama AS nama_operator
                                     FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s
                                     ON t.nis = s.nis
-                                    AND t.nis = $nis
-                                    JOIN tb_ruang AS r
-                                    ON s.id_ruang = r.id_ruang
-                                    JOIN tb_tabungan AS tb
-                                    ON t.nis = tb.nis
-                                    JOIN tb_kelas AS k
-                                    ON r.id_kelas = k.id_kelas
-                                    ORDER BY t.id_transaksi ASC
-                                    ");
+                                    JOIN tb_operator AS o
+                                    ON s.id_ruang = o.id_ruang
+                                    WHERE t.nis = $nis
+                                    ORDER BY t.id_transaksi ASC ");
         return $result->result();
     }
 }

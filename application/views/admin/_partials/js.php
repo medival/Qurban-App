@@ -30,7 +30,6 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
   <script src="<?php echo base_url(); ?>assets/modules/prism/prism.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/jspdf/jspdf.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/jspdf/jspdf.plugin.autotable.js"></script>
-  <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
 <?php
 } elseif ($this->uri->segment(2) == "tambahnasabah") { ?>
   <script src="<?php echo base_url(); ?>assets/modules/cleave-js/dist/cleave.min.js"></script>
