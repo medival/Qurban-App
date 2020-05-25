@@ -50,19 +50,45 @@ class Nasabah_model extends CI_Model
         return $result->result();
     }
 
-    public function getnonmember()
+    public function getnonmember($id_ruang)
     {
         $result = $this->db->query("SELECT s.nis, s.nama
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
-                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)");
-        return $result->result();
+                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)
+                                    AND s.id_ruang = $id_ruang")->result();
+        return $result;
     }
 
-    public function getAll()
+    public function Allnonmember()
     {
-        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang, o.nip, o.nama AS nama_operator
+        $result = $this->db->query("SELECT s.nis, s.nama
+                                    FROM tb_siswa AS s
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan)")->result();
+        return $result;
+    }
+
+    public function getAll($id_ruang)
+    {
+        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang
+                                    FROM tb_siswa AS s
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_kelas AS k
+                                    ON r.id_kelas = k.id_kelas
+                                    JOIN tb_operator AS o
+                                    ON o.id_ruang = r.id_ruang
+                                    WHERE s.id_ruang = $id_ruang");
+        return $hasil->result();
+    }
+
+
+    public function getAllNasabah()
+    {
+        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
@@ -114,6 +140,34 @@ class Nasabah_model extends CI_Model
         $this->nis =  $post['nis'];
 
         $result = $this->db->delete('tb_siswa', array('nis' => $post['nis']));
+        return $result;
+    }
+
+    public function getAllMemberAktif()
+    {
+        // var_dump($id_ruang);
+        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
+                                    FROM tb_tabungan AS tb
+                                    JOIN tb_siswa AS s
+                                    ON tb.nis = s.nis
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_operator AS o
+                                    ON o.id_ruang = r.id_ruang")->result();
+        return $result;
+    }
+    public function getMemberAktif($id_ruang)
+    {
+        // var_dump($id_ruang);
+        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
+                                    FROM tb_tabungan AS tb
+                                    JOIN tb_siswa AS s
+                                    ON tb.nis = s.nis
+                                    JOIN tb_ruang AS r
+                                    ON s.id_ruang = r.id_ruang
+                                    JOIN tb_operator AS o
+                                    ON o.id_ruang = r.id_ruang
+                                    WHERE s.id_ruang = $id_ruang")->result();
         return $result;
     }
 }

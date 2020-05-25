@@ -62,7 +62,6 @@ $this->load->view('_partials/header');
                                 <th style="width: 2rem"> # </th>
                                 <th> Nama </th>
                                 <th> Tanggal </th>
-                                <th> Operator </th>
                                 <th> Kredit </th>
                                 <th> Debet </th>
                                 <th> Saldo </th>
@@ -280,6 +279,7 @@ $this->load->view('_partials/header');
 <?php $this->load->view('_partials/footer'); ?>
 <script>
     $(document).ready(function() {
+
         show_transaksi();
 
         $('#table1').dataTable();
@@ -341,10 +341,14 @@ $this->load->view('_partials/header');
             $('#userRekap').html('username');
         })
 
+        $('#titleTransaksi').on('click', function() {
+            console.log('wkwkw');
+        })
+
         $('#findNasabahKredit').on('change', function() {
             var nis = $('#findNasabahKredit').find(':selected').val();
             var nama = $('#findNasabahKredit').find(':selected').text();
-            var baseURL = "<?php echo base_url('admin/getMemberInfo/'); ?>" + nis;
+            var baseURL = "<?php echo base_url('operator/getMemberInfo/'); ?>" + nis;
             $.ajax({
                 type: 'ajax',
                 url: baseURL,
@@ -365,7 +369,7 @@ $this->load->view('_partials/header');
         $('#findNasabahDebet').on('change', function() {
             var nis = $('#findNasabahDebet').find(':selected').val();
             var nama = $('#findNasabahDebet').find(':selected').text();
-            var baseURL = "<?php echo base_url('admin/getMemberInfo/'); ?>" + nis;
+            var baseURL = "<?php echo base_url('operator/getMemberInfo/'); ?>" + nis;
             $.ajax({
                 type: 'ajax',
                 url: baseURL,
@@ -412,7 +416,7 @@ $this->load->view('_partials/header');
             var nis = $('#findRekapNasabah').val();
             var nama = $('#findRekapNasabah').text();
 
-            var baseUrl = "<?php echo base_url('admin/getrekapdata/'); ?>" + nis;
+            var baseUrl = "<?php echo base_url('operator/getrekapdata/'); ?>" + nis;
             $.ajax({
                 type: 'ajax',
                 url: baseUrl,
@@ -468,7 +472,7 @@ $this->load->view('_partials/header');
         function getinfo() {
             var nis = $('#findRekapNasabah').val();
             var nama = $('#findRekapNasabah').text();
-            var baseUrl = "<?php echo base_url('admin/getsummary/'); ?>" + nis;
+            var baseUrl = "<?php echo base_url('operator/getsummary/'); ?>" + nis;
 
             $.ajax({
                 type: 'ajax',
@@ -529,7 +533,7 @@ $this->load->view('_partials/header');
         function memberaktif() {
             $.ajax({
                 type: 'ajax',
-                url: '<?php echo base_url('admin/getMemberList'); ?>',
+                url: '<?php echo base_url('operator/getMemberList'); ?>',
                 dataType: 'JSON',
                 async: false,
                 success: function(data) {
@@ -583,7 +587,7 @@ $this->load->view('_partials/header');
 
             $.ajax({
                 type: 'POST',
-                url: '<?php echo base_url('admin/inputdatakredit'); ?>',
+                url: '<?php echo base_url('operator/inputdatakredit'); ?>',
                 dataType: 'JSON',
                 data: {
                     nis: nis,
@@ -609,7 +613,7 @@ $this->load->view('_partials/header');
 
             $.ajax({
                 type: 'POST',
-                url: '<?php echo base_url('admin/inputdatadebet'); ?>',
+                url: '<?php echo base_url('operator/inputdatadebet'); ?>',
                 Datatype: 'JSON',
                 data: {
                     nis: nis,
@@ -630,7 +634,7 @@ $this->load->view('_partials/header');
             console.log(nis);
             $.ajax({
                 type: 'POST',
-                url: '<?php echo base_url('admin/aktivasimember') ?>',
+                url: '<?php echo base_url('operator/aktivasimember') ?>',
                 dataType: 'JSON',
                 data: {
                     nis: nis
@@ -680,13 +684,14 @@ $this->load->view('_partials/header');
         }
 
         function carinasabah() {
+
             $.ajax({
                 type: "ajax",
-                url: '<?= base_url('admin/allnonmember') ?>',
+                url: '<?= base_url('operator/getnonmember') ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    console.log(data)
+                    console.log(data);
                     var html = '';
                     var ini = '<option></option>';
                     var i;
@@ -701,13 +706,15 @@ $this->load->view('_partials/header');
         function show_transaksi() {
             $.ajax({
                 type: 'ajax',
-                url: '<?= base_url('admin/getalltransaksi'); ?>',
+                url: '<?= base_url('operator/gettransaksi'); ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
+                    // console.log(data);
                     var html = '';
                     var number = 1;
                     for (var i = 0; i < data.length; i++) {
+                        // console.log(data);
                         if (data[i].kredit_debet == "kredit") {
                             var debet = "-";
                             var kredit = CurrencyID(data[i].nominal);
@@ -727,15 +734,9 @@ $this->load->view('_partials/header');
                             '<td>' + number++ + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + epochtodate(`${data[i].tanggal}`) + '</td>' +
-                            '<td>' + `${data[i].nama_operator}` + '</td>' +
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
-                            // '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
-                            // '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
-                            // '</td> ' +
-                            // '<td>' +
-                            // '</td>' +
                             '</tr>'
                     }
                     $('#tb_transaksi').html(html);

@@ -33,12 +33,13 @@ class Auth extends MY_Controller
                 'is_login'    => true,
                 'id'          => $query->id,
                 'password'    => $query->password,
-                'id_role'     => $query->role,
+                'role'        => $query->role,
                 'username'    => $query->username,
                 'name'        => $query->name,
+                'id_ruang'    => $query->id_ruang,
                 'email'       => $query->email,
                 'created_at'  => $query->created_at,
-                'last_login'  => $query->last_login
+                'last_login'  => $query->last_login,
             );
             $this->session->set_userdata($userdata);
             return true;

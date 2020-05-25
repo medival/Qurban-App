@@ -11,6 +11,34 @@ class Operator_model extends CI_Model
         parent::__construct();
     }
 
+    public function info_dashboard($id_ruang)
+    {
+        $memberAktif = $this->db->query("SELECT COUNT(*) as jmlMemberAktif
+                                        FROM tb_tabungan AS tb
+                                        JOIN tb_siswa AS s
+                                        ON tb.nis = s.nis
+                                        WHERE s.id_ruang = $id_ruang")->row();
+        $totalSaldo = $this->db->query("SELECT SUM(tb.saldo) AS jmlSaldo
+                                        FROM tb_tabungan AS tb
+                                        JOIN tb_siswa AS s
+                                        ON tb.nis = s.nis
+                                        WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahTransaksi = $this->db->query("SELECT COUNT(*) AS jmlTransaksi
+                                        FROM tb_transaksi AS t
+                                        JOIN tb_siswa AS s
+                                        ON t.nis = s.nis
+                                        WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahSiswa = $this->db->query("SELECT COUNT(*) AS jmlSiswa
+                                        FROM tb_siswa
+                                        WHERE id_ruang = $id_ruang")->row();
+        $info = array(
+            'memberAktif'       => $memberAktif,
+            'totalSaldo'        => $totalSaldo,
+            'jumlahtransaksi'   => $jumlahTransaksi,
+            'jumlahSiswa'       => $jumlahSiswa
+        );
+        return $info;
+    }
     public function getAll()
     {
         $query = $this->db->query(" SELECT o.nip, o.nama, o.is_active, o.created_at, o.jenis_kelamin, o.id_ruang,  r.id_kelas, k.kelas, r.ruang

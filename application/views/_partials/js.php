@@ -19,7 +19,7 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
   <script src="<?php echo base_url(); ?>assets/modules/summernote/summernote-bs4.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <?php
-} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator")) { ?>
+} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement")) { ?>
   <script src="<?php echo base_url(); ?>assets/modules/cleave-js/dist/cleave.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
   <script src="<?php echo base_url(); ?>assets/modules/select2/dist/js/select2.full.min.js"></script>
@@ -45,7 +45,7 @@ if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
 if ($this->uri->segment(2) == "" || $this->uri->segment(2) == "index") { ?>
   <script src="<?php echo base_url(); ?>assets/js/page/index.js"></script>
 <?php
-} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "operator")) { ?>
+} elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement")) { ?>
   <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/page/forms-advanced-forms.js"></script>

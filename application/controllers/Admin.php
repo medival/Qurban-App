@@ -11,16 +11,16 @@ class Admin extends MY_Controller
         $this->load->model('kelas_model');
         $this->load->model('operator_model');
         $this->load->model('transaksi_model');
+        $this->load->model('user_model');
 
         $this->check_login();
-        if ($this->session->userdata('id_role') != "1") {
-            redirect('', 'refresh');
+        if ($this->session->userdata('role') != "1") {
+            redirect('operator/index', 'refresh');
         }
     }
 
     public function index()
     {
-        // $user_data = 
         $data = array(
             'info' => $this->transaksi_model->infoDashboard(),
             'title' => "Dashboard",
@@ -82,9 +82,9 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
-    public function data_nasabah()
+    public function getAllnasabah()
     {
-        $data = $this->nasabah_model->getAll();
+        $data = $this->nasabah_model->getAllNasabah();
         echo json_encode($data);
     }
 
@@ -128,9 +128,9 @@ class Admin extends MY_Controller
         $this->load->view('admin/v_ruangkelas', $data);
     }
 
-    public function getruangkelas()
+    public function getAllruangkelas()
     {
-        $data = $this->kelas_model->getruangkelas();
+        $data = $this->kelas_model->getAllruangkelas();
         echo json_encode($data);
     }
 
@@ -229,7 +229,7 @@ class Admin extends MY_Controller
 
     public function getMemberList()
     {
-        $data = $this->transaksi_model->getMemberAktif();
+        $data = $this->nasabah_model->getAllMemberAktif();
         echo json_encode($data);
     }
 
@@ -336,10 +336,28 @@ class Admin extends MY_Controller
 
     public function gettransaksi()
     {
+        // $user_data = $this->session->all_userdata();
+        // $role = $user_data['role'];
+        // if ($role == 1) {
         $data = $this->transaksi_model->list();
+        // } else if ($role == 1) {
+        // $data = $this->transaksi_model->Alllist();
+        // }
         echo json_encode($data);
     }
 
+    public function getalltransaksi()
+    {
+        $data = $this->transaksi_model->Alllist();
+        echo json_encode($data);
+    }
+
+    public function Allnonmember()
+    {
+        $data = $this->nasabah_model->allnonmember();
+        // var_dump($data);
+        echo json_encode($data);
+    }
     public function profile()
     {
         $data = array(
@@ -358,6 +376,28 @@ class Admin extends MY_Controller
         );
 
         $this->load->view('admin/v_userprofile', $data);
+    }
+
+    public function usermanagement()
+    {
+        $data = array(
+            'title' => 'User Management',
+            'sess' => $this->session->all_userdata()
+        );
+
+        $this->load->view('admin/v_user', $data);
+    }
+
+    public function adduser()
+    {
+        $data = $this->user_model->adduser();
+        echo json_encode($data);
+    }
+
+    public function getuser()
+    {
+        $data = $this->user_model->getuser();
+        echo json_encode($data);
     }
 }
 

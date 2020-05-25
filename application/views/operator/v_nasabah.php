@@ -10,7 +10,7 @@ $this->load->view('_partials/header');
                 <h3> <?= $title; ?> </h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button href="<?= base_url('admin/tambahnasabah'); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
+                        <button href="#" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
                             <i class="fa fa-user-plus"></i> Tambah Nasabah
                         </button>
                     </div>
@@ -25,14 +25,12 @@ $this->load->view('_partials/header');
                                 <th>NIS</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
-                                <th>Walikelas</th>
                                 <th>Terdaftar</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="table_nasabah">
-
                         </tbody>
                     </table>
                 </div>
@@ -386,7 +384,7 @@ $this->load->view('_partials/header');
         function pilihkelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?= base_url('admin/getAllruangkelas'); ?>",
+                url: "<?= base_url('operator/getruangkelas'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
@@ -505,7 +503,6 @@ $this->load->view('_partials/header');
         })
 
         $('#btnAddNasabah').on('click', function() {
-
             var nis = $('#inputNIS').val();
             var nama = $('#inputNama').val();
             var alamat = $('#inputAlamat').val();
@@ -553,12 +550,13 @@ $this->load->view('_partials/header');
         function show_nasabah() {
             $.ajax({
                 type: "ajax",
-                url: "<?php echo base_url('admin/getAllnasabah'); ?>",
+                url: "<?php echo base_url('operator/data_nasabah'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
                     var html = '';
                     var i;
+                    var no = 1;
                     for (i = 0; i < data.length; i++) {
                         if (data[i].is_active == '1') {
                             var aktif = "Aktif";
@@ -566,11 +564,10 @@ $this->load->view('_partials/header');
                             var aktif = "Tidak Aktif"
                         }
                         html += '<tr>' +
-                            '<td style="width: 2rem">' + i + '</td>' +
+                            '<td style="width: 2rem">' + no++ + '</td>' +
                             '<td>' + `${data[i].nis}` + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + ` ${data[i].kelas} ` + `${data[i].ruang}` + '</td>' +
-                            '<td>' + ` ${data[i].nama_operator} ` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
                             '<td>' + `${aktif}` + '</td >' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editNasabah" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +

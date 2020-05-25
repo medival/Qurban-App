@@ -21,7 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
   <?php
-  } elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator")) { ?>
+  } elseif (($this->uri->segment(2) == "nasabah") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement")) { ?>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/datatables/datatables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
@@ -55,9 +55,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 
 <?php
-if ($this->uri->segment(2) == "layout_transparent") {
-  $this->load->view('_partials/layout-2');
-  $this->load->view('_partials/sidebar-2');
+if ($this->uri->segment(1) == "operator") {
+  $this->load->view('_partials/layout');
+  $this->load->view('_partials/sidebar_operator');
 } elseif ($this->uri->segment(2) == "ceksaldo") {
   $this->load->view('_partials/layout-3');
   // $this->load->view('_partials/navbar');

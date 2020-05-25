@@ -338,15 +338,16 @@ $this->load->view('_partials/header');
         function show_kelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?php echo base_url('admin/getruangkelas'); ?>",
+                url: "<?php echo base_url('admin/getAllruangkelas'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
                     var html = '';
                     var i;
+                    var no = 1;
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
-                            '<td style="width: 2rem">' + i + '</td>' +
+                            '<td style="width: 2rem">' + no++ + '</td>' +
                             // '<td>' + `${data[i].id_ruang}` + '</td>' +
                             // '<td>' + `${data[i].id_kelas}` + '</td>' +
                             // '<td>' + 'jml' + '</td>' +

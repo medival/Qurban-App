@@ -42,27 +42,29 @@ class Transaksi_model extends CI_Model
 
     public function list()
     {
+        $user_data = $this->session->all_userdata();
+        $id_ruang = $user_data['id_ruang'];
         $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, o.nip, o.nama AS nama_operator
                                     FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s
                                     ON t.nis = s.nis
                                     JOIN tb_operator AS o
                                     ON s.id_ruang = o.id_ruang
-                                    ORDER BY t.id_transaksi ASC");
-        return $result->result();
+                                    WHERE s.id_ruang = $id_ruang
+                                    ORDER BY t.id_transaksi ASC")->result();
+        return $result;
     }
 
-    public function getMemberAktif()
+    public function Alllist()
     {
-        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
-                                    FROM tb_tabungan AS tb
+        $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, o.nip, o.nama AS nama_operator
+                                    FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s
-                                    ON tb.nis = s.nis
-                                    JOIN tb_ruang AS r
-                                    ON s.id_ruang = r.id_ruang
+                                    ON t.nis = s.nis
                                     JOIN tb_operator AS o
-                                    ON o.id_ruang = r.id_ruang");
-        return $result->result();
+                                    ON s.id_ruang = o.id_ruang
+                                    ORDER BY t.id_transaksi ASC")->result();
+        return $result;
     }
 
     public function getMemberSaldo_NIP($nis)
