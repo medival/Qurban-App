@@ -6,55 +6,53 @@ $this->load->view('_partials/header');
 <style>
 </style>
 <!-- Main Content -->
-<div class="main-content" style="margin-top: -6rem">
-    <section class="section">
-        <div class="card card-primary">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>All Posts</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="float-left">
-                            <!-- <select class="form-control selectric" style="width: 5rem">
+<div class="main-content" style="margin-top: -4rem">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>All Posts</h4>
+            </div>
+            <div class="card-body">
+                <div class="float-left">
+                    <!-- <select class="form-control selectric" style="width: 5rem">
                                         <option>Action For Selected</option>
                                         <option>Move to Draft</option>
                                         <option>Move to Pending</option>
                                         <option>Delete Pemanently</option>
                                     </select> -->
+                </div>
+                <div class="float-right">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Input your valid NIS" id="inputNIS" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                        <div class="float-right">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Input your valid NIS" id="inputNIS" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="clearfix mb-3"></div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <th>#</th>
-                                    <th>Tanggal</th>
-                                    <th>Operator</th>
-                                    <th>Kredit</th>
-                                    <th>Debet</th>
-                                    <th>Saldo</th>
-                                </thead>
-                                <tbody id="tableresult">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="float-right">
-                        </div>
-                    </div>
+                    </form>
+                </div>
+                <div class="clearfix mb-3"></div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>#</th>
+                            <th>Tanggal</th>
+                            <th>Operator</th>
+                            <th>Kredit</th>
+                            <th>Debet</th>
+                            <th>Saldo</th>
+                        </thead>
+                        <tbody id="tableresult">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="float-right">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+</section>
 </div>
 <?php $this->load->view('_partials/footer'); ?>
 <script>

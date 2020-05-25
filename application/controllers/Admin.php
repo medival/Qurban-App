@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Admin extends MY_Controller
 {
 
     public function __construct()
@@ -11,22 +11,30 @@ class Admin extends CI_Controller
         $this->load->model('kelas_model');
         $this->load->model('operator_model');
         $this->load->model('transaksi_model');
+
+        $this->check_login();
+        if ($this->session->userdata('id_role') != "1") {
+            redirect('', 'refresh');
+        }
     }
 
     public function index()
     {
+        // $user_data = 
         $data = array(
             'info' => $this->transaksi_model->infoDashboard(),
-            'title' => "Dashboard"
+            'title' => "Dashboard",
+            'sess' => $this->session->all_userdata()
         );
-        // var_dump($data);
+
         $this->load->view('admin/v_index', $data);
     }
 
     public function nasabah()
     {
         $data = array(
-            'title' => 'Data Nasabah'
+            'title' => 'Data Nasabah',
+            'sess' => $this->session->all_userdata()
         );
         $this->load->view('admin/v_nasabah', $data);
     }
@@ -34,7 +42,8 @@ class Admin extends CI_Controller
     public function operator()
     {
         $data = array(
-            'title' => 'Data Operator'
+            'title' => 'Data Operator',
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_operator', $data);
@@ -43,7 +52,8 @@ class Admin extends CI_Controller
     public function rekap()
     {
         $data = array(
-            'title' => 'Rekap Data'
+            'title' => 'Rekap Data',
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_rekap', $data);
@@ -111,7 +121,8 @@ class Admin extends CI_Controller
     {
         $data = array(
             'title' => 'Data Ruang Kelas',
-            'kelas' => $this->kelas_model->getAll()
+            'kelas' => $this->kelas_model->getAll(),
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_ruangkelas', $data);
@@ -167,7 +178,8 @@ class Admin extends CI_Controller
     public function kelas()
     {
         $data = array(
-            'title' => 'Data Kelas'
+            'title' => 'Data Kelas',
+            'sess' => $this->session->all_userdata()
         );
         $this->load->view('admin/v_kelas', $data);
     }
@@ -175,7 +187,8 @@ class Admin extends CI_Controller
     public function setting()
     {
         $data = array(
-            'title' => "Setting"
+            'title' => "Setting",
+            'sess' => $this->session->all_userdata()
         );
         $this->load->view('admin/v_setting', $data);
     }
@@ -183,7 +196,8 @@ class Admin extends CI_Controller
     public function tambahnasabah()
     {
         $data = array(
-            'title' => 'Tambah Nasabah'
+            'title' => 'Tambah Nasabah',
+            'sess' => $this->session->all_userdata()
         );
         $this->load->view('admin/v_tambahnasabah', $data);
     }
@@ -191,7 +205,8 @@ class Admin extends CI_Controller
     public function detailtabungan()
     {
         $data = array(
-            'title' => 'Detail Tabungan'
+            'title' => 'Detail Tabungan',
+            'sess' => $this->session->all_userdata()
         );
         $this->load->view('admin/v_detailtabungan', $data);
     }
@@ -199,7 +214,8 @@ class Admin extends CI_Controller
     public function transaksi()
     {
         $data = array(
-            'title' => 'Transaksi'
+            'title' => 'Transaksi',
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_transaksi', $data);
@@ -327,7 +343,8 @@ class Admin extends CI_Controller
     public function profile()
     {
         $data = array(
-            'title' => 'Admin Profile'
+            'title' => 'Admin Profile',
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_profile', $data);
@@ -336,7 +353,8 @@ class Admin extends CI_Controller
     public function userprofile()
     {
         $data = array(
-            'title' => 'User Profile'
+            'title' => 'User Profile',
+            'sess' => $this->session->all_userdata()
         );
 
         $this->load->view('admin/v_userprofile', $data);

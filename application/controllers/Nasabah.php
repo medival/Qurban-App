@@ -13,14 +13,16 @@ class Nasabah extends CI_Controller
     public function data($nis)
     {
         $data = $this->transaksi_model->get($nis);
-        // echo json_encode($data);   
+        // echo json_encode($data);
     }
 
-    public function ceksaldo()
+    public function ceksaldo($nis)
     {
         $data = array(
             'title' => 'Nasabah'
         );
+        // $data = $this->transaksi_model->get($nis);
+        // echo json_encode($data);
         $this->load->view('nasabah/v_ceksaldo', $data);
     }
 }
