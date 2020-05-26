@@ -41,7 +41,7 @@ $this->load->view('_partials/header');
                                             <div class="float-right">
                                             </div>
                                         </div>
-                                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required minlength="5">
+                                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required minlength="4">
                                         <div class="invalid-feedback">
                                             please fill in your password
                                         </div>

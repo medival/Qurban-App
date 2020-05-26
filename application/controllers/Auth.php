@@ -11,6 +11,10 @@ class Auth extends MY_Controller
         $this->load->model('auth_model');
     }
 
+    public function index()
+    {
+        redirect('auth/login');
+    }
     public function check_account()
     {
         //validasi login
@@ -32,6 +36,7 @@ class Auth extends MY_Controller
             $userdata = array(
                 'is_login'    => true,
                 'id'          => $query->id,
+                'nip'         => $query->nip,
                 'password'    => $query->password,
                 'role'        => $query->role,
                 'username'    => $query->username,

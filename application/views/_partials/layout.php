@@ -15,12 +15,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </form>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?php echo base_url(); ?>assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block"> <?php echo $sess['name'] ?> </div>
+              <img alt="image" src="<?php echo base_url('assets/img/avatar/avatar-5.png'); ?>" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block"> <?php echo $sess['name'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="<?php //echo base_url(); 
-                        ?>" class="dropdown-item has-icon">
+              <a href="<?php echo base_url('admin/changepassword'); ?>" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Change Password
               </a>
               <div class="dropdown-divider"></div>

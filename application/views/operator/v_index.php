@@ -68,7 +68,7 @@ $this->load->view('_partials/header');
                                 <h4> Transaksi </h4>
                             </div>
                             <div class="card-body">
-                                <?= $info['jumlahSiswa']->jmlSiswa ?>
+                                <?= $info['jumlahtransaksi']->jmlTransaksi ?>
                             </div>
                         </div>
                     </div>

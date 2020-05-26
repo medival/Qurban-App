@@ -13,14 +13,14 @@ class Nasabah_model extends CI_Model
 
     public function getsummary($nis)
     {
-        $infoBasic = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang, o.nama AS nama_operator, s.created_at
+        $infoBasic = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang, u.name AS nama_operator, s.created_at
                                                 FROM tb_siswa AS s
                                                 JOIN tb_ruang AS r
                                                 ON s.id_ruang = r.id_ruang
                                                 JOIN tb_kelas AS k
                                                 ON r.id_kelas = k.id_kelas
-                                                JOIN tb_operator AS o
-                                                ON o.id_ruang = r.id_ruang
+                                                JOIN tb_user AS u
+                                                ON u.id_ruang = r.id_ruang
                                                 WHERE s.nis = $nis LIMIT 1")->result();
         $infoTransaksi = $this->db->query("SELECT t.tanggal AS lasttransaksi, tb.saldo
                                                 FROM tb_tabungan as tb
@@ -79,8 +79,8 @@ class Nasabah_model extends CI_Model
                                     ON s.id_ruang = r.id_ruang
                                     JOIN tb_kelas AS k
                                     ON r.id_kelas = k.id_kelas
-                                    JOIN tb_operator AS o
-                                    ON o.id_ruang = r.id_ruang
+                                    JOIN tb_user AS u
+                                    ON u.id_ruang = r.id_ruang
                                     WHERE s.id_ruang = $id_ruang");
         return $hasil->result();
     }
@@ -88,14 +88,15 @@ class Nasabah_model extends CI_Model
 
     public function getAllNasabah()
     {
-        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang
+        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang, u.name AS operator
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
                                     JOIN tb_kelas AS k
                                     ON r.id_kelas = k.id_kelas
-                                    JOIN tb_operator AS o
-                                    ON o.id_ruang = r.id_ruang");
+                                    JOIN tb_user AS u
+                                    ON u.id_ruang = r.id_ruang
+                                    ORDER BY s.id_ruang ASC");
         return $hasil->result();
     }
 
@@ -146,27 +147,27 @@ class Nasabah_model extends CI_Model
     public function getAllMemberAktif()
     {
         // var_dump($id_ruang);
-        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
+        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, u.nip
                                     FROM tb_tabungan AS tb
                                     JOIN tb_siswa AS s
                                     ON tb.nis = s.nis
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
-                                    JOIN tb_operator AS o
-                                    ON o.id_ruang = r.id_ruang")->result();
+                                    JOIN tb_user AS u
+                                    ON u.id_ruang = r.id_ruang")->result();
         return $result;
     }
     public function getMemberAktif($id_ruang)
     {
         // var_dump($id_ruang);
-        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, o.nip
+        $result = $this->db->query("SELECT s.nis, s.nama, tb.saldo, u.nip
                                     FROM tb_tabungan AS tb
                                     JOIN tb_siswa AS s
                                     ON tb.nis = s.nis
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
-                                    JOIN tb_operator AS o
-                                    ON o.id_ruang = r.id_ruang
+                                    JOIN tb_user AS u
+                                    ON u.id_ruang = r.id_ruang
                                     WHERE s.id_ruang = $id_ruang")->result();
         return $result;
     }

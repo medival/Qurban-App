@@ -19,24 +19,31 @@ class Kelas_model extends CI_Model
 
     public function getruangkelas($id_ruang)
     {
-        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang, o.nip, o.nama
+        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang, u.nip, u.name
                                     FROM tb_kelas AS k
                                     JOIN tb_ruang AS r
                                     ON k.id_kelas = r.id_kelas
-                                    JOIN tb_operator AS o
-                                    ON r.id_ruang = o.id_ruang
+                                    JOIN tb_user AS u
+                                    ON r.id_ruang = u.id_ruang
                                     WHERE r.id_ruang = $id_ruang")->result();
         return $data;
     }
 
     public function getAllruangkelas()
     {
-        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang, o.nip, o.nama
+        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang
                                     FROM tb_kelas AS k
                                     JOIN tb_ruang AS r
-                                    ON k.id_kelas = r.id_kelas
-                                    JOIN tb_operator AS o
-                                    ON r.id_ruang = o.id_ruang")->result();
+                                    ON k.id_kelas = r.id_kelas")->result();
+        return $data;
+    }
+
+    public function getAllKelasempty()
+    {
+        $data = $this->db->query("SELECT id_ruang
+                                FROM tb_ruang AS r
+                                NATURAL LEFT JOIN tb_user AS u
+                                WHERE u.id_ruang IS NULL")->result();
         return $data;
     }
 
@@ -62,12 +69,17 @@ class Kelas_model extends CI_Model
 
     public function addruangkelas()
     {
-        $post = $this->input->post();
-        $data = array(
-            'id_kelas' => $post['id_kelas'],
-            'ruang' => $post['ruang']
-        );
+        // $post = $this->input->post();
+        // $id_kelas = 97;
+        // $ruang = 'A';
+        $id_kelas = $this->input->post('id_kelas');
+        $ruang = $this->input->post('ruang');
 
+        $data = array(
+            'id_kelas' => $id_kelas,
+            'ruang' => $ruang
+        );
+        // var_dump($data);
         $data = $this->db->insert('tb_ruang', $data);
         return $data;
     }

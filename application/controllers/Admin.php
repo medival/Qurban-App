@@ -30,56 +30,59 @@ class Admin extends MY_Controller
         $this->load->view('admin/v_index', $data);
     }
 
-    public function nasabah()
+    public function siswa()
     {
         $data = array(
-            'title' => 'Data Nasabah',
+            'title' => 'Data Siswa',
             'sess' => $this->session->all_userdata()
         );
-        $this->load->view('admin/v_nasabah', $data);
+        $this->load->view('admin/v_siswa', $data);
+        $this->load->view('admin/v_siswa_backend');
     }
 
-    public function operator()
+    public function ruangkelas()
     {
         $data = array(
-            'title' => 'Data Operator',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_operator', $data);
-    }
-
-    public function rekap()
-    {
-        $data = array(
-            'title' => 'Rekap Data',
+            'title' => 'Data Ruang Kelas',
+            'kelas' => $this->kelas_model->getAll(),
             'sess' => $this->session->all_userdata()
         );
 
-        $this->load->view('admin/v_rekap', $data);
-    }
-    public function listoperator()
-    {
-        $data = $this->operator_model->getAll();
-        echo json_encode($data);
+        $this->load->view('admin/v_ruangkelas', $data);
+        $this->load->view('admin/v_ruangkelas_backend');
     }
 
-    public function inputoperator()
+
+    public function kelas()
     {
-        $data = $this->operator_model->input();
-        echo json_encode($data);
+        $data = array(
+            'title' => 'Data Kelas',
+            'sess' => $this->session->all_userdata()
+        );
+        $this->load->view('admin/v_kelas', $data);
+        $this->load->view('admin/v_kelas_backend');
     }
 
-    public function updateoperator()
+    public function transaksi()
     {
-        $data = $this->operator_model->update();
-        echo json_encode($data);
+        $data = array(
+            'title' => 'Transaksi',
+            'sess' => $this->session->all_userdata()
+        );
+
+        $this->load->view('admin/v_transaksi', $data);
+        $this->load->view('admin/v_transaksi_backend');
     }
 
-    public function deletedataoperator()
+    public function usermanagement()
     {
-        $data = $this->operator_model->delete();
-        echo json_encode($data);
+        $data = array(
+            'title' => 'User Management',
+            'sess' => $this->session->all_userdata()
+        );
+
+        $this->load->view('admin/v_user', $data);
+        $this->load->view('admin/v_user_backend');
     }
 
     public function getAllnasabah()
@@ -117,20 +120,15 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
-    public function ruangkelas()
-    {
-        $data = array(
-            'title' => 'Data Ruang Kelas',
-            'kelas' => $this->kelas_model->getAll(),
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_ruangkelas', $data);
-    }
-
     public function getAllruangkelas()
     {
         $data = $this->kelas_model->getAllruangkelas();
+        echo json_encode($data);
+    }
+
+    public function getAllKelasempty()
+    {
+        $data = $this->kelas_model->getAllKelasempty();
         echo json_encode($data);
     }
 
@@ -175,52 +173,6 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
-    public function kelas()
-    {
-        $data = array(
-            'title' => 'Data Kelas',
-            'sess' => $this->session->all_userdata()
-        );
-        $this->load->view('admin/v_kelas', $data);
-    }
-
-    public function setting()
-    {
-        $data = array(
-            'title' => "Setting",
-            'sess' => $this->session->all_userdata()
-        );
-        $this->load->view('admin/v_setting', $data);
-    }
-
-    public function tambahnasabah()
-    {
-        $data = array(
-            'title' => 'Tambah Nasabah',
-            'sess' => $this->session->all_userdata()
-        );
-        $this->load->view('admin/v_tambahnasabah', $data);
-    }
-
-    public function detailtabungan()
-    {
-        $data = array(
-            'title' => 'Detail Tabungan',
-            'sess' => $this->session->all_userdata()
-        );
-        $this->load->view('admin/v_detailtabungan', $data);
-    }
-
-    public function transaksi()
-    {
-        $data = array(
-            'title' => 'Transaksi',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_transaksi', $data);
-    }
-
     public function aktivasimember()
     {
         $data = $this->transaksi_model->aktivasiuser();
@@ -241,9 +193,17 @@ class Admin extends MY_Controller
 
     public function inputdatakredit()
     {
+        $user_data = $this->session->all_userdata();
+        $nip = $user_data['nip'];
+        // var_dump($user_data);
+        // var_dump($nip);
+        if ($nip == '') {
+            $nip = null;
+        }
+
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
-        $nip = $this->input->post('nip');
+        // $nip = $this->input->post('nip');
         $result = $this->db->query("SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis=" . $nis)->result();
@@ -334,18 +294,6 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
-    public function gettransaksi()
-    {
-        // $user_data = $this->session->all_userdata();
-        // $role = $user_data['role'];
-        // if ($role == 1) {
-        $data = $this->transaksi_model->list();
-        // } else if ($role == 1) {
-        // $data = $this->transaksi_model->Alllist();
-        // }
-        echo json_encode($data);
-    }
-
     public function getalltransaksi()
     {
         $data = $this->transaksi_model->Alllist();
@@ -357,35 +305,6 @@ class Admin extends MY_Controller
         $data = $this->nasabah_model->allnonmember();
         // var_dump($data);
         echo json_encode($data);
-    }
-    public function profile()
-    {
-        $data = array(
-            'title' => 'Admin Profile',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_profile', $data);
-    }
-
-    public function userprofile()
-    {
-        $data = array(
-            'title' => 'User Profile',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_userprofile', $data);
-    }
-
-    public function usermanagement()
-    {
-        $data = array(
-            'title' => 'User Management',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('admin/v_user', $data);
     }
 
     public function getuser()

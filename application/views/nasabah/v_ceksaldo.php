@@ -64,7 +64,7 @@ $this->load->view('_partials/header');
 
         function getrekapp() {
             var nis = $('#inputNIS').val();
-            var baseUrl = "<?php echo base_url('admin/getrekapdata/'); ?>" + nis;
+            var baseUrl = "<?php echo base_url('nasabah/getrekap/'); ?>" + nis;
             $.ajax({
                 type: 'ajax',
                 url: baseUrl,
@@ -72,6 +72,7 @@ $this->load->view('_partials/header');
                 dataType: "JSON",
                 success: function(data) {
                     var infoJumlahTransaksi = data.length;
+                    console.log(data);
                     if (infoJumlahTransaksi < 1) {
                         var html = '<tr> <td colspan=7" class="text-center"> <b> DATA IS EMPTY </b> </td> </tr>';
                     } else {

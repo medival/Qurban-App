@@ -20,48 +20,49 @@ class Operator extends MY_Controller
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
+        // var_dump($id_ruang);
         $data = array(
-            'title'         => 'Detail Tabungan',
+            'title'         => 'Dashboard',
             'sess'          => $user_data,
             'info'          => $this->operator_model->info_dashboard($id_ruang)
         );
+        // var_dump($data);
         $this->load->view('operator/v_index', $data);
-    }
-
-    public function getnis()
-    {
-        $data = $this->nasabah_model->getnis();
-        echo json_encode($data);
-    }
-
-    public function detailtabungan()
-    {
-        $data = array(
-            'title' => 'Detail Tabungan',
-            'sess' => $this->session->all_userdata()
-        );
-        $this->load->view('admin/v_detailtabungan', $data);
-    }
-
-    public function nasabah()
-    {
-        $data = array(
-            'title' => 'Nasabah',
-            'sess' => $this->session->all_userdata()
-        );
-
-        $this->load->view('operator/v_nasabah', $data);
     }
 
     public function transaksi()
     {
         $data = array(
             'title' => 'Transaksi',
+            'sess' => $this->session->all_userdata()
+        );
+
+        $this->load->view('operator/v_transaksi', $data);
+        $this->load->view('operator/v_transaksi_backend');
+    }
+
+    public function siswa()
+    {
+        $data = array(
+            'title' => 'Siswa',
             'sess' => $this->session->all_userdata(),
-            // 'transaksi' =>  
+            // 'siswa' =>  
         );
         // var_dump($data);
-        $this->load->view('operator/v_transaksi', $data);
+        $this->load->view('operator/v_siswa', $data);
+        $this->load->view('operator/v_siswa_backend');
+    }
+
+    public function getlisttransaksi()
+    {
+        $data = $this->transaksi_model->transaksilist();
+        return $data;
+    }
+
+    public function getnis()
+    {
+        $data = $this->nasabah_model->getnis();
+        echo json_encode($data);
     }
 
     public function getMemberList()
@@ -133,10 +134,10 @@ class Operator extends MY_Controller
             } else if (($saldo_tabungan <= 0)) {
                 $saldo_akhir = $saldo_tabungan;
                 // $nominal = 0;
-                redirect('admin/transaksi');
+                redirect('operator/transaksi');
             } else if (($nominal > $saldo_tabungan)) {
                 $nominal = 0;
-                redirect('admin/transaksi');
+                redirect('operator/transaksi');
             }
         }
 
@@ -173,11 +174,15 @@ class Operator extends MY_Controller
         echo json_encode($data);
     }
 
-    public function gettransaksi()
+    public function gettransaksidata()
     {
-        $data = $this->transaksi_model->list();
+        $user_data = $this->session->all_userdata();
+        $id_ruang = $user_data['id_ruang'];
+
+        $data = $this->transaksi_model->gettransaksi($id_ruang);
         echo json_encode($data);
     }
+
 
     public function data_nasabah()
     {
@@ -186,10 +191,30 @@ class Operator extends MY_Controller
         $data = $this->nasabah_model->getAll($id_ruang);
         echo json_encode($data);
     }
+
+    public function inputnasabah()
+    {
+        $data = $this->nasabah_model->input();
+        echo json_encode($data);
+    }
+
+    public function updatenasabah()
+    {
+        $data = $this->nasabah_model->update();
+        echo json_encode($data);
+    }
+
+    public function deletenasabah()
+    {
+        $data = $this->nasabah_model->delete();
+        echo json_encode($data);
+    }
+
     public function getruangkelas()
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
+
         $data = $this->kelas_model->getruangkelas($id_ruang);
         echo json_encode($data);
     }
