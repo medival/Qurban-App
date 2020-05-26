@@ -37,7 +37,6 @@ class Auth_model extends CI_Model
         if (!hash_verified($this->input->post('password'), $query->password)) {
             return 3;
         }
-
         return $query;
     }
 
@@ -51,7 +50,6 @@ class Auth_model extends CI_Model
         $this->db->from($this->table);
         $this->db->where($this->id, $id);
         $query = $this->db->get();
-
         return $query->row();
     }
 

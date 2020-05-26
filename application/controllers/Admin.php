@@ -388,15 +388,33 @@ class Admin extends MY_Controller
         $this->load->view('admin/v_user', $data);
     }
 
+    public function getuser()
+    {
+        $data = $this->user_model->getuser();
+        echo json_encode($data);
+    }
+
     public function adduser()
     {
         $data = $this->user_model->adduser();
         echo json_encode($data);
     }
 
-    public function getuser()
+    public function edituser()
     {
-        $data = $this->user_model->getuser();
+        $data = $this->user_model->updateuser();
+        echo json_encode($data);
+    }
+
+    public function deleteuser()
+    {
+        $data = $this->user_model->deleteuser();
+        echo json_encode($data);
+    }
+
+    public function getrole()
+    {
+        $data = $this->user_model->getrolelist();
         echo json_encode($data);
     }
 }
