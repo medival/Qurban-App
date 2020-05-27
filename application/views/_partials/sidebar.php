@@ -33,8 +33,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <li class="dropdown <?php echo $this->uri->segment(2) == 'usermanagement' ? 'active' : ''; ?>">
         <a href="<?= base_url("admin/usermanagement"); ?>" class="nav-link"><i class="fas fa-user-tie"></i> <span>User Management</span></a>
       </li>
-      <li>
-        <a href="<?= base_url("auth/logout"); ?>" class="nav-link text-danger"><i class="fas fa-sign-out"></i> <span>Logout</span></a>
+      <li class="">
+        <a href="<?= base_url("auth/logout"); ?>" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
       </li>
     </ul>
   </aside>

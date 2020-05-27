@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </li>
       <li>
         <a class="nav-link text-danger" href="<?php echo base_url("auth/logout"); ?> ">
-          <i class="fas fa-sign-out fa-fw"></i> <span>Logout</span></a>
+          <i class="fas fa-sign-out-alt fa-fw"></i> <span>Logout</span></a>
       </li>
     </ul>
   </aside>

@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Operator extends MY_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -39,7 +38,7 @@ class Operator extends MY_Controller
         );
 
         $this->load->view('operator/v_transaksi', $data);
-        $this->load->view('operator/v_transaksi_backend');
+        // $this->load->view('operator/v_transaksi_backend');
     }
 
     public function siswa()
@@ -51,7 +50,7 @@ class Operator extends MY_Controller
         );
         // var_dump($data);
         $this->load->view('operator/v_siswa', $data);
-        $this->load->view('operator/v_siswa_backend');
+        // $this->load->view('operator/v_siswa_backend');
     }
 
     public function changepassword()

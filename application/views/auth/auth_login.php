@@ -64,7 +64,7 @@ $this->load->view('_partials/header');
     </div>
 </body>
 <script src="<?php echo base_url(); ?>assets/modules/notify/notify.min.js"></script>
-<?php $this->load->view('dist/_partials/js'); ?>
+<?php $this->load->view('_partials/js'); ?>
 <script>
     $('#myalert').delay('slow').slideUp('slow').delay(3100).slideUp(100);
 </script>
