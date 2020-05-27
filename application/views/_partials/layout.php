@@ -19,7 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="d-sm-none d-lg-inline-block"> <?php echo $sess['name'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="<?php echo base_url('admin/changepassword'); ?>" class="dropdown-item has-icon">
+              <a href="<?php echo base_url('admin/changepassword'); ?>" class="dropdown-item has-icon" id="changepassword">
                 <i class="fas fa-cog"></i> Change Password
               </a>
               <div class="dropdown-divider"></div>

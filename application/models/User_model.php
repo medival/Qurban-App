@@ -82,6 +82,22 @@ class User_model extends CI_Model
         }
         return $query;
     }
+
+    public function kontrol($id)
+    {
+        $state = $this->db->query("SELECT is_active FROM tb_user AS u WHERE u.id = $id")->row();
+        // var_dump($state);
+        if ($state->is_active == 1) {
+            $is_active = 0;
+        } else if ($state->is_active == 0) {
+            $is_active = 1;
+        }
+        $data = array(
+            'is_active' => $is_active
+        );
+        $result = $this->db->update('tb_user', $data,  array('id' => $id));
+        return $result;
+    }
 }
 
 /* End of file: User_model.php */

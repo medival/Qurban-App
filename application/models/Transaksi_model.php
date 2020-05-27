@@ -77,19 +77,7 @@ class Transaksi_model extends CI_Model
 
     public function get($nis)
     {
-        $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, u.nip, u.name AS nama_operator
-                                    FROM tb_transaksi AS t
-                                    JOIN tb_siswa AS s
-                                    ON t.nis = s.nis
-                                    JOIN tb_user AS u
-                                    ON s.id_ruang = u.id_ruang
-                                    WHERE t.nis = $nis
-                                    ORDER BY t.id_transaksi ASC")->result();
-        return $result;
-    }
-
-    public function getrekapdata($nis)
-    {
+        // var_dump($nis);
         $result = $this->db->query("SELECT t.id_transaksi, t.nis, s.nama, t.tanggal, t.kredit_debet, t.nominal, t.saldo, u.nip, u.name AS nama_operator
                                     FROM tb_transaksi AS t
                                     JOIN tb_siswa AS s

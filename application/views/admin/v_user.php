@@ -27,7 +27,7 @@ $this->load->view('_partials/header');
                                 <th>Email</th>
                                 <th>Hak Akses </th>
                                 <th>Walikelas </th>
-                                <th>Status </th>
+                                <th class="text-center">Status </th>
                                 <th>Create </th>
                                 <th>Aksi</th>
                             </tr>

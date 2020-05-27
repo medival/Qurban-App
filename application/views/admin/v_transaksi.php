@@ -269,7 +269,7 @@ $this->load->view('_partials/header');
                 </div>
                 <div class="modal-footer bg-whitesmoke">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btnRekapData">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btnRekapData"> Lihat Data </button>
                 </div>
             </div>
         </div>

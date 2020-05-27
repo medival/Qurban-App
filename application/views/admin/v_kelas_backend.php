@@ -90,9 +90,10 @@
                 success: function(data) {
                     var html = '';
                     var i;
+                    var no = 1;
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
-                            '<td style="width: 2rem">' + i + '</td>' +
+                            '<td style="width: 2rem">' + no++ + '</td>' +
                             '<td>' + `${data[i].id_kelas}` + '</td>' +
                             '<td>' + `${data[i].kelas}` + '</td>' +
                             // '<td>' + "Walikelas" + '</td>' +

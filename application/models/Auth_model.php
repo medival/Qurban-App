@@ -53,6 +53,18 @@ class Auth_model extends CI_Model
         return $query->row();
     }
 
+    public function changepassword($newPassword)
+    {
+        $password = get_hash($newPassword);
+        $user_data = $this->session->all_userdata();
+        $id = $user_data['id'];
+        $query = array(
+            'password' => $password
+        );
+
+        return  $this->db->update('tb_user', $query, array('id' => $id));
+    }
+
     public function logout($date, $id)
     {
         $this->db->where($this->id, $id);

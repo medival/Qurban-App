@@ -41,6 +41,23 @@
             getrole();
         })
 
+        $('#table1').on('click', '.is_active', function() {
+            var id = $(this).data('id');
+            var baseUrl = '<?= base_url('admin/userkontrol/') ?>' + id;
+
+            console.log(baseUrl);
+            $.ajax({
+                type: 'POST',
+                url: baseUrl,
+                dataType: 'json',
+                data: {},
+                success: function(data) {
+                    show_user();
+                }
+            });
+            // return false;
+        })
+
         $('#modalUpdateUser').on('hidden.bs.modal', function() {
             $('#editid').val("");
             $('#editNIP').val("");
@@ -258,6 +275,39 @@
             })
         }
 
+        function epochtodate(epoch) {
+
+            // Months array
+            var months_arr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+
+            // Date array
+            // var date_arr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+
+            // Convert timestamp to milliseconds
+            var date = new Date(epoch * 1000);
+
+            // Year
+            var year = date.getFullYear();
+
+            // Month
+            var month = months_arr[date.getMonth()];
+
+            // Day
+            var day = date.getDate();
+
+            // Hours
+            var hours = date.getHours();
+
+            // Minutes
+            var minutes = "0" + date.getMinutes();
+
+            // Seconds
+            var seconds = "0" + date.getSeconds();
+            // Display date time in MM-dd-yyyy h:m:s format
+            // return convdataTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            return convdataTime = year + '-' + month + '-' + day;
+        }
+
         function show_user() {
             $.ajax({
                 type: 'ajax',
@@ -270,22 +320,23 @@
                     var no = 1;
                     var i;
                     for (i = 0; i < data.length; i++) {
+                        var id = data[i].id;
                         if (data[i].is_active == 1) {
-                            var is_active = "Aktif"
+                            var is_active = '<span data-id="' + id + '" data-is_active="' + 1 + '"class="badge badge-success is_active">Aktif </span>';
                         } else if (data[i].is_active == 0) {
-                            var is_active = "Nonaktif"
+                            var is_active = '<span data-id="' + id + '" data-is_active="' + 0 + '"class="badge badge-danger is_active"> Inaktif</span>';
                         }
                         if (data[i].role == 1) {
                             var role = 'Adminstrator'
                         } else if (data[i].role == 2) {
                             var role = 'Operator'
                         }
-                        var id = data[i].id;
                         var name = data[i].name;
                         var nip = data[i].nip;
                         var email = data[i].email;
                         var id_ruang = data[i].id_ruang;
-                        var created_at = data[i].created_at;
+                        var created_at = epochtodate(data[i].created_at);
+
                         html += '<tr>' +
                             '<td> ' + no++ + '</td>' +
                             '<td> ' + nip + '</td>' +

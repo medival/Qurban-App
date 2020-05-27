@@ -15,6 +15,7 @@ class Auth extends MY_Controller
     {
         redirect('auth/login');
     }
+
     public function check_account()
     {
         //validasi login
@@ -24,7 +25,6 @@ class Auth extends MY_Controller
         //ambil data dari database untuk validasi login
         $query = $this->auth_model->check_account($email, $password);
         // var_dump($query);
-
         if ($query === 1) {
             $this->session->set_flashdata('alert', '<div class="alert alert-danger"> user tidak ada. </div>');
         } elseif ($query === 2) {
@@ -37,7 +37,6 @@ class Auth extends MY_Controller
                 'is_login'    => true,
                 'id'          => $query->id,
                 'nip'         => $query->nip,
-                'password'    => $query->password,
                 'role'        => $query->role,
                 'username'    => $query->username,
                 'name'        => $query->name,
