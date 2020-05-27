@@ -1,6 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
+<?php
+
+if ($sess['role'] == 1) {
+  $url = "admin/changepassword";
+} else if ($sess['role'] == 2) {
+  $url = "operator/changepassword";
+}
+
+?>
 
 <body>
   <div id="app">
@@ -19,7 +28,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="d-sm-none d-lg-inline-block"> <?php echo $sess['name'] ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="<?php echo base_url('admin/changepassword'); ?>" class="dropdown-item has-icon" id="changepassword">
+              <a href="<?= base_url($url) ?>" class="dropdown-item has-icon" id="changepassword">
                 <i class="fas fa-cog"></i> Change Password
               </a>
               <div class="dropdown-divider"></div>

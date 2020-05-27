@@ -100,7 +100,7 @@ class Admin extends MY_Controller
         }
         $data = array(
             'title' => 'Change Password',
-            'sess' => $this->session->all_userdata()
+            'sess'  => $this->session->all_userdata()
         );
         $this->load->view('admin/v_changepassword', $data);
     }

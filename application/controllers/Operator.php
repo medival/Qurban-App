@@ -11,6 +11,7 @@ class Operator extends MY_Controller
         $this->load->model('operator_model');
         $this->load->model('nasabah_model');
         $this->load->model('transaksi_model');
+        $this->load->model('auth_model');
         $this->check_login();
         if ($this->session->userdata('role') != "2") {
             redirect('admin/index', 'refresh');
@@ -51,6 +52,25 @@ class Operator extends MY_Controller
         // var_dump($data);
         $this->load->view('operator/v_siswa', $data);
         $this->load->view('operator/v_siswa_backend');
+    }
+
+    public function changepassword()
+    {
+        if ($this->input->post('submit')) {
+            $error = $this->checkpassword($this->input->post('newPassword'), $this->input->post('confirmPassword'));
+            var_dump($error);
+            if ($error == 1) {
+                $this->session->set_flashdata('alert', '<div class="alert alert-danger"> Konfirmasi ulang password </div>');
+            }
+            if ($error == true) {
+                $this->session->set_flashdata('alert', '<div class="alert alert-success"> Password berhasil diganti </div>');
+            }
+        }
+        $data = array(
+            'title' => 'Change Password',
+            'sess'  => $this->session->all_userdata()
+        );
+        $this->load->view('operator/v_changepassword', $data);
     }
 
     public function getlisttransaksi()
@@ -232,6 +252,18 @@ class Operator extends MY_Controller
         $data = $this->nasabah_model->getnonmember($id_ruang);
         // var_dump($data);
         echo json_encode($data);
+    }
+
+    public function checkpassword($newPassword, $confirmPassword)
+    {
+        if ($newPassword != $confirmPassword) {
+            return 1;
+        } else {
+            $newPassword = $this->input->post('newPassword');
+            $result = $this->auth_model->changepassword($newPassword);
+            return $result;
+        }
+        // $this->load->view('admin/v_changepassword', $data);
     }
 }
 

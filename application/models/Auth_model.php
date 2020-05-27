@@ -61,7 +61,6 @@ class Auth_model extends CI_Model
         $query = array(
             'password' => $password
         );
-
         return  $this->db->update('tb_user', $query, array('id' => $id));
     }
 
