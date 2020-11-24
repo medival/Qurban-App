@@ -102,7 +102,8 @@ $this->load->view('_partials/header');
                         </div>
                     </div>
                     <div class=" form-group">
-                        <label> Ruangan ini akan ditempati siswa </label>
+                        <label> Ruangan </label>
+                        <p class="text-muted"> Ex Kelas 1 Input Ruang A. 1 A </p>
                         <div class="col-12 mt-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -148,7 +149,8 @@ $this->load->view('_partials/header');
                         </div>
                     </div>
                     <div class=" form-group">
-                        <label> Ruangan ini akan ditempati siswa </label>
+                        <label> Ruangan </label>
+                        <p class="text-muted"> Ex Kelas 1 Ganti Ruang B. 1 B </p>
                         <div class="col-12 mt-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
