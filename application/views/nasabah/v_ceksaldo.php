@@ -12,7 +12,7 @@ $this->load->view('_partials/header');
             <div class="">
                 <form action="#" class="needs-validation" novalidate="">
                     <div class="input-group">
-                        <input type="text" class="form-control text-center" placeholder="Input your valid NIS" id="inputNIS" required maxlength="4">
+                        <input type="text" class="form-control text-center" placeholder="Masukan 4 digit NIS" id="inputNIS" required maxlength="4">
                         <div class="input-group-append">
                             <button class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> Search </button>
                         </div>
