@@ -19,7 +19,7 @@ $this->load->view('_partials/header');
                             <?php echo $this->session->flashdata('alert', true); ?>
                         </div>
                         <div class="login-brand mt-5">
-                            <img src="<?php echo base_url(); ?>assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+                            <img src="<?= base_url(); ?>assets/img/qurban_app.svg" alt="logo" width="120" class="shadow-light rounded-circle">
                         </div>
                         <div class="card card-primary">
                             <div class="card-header">
