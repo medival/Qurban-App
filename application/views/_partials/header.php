@@ -34,8 +34,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 if ($this->uri->segment(1) == "operator") {
   $this->load->view('_partials/layout');
   $this->load->view('_partials/sidebar_operator');
-} elseif ($this->uri->segment(1) == "ceksaldo") {
-  $this->load->view('_partials/common_layout');
 } elseif ($this->uri->segment(1) != "auth") {
   $this->load->view('_partials/layout');
   $this->load->view('_partials/sidebar_admin');
