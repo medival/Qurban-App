@@ -37,7 +37,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="main-wrapper container">
       <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand main-navbar">
-        <a href="<?= base_url('/ceksaldo'); ?>" class="navbar-brand" style="z-index: 99; margin: 2.5rem 0 0 15rem"> QURBAN </a>
+        <a href="<?= base_url('/ceksaldo'); ?>" class="navbar-brand" style="z-index: 99; margin: 2.5rem auto 0 15rem"> QURBAN </a>
+        <a href="<?= base_url(); ?>" class="navbar-brand" style="margin: 2.5rem 15rem 0 auto"> Login  </a>
       </nav>
         <!-- Main Content -->
         <div class="main-content">
