@@ -52,6 +52,7 @@ $this->load->view('_partials/header');
                                         <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" name="submit">
                                     </div>
                                 </form>
+                                    <a href="<?= base_url("ceksaldo")?>" type="button" value="Cek Saldo" class="btn btn-outline-info btn-lg btn-block"> Cek Saldo </a>
                                 <div class="row sm-gutters">
                                 </div>
                             </div>
