@@ -28,7 +28,6 @@ $this->load->view('_partials/header');
                 </div>
             </div>
             <div class="card-body" id="paper">
-                <!-- <div class="card"> -->
                 <div class="card-header">
                     <h4> Informasi Tambahan </h4>
                     <div class="card-header-action">
@@ -53,8 +52,6 @@ $this->load->view('_partials/header');
                         </div>
                     </div>
                 </div>
-                <!-- </div> -->
-                <!-- </div> -->
                 <div class="table-responsive">
                     <table class="table table-striped" id="table1">
                         <thead>
@@ -66,7 +63,6 @@ $this->load->view('_partials/header');
                                 <th> Kredit </th>
                                 <th> Debet </th>
                                 <th> Saldo </th>
-                                <!-- <th id="colAksi"> Aksi </th> -->
                             </tr>
                         </thead>
                         <tbody id="tb_transaksi">
@@ -78,6 +74,7 @@ $this->load->view('_partials/header');
         <button class="btn btn-primary btn-icon icon-left" id="btnCetakPDF"><i class="fas fa-print"></i> Save to PDF</button>
     </section>
 </div>
+
 <!-- Modal Aktivasi -->
 <div class="modal fade" tabindex="" role="dialog" id="modalAktivasi">
     <div class="modal-dialog" role="document">
@@ -121,7 +118,7 @@ $this->load->view('_partials/header');
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" class="needs-validation" novalidate="">
+            <form action="#" class="needs-validation" novalidate="">
                 <div class="modal-body">
                     <div class="form-group">
                         <label> Cari Nasabah</label>
@@ -155,7 +152,7 @@ $this->load->view('_partials/header');
                                     Rp
                                 </div>
                             </div>
-                            <input type="text" class="form-control inputNominalKredit" name="inputNominalKredit" id="inputNominalKredit" required>
+                            <input type="text" class="form-control inputNominalKredit" name="inputNominalKredit" id="inputNominalKredit" placeholder="Input nominal" required>
                             <div class="invalid-feedback">
                                 Input Nominal
                             </div>
@@ -184,7 +181,7 @@ $this->load->view('_partials/header');
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" class="needs-validation" novalidate="">
+               <form action="#" class="needs-validation" novalidate="">
                 <div class="modal-body">
                     <div class="form-group">
                         <label> Cari Nasabah</label>
@@ -216,22 +213,22 @@ $this->load->view('_partials/header');
                     <input type="hidden" name="cekSaldo" id="cekSaldo" class="form-control">
 
                     <div class="form-group">
-                        <label for="" class=" col-form-label"> Nominal </label>
+                        <label for="" class="col-form-label"> Nominal </label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     Rp
                                 </div>
                             </div>
-                            <input type="text" class="form-control inputNominalDebet" name="inputNominalDebet" id="inputNominalDebet" placeholder="" required>
+                            <input type="text" class="form-control inputNominalDebet" name="inputNominalDebet" id="inputNominalDebet" placeholder="Input Nominal" required>
                             <div class="invalid-feedback">
-                                Masukan Nominal
+                                Input Nominal
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btnInputDebet">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="btnInputDebet">Save changes</button>
                     </div>
                 </div>
             </form>

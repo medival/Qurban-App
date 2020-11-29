@@ -105,14 +105,11 @@
             $('#userDebet').html(nama);
             $('#userJumlahSaldo2').html(CurrencyID(Jumlahsaldo));
 
-            // console.log(Jumlahsaldo)
             var btnDebet = document.getElementById('btnInputDebet');
             if (Jumlahsaldo <= 0) {
                 $(btnDebet).prop('disabled', true);
-                // console.log("Add Disabled");
             } else if (Jumlahsaldo > 0) {
                 $(btnDebet).prop('disabled', false);
-                // console.log('remove Disabled');
             }
         })
 
@@ -125,7 +122,6 @@
         })
 
         $('#btnRekapData').on('click', function() {
-            // console.log(nis);
             getrekapp();
             getinfo();
         });
@@ -133,7 +129,6 @@
         function getrekapp() {
             var nis = $('#findRekapNasabah').val();
             var nama = $('#findRekapNasabah').text();
-            console.log(nis);
 
             var baseUrl = "<?php echo base_url('admin/getrekapdata/'); ?>" + nis;
             $.ajax({
@@ -152,10 +147,8 @@
                             if (data[i].kredit_debet == "kredit") {
                                 var debet = "-";
                                 var kredit = CurrencyID(data[i].nominal);
-                                // var kredit = "Kredit";
                             } else if (data[i].kredit_debet == "debet") {
                                 var debet = CurrencyID(data[i].nominal);
-                                // var debet = "Debet";
                                 var kredit = "-";
                             }
                             if (data[i].saldo != null) {
@@ -163,9 +156,6 @@
                             } else if (data[i].saldo == null) {
                                 var saldo = CurrencyID(0);
                             }
-                            // var infoSaldo = CurrencyID(data[i].saldo);
-                            // var infoOperator = `${data[i].nama_operator}`;
-                            // var infoSaldoTransaksi = CurrencyID(data[i].t_saldo);
                             html += '<tr>' +
                                 '<td>' + no++ + '</td>' +
                                 '<td>' + data[i].nama + '</td>' +
@@ -174,15 +164,10 @@
                                 '<td class="text-right">' + `${kredit}` + '</td>' +
                                 '<td class="text-right">' + `${debet}` + '</td>' +
                                 '<td class="text-right">' + CurrencyID(data[i].saldo) + '</td>' +
-                                // '<td>' + '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-info-circle"></i> </a></td> ' +
-                                // '<td>' +
-                                // '</td>' +
                                 '</tr>'
-                            // console.log(data[i].nama);
                         }
                     }
                     $('#tb_transaksi').html(html);
-                    // $('#table1').dataTable();
                 }
             })
             return false;
@@ -219,13 +204,6 @@
                         var infoSaldo = CurrencyID(data['infoTransaksi'][0]['saldo']);
                         var infoJumlahTransaksi = data['jumlahtransaksi'][0]['jml'];
 
-                        // var infoNama = 'empty';
-                        // var infoKelas = 'empty';
-                        // var infoCreatedAt = 'empty';
-                        // var infoTerakhirTransaksi = 'empty';
-                        // var infoSaldo = 'empty';
-                        // var infoJumlahTransaksi = 'empty';
-                        // var infoOperator = 'empty';
                     }
                     $('#infoNIS').html(infoNIS);
                     $('#infoNama').html(infoNama);
@@ -262,7 +240,6 @@
                     for (i = 0; i < data.length; i++) {
                         html += '<option value="' + data[i].nis + '"> ' + `${data[i].nama}` + '</option>';
                     }
-                    // console.log(nip);
                     $('#findNasabahKredit').html(ini + html);
                     $('#findNasabahDebet').html(ini + html);
                     $('#findRekapNasabah').html(ini + html);
@@ -276,7 +253,6 @@
             $('#idAktivasi').html(nama);
             $('[name="inputidaktivasi"]').val(nis);
 
-            console.log(nama, nis);
         });
 
         $('#btnModalAktivasi').on('click', function() {
@@ -301,24 +277,24 @@
             var nip = $('#inputNIPKredit').val();
             nominal = nominal.replace(/,/g, '');
             nominal = nominal.replace(/,/g, '');
-            // var kredit_debet = "kredit";
-            console.log(nis, nominal);
 
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url('admin/inputdatakredit'); ?>',
-                dataType: 'JSON',
-                data: {
-                    nis: nis,
-                    nominal: nominal,
-                    nip: nip
-                },
-                success: function(data) {
-                    $('#modalKredit').modal('hide');
-                    show_transaksi();
-                }
-            })
-            return false;
+            if (nominal != null && nominal > 0) {                
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo base_url('admin/inputdatakredit'); ?>',
+                    dataType: 'JSON',
+                    data: {
+                        nis: nis,
+                        nominal: nominal,
+                        nip: nip
+                    },
+                    success: function(data) {
+                        $('#modalKredit').modal('hide');
+                        show_transaksi();
+                    }
+                })
+                return false;
+            }
         })
 
 
@@ -330,27 +306,28 @@
             nominal = nominal.replace(/,/g, '');
             nominal = nominal.replace(/,/g, '');
 
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo base_url('admin/inputdatadebet'); ?>',
-                Datatype: 'JSON',
-                data: {
-                    nis: nis,
-                    nominal: nominal,
-                    nip: nip
-                },
-                success: function(data) {
-                    $('#modalDebet').modal('hide');
-                    show_transaksi();
-                }
-            })
-            return false;
+            if (nominal != null && nominal > 0) {      
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo base_url('admin/inputdatadebet'); ?>',
+                    Datatype: 'JSON',
+                    data: {
+                        nis: nis,
+                        nominal: nominal,
+                        nip: nip
+                    },
+                    success: function(data) {
+                        $('#modalDebet').modal('hide');
+                        show_transaksi();
+                    }
+                })
+                return false;
+            }
         })
 
         $('#btnAktivasi').on('click', function() {
             var nis = $('#inputidaktivasi').val();
 
-            console.log(nis);
             $.ajax({
                 type: 'POST',
                 url: '<?php echo base_url('admin/aktivasimember') ?>',
@@ -361,7 +338,6 @@
                 success: function(data) {
                     $('#modalAktivasi').modal('hide');
                     $('#idAktivasi').html("Username");
-                    // alert('sccc');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("data exist");
@@ -409,7 +385,6 @@
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    console.log(data)
                     var html = '';
                     var ini = '<option></option>';
                     var i;
@@ -428,17 +403,14 @@
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    console.table(data);
                     var html = '';
                     var number = 1;
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].kredit_debet == "kredit") {
                             var debet = "-";
                             var kredit = CurrencyID(data[i].nominal);
-                            // var kredit = "Kredit";
                         } else if (data[i].kredit_debet == "debet") {
                             var debet = CurrencyID(data[i].nominal);
-                            // var debet = "Debet";
                             var kredit = "-";
                         }
 
@@ -455,11 +427,6 @@
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
-                            // '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
-                            // '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
-                            // '</td> ' +
-                            // '<td>' +
-                            // '</td>' +
                             '</tr>'
                     }
                     $('#tb_transaksi').html(html);
@@ -480,33 +447,11 @@
         function cetakPDF(fileName) {
             var doc = new jsPDF('p', 'pt');
             var res = doc.autoTableHtmlToJson(document.getElementById("table1"));
-            // var nama = $('#findRekapNasabah').find(':selected').text();
-            // var username = doc.autoTableHtmlToJson(nama);
-            // doc.autoTable();
-            // console.log(username);
             doc.autoTable(res.columns, res.data, {
                 margin: {
                     top: 40
                 }
             });
-
-            // var nasabah = function(data) {
-            //     doc.setFontSize(11);
-            //     doc.setTextColor(40);
-            //     doc.setFontStyle('normal');
-            //     //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
-            //     // doc.text(username, data.settings.margin.left, 50);
-            //     // doc.text("Nasabah2", data.settings.margin.left, 70);
-            // };
-
-            // var options = {
-            //     beforePageContent: nasabah,
-            //     margin: {
-            //         top: 80
-            //     },
-            //     startY: doc.autoTableEndPosY() + 20
-            // };
-
             doc.save(fileName + ".pdf");
         }
     });
