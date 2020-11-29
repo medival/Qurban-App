@@ -35,10 +35,9 @@ if ($this->uri->segment(1) == "operator") {
   $this->load->view('_partials/layout');
   $this->load->view('_partials/sidebar_operator');
 } elseif ($this->uri->segment(1) == "ceksaldo") {
-  $this->load->view('_partials/layout-3');
-  // $this->load->view('_partials/navbar');
-} elseif ($this->uri->segment(2) != "login" && $this->uri->segment(2) != "forgot_password" && $this->uri->segment(2) != "reset_password") {
+  $this->load->view('_partials/common_layout');
+} elseif ($this->uri->segment(1) != "auth") {
   $this->load->view('_partials/layout');
-  $this->load->view('_partials/sidebar');
+  $this->load->view('_partials/sidebar_admin');
 }
 ?>
