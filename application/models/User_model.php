@@ -35,8 +35,12 @@ class User_model extends CI_Model
 
     public function getuser()
     {
-        $query = $this->db->query("SELECT u.id, u.nip, u.name, u.role, u.id_ruang, u.email, u.is_active, u.created_at
-                                    FROM tb_user AS u")->result();
+        $query = $this->db->query("SELECT u.id, u.nip, u.name, u.role, u.id_ruang, u.email, u.is_active, u.created_at, k.kelas, r.ruang
+                                    FROM tb_user AS u
+                                    JOIN tb_ruang AS r
+                                    ON u.id_ruang = r.id_ruang
+                                    JOIN tb_kelas AS k
+                                    ON k.id_kelas = r.id_kelas")->result();
         return $query;
     }
 
@@ -73,12 +77,12 @@ class User_model extends CI_Model
         return $query;
     }
 
-    public function getrolelist()
+    public function getrolelist($req_role)
     {
         $user_data = $this->session->all_userdata();
         $id_role = $user_data['role'];
         if ($id_role == 1) {
-            $query = $this->db->query("SELECT role.id_role, role.name AS role_name FROM tb_role AS role")->result();
+            $query = $this->db->query("SELECT role.id_role, role.name AS role_name FROM tb_role AS role WHERE role.id_role = $req_role")->result();
         }
         return $query;
     }
@@ -98,6 +102,17 @@ class User_model extends CI_Model
         $result = $this->db->update('tb_user', $data,  array('id' => $id));
         return $result;
     }
+
+     public function getadminstratorlist()
+    {
+        $query = $this->db->query("SELECT u.id, u.name, u.role, u.email, u.is_active, u.created_at
+                                    FROM tb_user AS u
+									JOIN tb_role AS r
+									ON r.id_role = u.role
+									WHERE u.role = 1")->result();
+        return $query;
+    }
+
 }
 
 /* End of file: User_model.php */

@@ -60,7 +60,7 @@ $this->load->view('_partials/header');
                         <thead>
                             <tr>
                                 <th style="width: 2rem"> # </th>
-                                <th> Nama </th>
+                                <th style="width: 13rem"> Nama </th>
                                 <th> Tanggal </th>
                                 <th> Operator </th>
                                 <th> Kredit </th>
@@ -132,9 +132,9 @@ $this->load->view('_partials/header');
                     <div class="form-group row text-center" style="width: 28.125rem; margin-left: 0.10rem">
                         <div class="card card-primary col-6">
                             <div class="card-body">
-                                <label class="card-title">Username</label>
+                                <label class="card-title">Nasabah</label>
                                 <h6 class="username" id="userKredit">
-                                    username
+                                    Nama nasabah
                                 </h6>
                             </div>
                         </div>
@@ -166,7 +166,7 @@ $this->load->view('_partials/header');
                 </div>
                 <div class="modal-footer bg-whitesmoke">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btnInputKredit">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="btnInputKredit"> Kredit Tunai </button>
                 </div>
             </form>
         </div>
@@ -194,9 +194,9 @@ $this->load->view('_partials/header');
                     <div class="row" style="width: 28.125rem; margin-left: 0.10rem">
                         <div class="card card-primary col-6 text-center">
                             <div class="card-body">
-                                <label class="card-title">Username</label>
+                                <label class="card-title">Nasabah</label>
                                 <h6 class="username" id="userDebet">
-                                    username
+                                    Nama Nasabah
                                 </h6>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ $this->load->view('_partials/header');
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btnInputDebet">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="btnInputDebet"> Debet Tunai </button>
                     </div>
                 </div>
             </form>
@@ -260,7 +260,7 @@ $this->load->view('_partials/header');
                 <div class="row" style="width: 28.125rem; margin-left: 0.10rem">
                     <div class="card card-primary text-center col-12">
                         <div class="card-body">
-                            <label class="card-title">Username</label>
+                            <label class="card-title">Nasabah</label>
                             <h6 class="username" id="userRekap">
                                 username
                             </h6>
@@ -269,7 +269,7 @@ $this->load->view('_partials/header');
                 </div>
                 <div class="modal-footer bg-whitesmoke">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btnRekapData">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btnRekapData"> Rekap Data </button>
                 </div>
             </div>
         </div>

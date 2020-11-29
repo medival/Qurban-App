@@ -54,6 +54,7 @@
         $('#btnAddRuangan').on('click', function() {
             var id_kelas = $('#pkelas').find(":selected").val();
             var ruang = $('#txtinputruang').val();
+            // console.log(`${ruang} ${id_kelas}`);
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('admin/inputruangkelas') ?>',
@@ -139,7 +140,7 @@
         function show_kelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?php echo base_url('admin/getAllruangkelas'); ?>",
+                url: "<?php echo base_url('admin/getAllRuangKelas'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
@@ -147,14 +148,16 @@
                     var i;
                     var no = 1;
                     for (i = 0; i < data.length; i++) {
+                        if (data[i].name != null) {
+                            walikelas = data[i].name
+                        } else {
+                            walikelas = "-"
+                        }
                         html += '<tr>' +
                             '<td style="width: 2rem">' + no++ + '</td>' +
                             '<td>' + `${data[i].id_ruang}` + '</td>' +
-                            // '<td>' + `${data[i].id_kelas}` + '</td>' +
-                            // '<td>' + 'jml' + '</td>' +
                             '<td>' + `${data[i].kelas}` + ` ${data[i].ruang}` + '</td>' +
-                            // '<td>' + +'</td>' +
-                            '<td>' + `${data[i].name}` + '</td>' +
+                            '<td>' + `${walikelas}` + '</td>' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editruangkelas" data-id_ruang="' + data[i].id_ruang + '" data-id_kelas="' + data[i].id_kelas + '" data-ruang="' + data[i].ruang + '"><i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteruangkelas" data-id_ruang="' + data[i].id_ruang + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';

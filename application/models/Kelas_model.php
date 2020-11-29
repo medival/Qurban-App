@@ -29,23 +29,24 @@ class Kelas_model extends CI_Model
         return $data;
     }
 
-    public function getAllruangkelas()
+    public function getAllRuangKelas()
     {
-        $data = $this->db->query("SELECT r.id_ruang, k.id_kelas, k.kelas, r.ruang, u.name
-                                    FROM tb_kelas AS k
-                                    JOIN tb_ruang AS r
-                                    ON k.id_kelas = r.id_kelas
-                                    JOIN tb_user AS u
-                                    ON r.id_ruang = u.id_ruang")->result();
+        $data = $this->db->query("SELECT r.id_ruang, k.kelas, r.ruang, u.name
+                                    FROM tb_ruang AS r
+                                    NATURAL LEFT JOIN tb_user AS u
+									JOIN tb_kelas AS k
+									ON k.id_kelas = r.id_kelas")->result();
         return $data;
     }
 
-    public function getAllKelasempty()
+    public function getAllKelasEmpty()
     {
-        $data = $this->db->query("SELECT id_ruang
-                                FROM tb_ruang AS r
-                                NATURAL LEFT JOIN tb_user AS u
-                                WHERE u.id_ruang IS NULL")->result();
+        $data = $this->db->query("SELECT r.id_ruang, k.kelas, r.ruang
+                                    FROM tb_ruang AS r
+                                    NATURAL LEFT JOIN tb_user AS u
+									JOIN tb_kelas AS k
+									ON k.id_kelas = r.id_kelas
+									WHERE u.id_ruang IS NULL")->result();
         return $data;
     }
 
@@ -72,7 +73,7 @@ class Kelas_model extends CI_Model
     public function addruangkelas()
     {
         // $post = $this->input->post();
-        // $id_kelas = 97;
+        // $id_kelas = 99;
         // $ruang = 'A';
         $id_kelas = $this->input->post('id_kelas');
         $ruang = $this->input->post('ruang');

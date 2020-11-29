@@ -75,15 +75,26 @@ class Admin extends MY_Controller
         $this->load->view('admin/v_transaksi_backend');
     }
 
-    public function usermanagement()
+    public function operator()
     {
         $data = array(
-            'title' => 'User Management',
+            'title' => 'Management Operator',
             'sess' => $this->session->all_userdata()
         );
 
-        $this->load->view('admin/v_user', $data);
-        $this->load->view('admin/v_user_backend');
+        $this->load->view('admin/v_user_operator', $data);
+        $this->load->view('admin/v_user_operator_backend');
+    }
+
+    public function adminstrator()
+    {
+        $data = array(
+            'title' => 'Management Adminstrator',
+            'sess' => $this->session->all_userdata()
+        );
+
+        $this->load->view('admin/v_user_admin', $data);
+        $this->load->view('admin/v_user_admin_backend');
     }
 
     public function changepassword()
@@ -102,7 +113,7 @@ class Admin extends MY_Controller
             'title' => 'Change Password',
             'sess'  => $this->session->all_userdata()
         );
-        $this->load->view('admin/v_changepassword', $data);
+        $this->load->view('change_password/v_changepassword', $data);
     }
 
     public function getAllnasabah()
@@ -140,15 +151,15 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
-    public function getAllruangkelas()
+    public function getAllRuangKelas()
     {
-        $data = $this->kelas_model->getAllruangkelas();
+        $data = $this->kelas_model->getAllRuangKelas();
         echo json_encode($data);
     }
 
-    public function getAllKelasempty()
+    public function getAllKelasEmpty()
     {
-        $data = $this->kelas_model->getAllKelasempty();
+        $data = $this->kelas_model->getAllKelasEmpty();
         echo json_encode($data);
     }
 
@@ -215,15 +226,12 @@ class Admin extends MY_Controller
     {
         $user_data = $this->session->all_userdata();
         $nip = $user_data['nip'];
-        // var_dump($user_data);
-        // var_dump($nip);
         if ($nip == '') {
             $nip = null;
         }
 
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
-        // $nip = $this->input->post('nip');
         $result = $this->db->query("SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis=" . $nis)->result();
@@ -261,8 +269,6 @@ class Admin extends MY_Controller
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
         $nip = $this->input->post('nip');
-        // $nis = 5386;
-        // $nominal = 1000;
         $result = $this->db->query("SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis = " . $nis)->result();
@@ -273,7 +279,6 @@ class Admin extends MY_Controller
                 $saldo_akhir = $saldo_tabungan - $nominal;
             } else if (($saldo_tabungan <= 0)) {
                 $saldo_akhir = $saldo_tabungan;
-                // $nominal = 0;
                 redirect('admin/transaksi');
             } else if (($nominal > $saldo_tabungan)) {
                 $nominal = 0;
@@ -323,7 +328,6 @@ class Admin extends MY_Controller
     public function Allnonmember()
     {
         $data = $this->nasabah_model->allnonmember();
-        // var_dump($data);
         echo json_encode($data);
     }
 
@@ -351,9 +355,23 @@ class Admin extends MY_Controller
         echo json_encode($data);
     }
 
+    public function getadmin()
+    {
+        $data = $this->user_model->getadminstratorlist();
+        echo json_encode($data);
+    }
+
     public function getrole()
     {
-        $data = $this->user_model->getrolelist();
+        $operator = 2;
+        $data = $this->user_model->getrolelist($operator);
+        echo json_encode($data);
+    }
+
+    public function getroleadmin()
+    {
+        $admin = 1;
+        $data = $this->user_model->getrolelist($admin);
         echo json_encode($data);
     }
 
@@ -362,18 +380,6 @@ class Admin extends MY_Controller
         $data = $this->user_model->kontrol($id);
         echo json_encode($data);
     }
-
-    public function checkpassword($newPassword, $confirmPassword)
-    {
-        if ($newPassword != $confirmPassword) {
-            return 1;
-        } else {
-            $newPassword = $this->input->post('newPassword');
-            $result = $this->auth_model->changepassword($newPassword);
-            return $result;
-        }
-        // $this->load->view('admin/v_changepassword', $data);
-    }
 }
 
-/* End of file: Member.php */
+/* End of file: Admin.php */

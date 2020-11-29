@@ -36,7 +36,7 @@
             allowClear: true
         })
 
-        $('#tambahUser').on('click', function() {
+        $('#tambahOperator').on('click', function() {
             getkelaslist();
             getrole();
         })
@@ -173,7 +173,7 @@
                     role: role
                 },
                 success: function(data) {
-                    $('#modalTambahUser').modal('hide');
+                    $('#modalTambahOperator').modal('hide');
                     show_user();
                 }
             })
@@ -215,10 +215,11 @@
         function show_kelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?php echo base_url('admin/getkelaslist'); ?>",
+                url: "<?php echo base_url('admin/getAllKelasEmpty'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
+                    console.table(data);
                     var html = '';
                     var i;
                     for (i = 0; i < data.length; i++) {
@@ -239,10 +240,11 @@
         function getkelaslist() {
             $.ajax({
                 type: "ajax",
-                url: '<?= base_url('admin/getAllruangkelas') ?>',
+                url: '<?= base_url('admin/getAllKelasEmpty') ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
+                    console.table(data);
                     var html = '';
                     var i;
                     var ini = '<option></option>';
@@ -315,7 +317,7 @@
                 async: false,
                 dataType: 'JSON',
                 success: function(data) {
-                    // console.log
+                    console.log(data)
                     var html = '';
                     var no = 1;
                     var i;
@@ -334,7 +336,7 @@
                         var name = data[i].name;
                         var nip = data[i].nip;
                         var email = data[i].email;
-                        var id_ruang = data[i].id_ruang;
+                        var id_ruang = `${data[i].kelas} ${data[i].ruang}` ;
                         var created_at = epochtodate(data[i].created_at);
 
                         html += '<tr>' +

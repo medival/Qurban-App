@@ -1,9 +1,9 @@
 <script>
     $(document).ready(function() {
-
         show_nasabah();
+
         $('#table1').dataTable({
-            "pageLength": 50
+            "pageLength": 50,
         });
 
         var cleaveNIS = new Cleave('.inputNIS', {
@@ -39,7 +39,18 @@
             allowClear: true
         });
 
-        $('#btnModalAddNasabah').on('click', function() {
+        $('#modalTambahNasabah').on('hidden.bs.modal', function() {
+            $('#editNIS').val("");
+            $('#editNama').val("");
+            $('#editAlamat').val("");
+            $('#editTempatLahir').val("");
+            $('#editTanggalLahir').val("");
+            $('#editNamaOrtu').val("");
+            $('#editKontakOrangTua').val("");
+            $('[name="edit_jenis_kelamin"]').checked = false;
+        })
+
+        $('#btnModalAddSiswa').on('click', function() {
             pilihkelas();
         })
 
@@ -75,7 +86,7 @@
         function pilihkelas() {
             $.ajax({
                 type: "ajax",
-                url: "<?= base_url('operator/getruangkelas'); ?>",
+                url: "<?= base_url('operator/getAllRuangKelas'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
@@ -89,34 +100,34 @@
                     $('#ekelas').html(html);
                 }
             })
-            show_nasabah();
         }
-        $('#table_nasabah').on('click', '.deleteNasabah', function() {
+        $('#table_nasabah').on('click', '.deleteDataSiswa', function() {
             var nis = $(this).data('nis');
-
-            $('#modalHapusNasabah').modal('show');
+            console.log(nis);
+            $('#modalHapusSiswa').modal('show');
             $('[name="deleteNIS"]').val(nis);
         })
 
         $('#btnDeleteNasabah').on('click', function() {
             var nis = $('#deleteNIS').val();
+            console.log(nis);
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('operator/deletenasabah') ?>",
+                url: "<?= base_url('operator/deleteDataSiswa') ?>",
                 dataType: "JSON",
                 data: {
                     nis: nis
                 },
                 success: function(data) {
                     $('[name="deleteNIS"]').val("");
-                    $('#modalHapusNasabah').modal('hide');
+                    $('#modalHapusSiswa').modal('hide');
                     show_nasabah();
                 }
             });
             return false;
         })
 
-        $('#table_nasabah').on('click', '.editNasabah', function() {
+        $('#table_nasabah').on('click', '.editDataSiswa', function() {
             pilihkelas();
 
             var nis = $(this).data('nis');
@@ -130,7 +141,7 @@
             var id_ruang = $(this).data('id_ruang');
 
             // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
-            $('#modalEditNasabah').modal('show');
+            $('#modalEditSiswa').modal('show');
             $('[name="editNIS"]').val(nis);
             $('[name="editNama"]').val(nama);
             $('[name="editAlamat"]').val(alamat);
@@ -147,7 +158,7 @@
             document.getElementById('ekelas').value = id_ruang;
         })
 
-        $('#btnEditNasabah').on('click', function() {
+        $('#btnEditSiswa').on('click', function() {
             var nis = $('#editNIS').val();
             var nama = $('#editNama').val();
             var alamat = $('#editAlamat').val();
@@ -161,10 +172,10 @@
             var tanggal_lahir1 = datetoepoch(tanggal_lahir);
             var id_ruang = $('#ekelas').find(':selected').val();
 
-            console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir1, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
+            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir1, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $.ajax({
                 type: 'POST',
-                url: "<?= base_url('operator/updatenasabah'); ?>",
+                url: "<?= base_url('operator/updateDataSiswa'); ?>",
                 dataType: "JSON",
                 data: {
                     nis: nis,
@@ -178,22 +189,22 @@
                     id_ruang: id_ruang,
                 },
                 success: function(data) {
-                    // $('[name="editNIS"]').val("");
-                    // $('[name="editNama"]').val("");
-                    // $('[name="editAlamat"]').val("");
-                    // $('[name="editTempatLahir"]').val("");
-                    // $('[name="editTanggalLahir"]').val("");
-                    // $('[name="editNamaOrtu"]').val("");
-                    // $('[name="editKontakOrangTua"]').val("");
-                    // $('[name="edit_jenis_kelamin"]').checked = false;
-                    $("#modalEditNasabah").modal('hide');
+                    $('[name="editNIS"]').val("");
+                    $('[name="editNama"]').val("");
+                    $('[name="editAlamat"]').val("");
+                    $('[name="editTempatLahir"]').val("");
+                    $('[name="editTanggalLahir"]').val("");
+                    $('[name="editNamaOrtu"]').val("");
+                    $('[name="editKontakOrangTua"]').val("");
+                    $('[name="edit_jenis_kelamin"]').checked = false;
+                    $("#modalEditSiswa").modal('hide');
                     show_nasabah();
                 }
             })
             return false;
         })
 
-        $('#btnAddNasabah').on('click', function() {
+        $('#btnAddSiswa').on('click', function() {
             var nis = $('#inputNIS').val();
             var nama = $('#inputNama').val();
             var alamat = $('#inputAlamat').val();
@@ -204,11 +215,11 @@
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
             var kontak_orangtua = kontak_orangtua.replace(/\s/g, '');
             var jenis_kelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-            var id_ruang = $('#ekelas').find(':selected').val();
+            var id_ruang = $('#pkelas').find(':selected').val();
 
             $.ajax({
                 type: 'POST',
-                url: "<?= base_url('operator/inputnasabah'); ?>",
+                url: "<?= base_url('operator/inputDataSiswa'); ?>",
                 dataType: "JSON",
                 data: {
                     nis: nis,
@@ -222,15 +233,17 @@
                     jenis_kelamin: jenis_kelamin,
                 },
                 success: function(data) {
-                    // $('[name="inputNIS"]').val("");
-                    // $('[name="inputNama"]').val("");
-                    // $('[name="inputAlamat"]').val("");
-                    // $('[name="inputTempatLahir"]').val("");
-                    // $('[name="inputTanggalLahir"]').val("");
-                    // $('[name="inputNamaOrtu"]').val("");
-                    // $('[name="inputKontakOrangTua"]').val("");
-                    // $('[name="inputKontakOrangTua"]').val("");
                     $('#modalTambahNasabah').modal('hide');
+                    $('[name="inputNIS"]').val("");
+                    $('[name="inputNama"]').val("");
+                    $('[name="inputAlamat"]').val("");
+                    $('[name="inputTempatLahir"]').val("");
+                    $('[name="inputTanggalLahir"]').val("");
+                    $('[name="inputNamaOrtu"]').val("");
+                    $('[name="inputKontakOrangTua"]').val("");
+                    $('[name="inputKontakOrangTua"]').val("");
+                    $('input[name="jenis_kelamin"]').prop("checked", false);
+                    $('#pkelas').select2('val', '');
                     show_nasabah();
                 }
             });
@@ -241,10 +254,11 @@
         function show_nasabah() {
             $.ajax({
                 type: "ajax",
-                url: "<?php echo base_url('operator/data_nasabah'); ?>",
+                url: "<?php echo base_url('operator/getAllDataSiswa'); ?>",
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
+                    console.table(data);
                     var html = '';
                     var i;
                     var no = 1;
@@ -259,10 +273,11 @@
                             '<td>' + `${data[i].nis}` + '</td>' +
                             '<td>' + `${data[i].nama}` + '</td>' +
                             '<td>' + ` ${data[i].kelas} ` + `${data[i].ruang}` + '</td>' +
+                            '<td>' + ` ${data[i].name} ` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
                             // '<td>' + `${aktif}` + '</td >' +
-                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editNasabah" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +
-                            '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteNasabah" data-nis="' + data[i].nis + '"> <i class="fa fa-trash"></i> </a></td> ' +
+                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editDataSiswa" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +
+                            '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteDataSiswa" data-nis="' + data[i].nis + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';
                     }
                     $('#table_nasabah').html(html);

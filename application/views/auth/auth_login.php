@@ -28,10 +28,11 @@ $this->load->view('_partials/header');
                             <div class="card-body">
                                 <form method="post" action="<?php echo base_url('auth/login'); ?>" role="login" class="needs-validation" novalidate="">
                                     <div class="form-group">
-                                        <label for="email">Username</label>
+                                        <label for="email">Email</label>
                                         <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                                        <div class="text-muted text-small"> Use valid email </div>
                                         <div class="invalid-feedback">
-                                            Please fill in your username
+                                            Check your email and make it sure valid OK
                                         </div>
                                     </div>
 
@@ -42,8 +43,9 @@ $this->load->view('_partials/header');
                                             </div>
                                         </div>
                                         <input id="password" type="password" class="form-control" name="password" tabindex="2" required minlength="4">
+                                        <div class="text-muted text-small"> Min password is 8 char </div>
                                         <div class="invalid-feedback">
-                                            please fill in your password
+                                            Writte correctly 
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -55,7 +57,7 @@ $this->load->view('_partials/header');
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy;Qurban App <?= date('Y');?>
+                            Copyright &copy; Qurban App <?= date('Y');?>
                         </div>
                     </div>
                 </div>
@@ -63,8 +65,8 @@ $this->load->view('_partials/header');
         </section>
     </div>
 </body>
-<script src="<?php echo base_url(); ?>assets/modules/notify/notify.min.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/modules/notify/notify.min.js"></script> -->
 <?php $this->load->view('_partials/js'); ?>
 <script>
-    $('#myalert').delay('slow').slideUp('slow').delay(3100).slideUp(100);
+    $('#myalert').delay('slow').slideUp('slow').delay(7000).slideUp(100);
 </script>

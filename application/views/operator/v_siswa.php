@@ -7,10 +7,10 @@ $this->load->view('_partials/header');
     <section class="section">
         <div class="card card-primary">
             <div class="card-header">
-                <h3> Data <?= $title; ?> </h3>
+                <h3> <?= $title; ?> </h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button href="#" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
+                        <button href="<?= base_url(''); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahSiswa" id="btnModalAddSiswa">
                             <i class="fa fa-user-plus"></i> Tambah <?= $title ?>
                         </button>
                     </div>
@@ -25,12 +25,14 @@ $this->load->view('_partials/header');
                                 <th>NIS</th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
+                                <th>Walikelas</th>
                                 <th>Terdaftar</th>
                                 <!-- <th>Status</th> -->
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="table_nasabah">
+
                         </tbody>
                     </table>
                 </div>
@@ -39,17 +41,17 @@ $this->load->view('_partials/header');
     </section>
 
     <!-- Modal Tambah Nasabah -->
-    <div class="modal fade" tabindex="" role="dialog" id="modalTambahNasabah">
+    <div class="modal fade" tabindex="" role="dialog" id="modalTambahSiswa">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Tambah <?= $title ?> </h5>
+                    <h5 class="modal-title"> Tambah Siswa </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" class="needs-validation" novalidate="">
+                    <form action="" class="needs-validation" novalidate="" id="frmTambahNasabah">
                         <p class="text-muted"> Informasi Pribadi </p>
                         <div class="form-group">
                             <label for="" class=" col-form-label">NIS</label>
@@ -63,7 +65,7 @@ $this->load->view('_partials/header');
                         <div class="form-group">
                             <label for="" class=" col-form-label">Nama Lengkap</label>
                             <div class="col-sm">
-                                <input type="text" class="form-control" nama="inputNama" id="inputNama" placeholder="Nama" required>
+                                <input type="text" class="form-control" name="inputNama" id="inputNama" placeholder="Nama" required>
                                 <div class="invalid-feedback">
                                     Masukan nama lengkap calon nasabah?
                                 </div>
@@ -110,6 +112,7 @@ $this->load->view('_partials/header');
                             <label for="" class=" col-form-label"> Tanggal Lahir </label>
                             <div class="col-sm">
                                 <input type="varchar" class="form-control inputTanggalLahir" id="inputTanggalLahir" placeholder="YYYY-MM-DD" required name="inputTanggalLahir">
+                                <div class="text-muted"> Format YYYY-MM-DD</div>
                                 <div class="invalid-feedback">
                                     Masukan tanggal lahir calon nasabah?
                                 </div>
@@ -151,7 +154,7 @@ $this->load->view('_partials/header');
                         </div>
                         <div class="modal-footer bg-whitesmoke br">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" id="btnAddNasabah"> Simpan Data </button>
+                            <button type="submit" class="btn btn-primary" id="btnAddSiswa"> Tambah Data </button>
                         </div>
                     </form>
                 </div>
@@ -160,12 +163,12 @@ $this->load->view('_partials/header');
     </div>
     <!-- End of Modal Tambah Nasabah -->
 
-    <!-- Modal Edit Nasabah -->
-    <div class="modal fade" tabindex="" role="dialog" id="modalEditNasabah">
+    <!-- Modal Edit Siswa -->
+    <div class="modal fade" tabindex="" role="dialog" id="modalEditSiswa">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Edit Data <?= $title ?> </h5>
+                    <h5 class="modal-title"> Edit <?= $title ?> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -273,17 +276,17 @@ $this->load->view('_partials/header');
                         </div>
                         <div class="modal-footer bg-whitesmoke br">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="btnEditNasabah"> Update Data </button>
+                            <button type="button" class="btn btn-primary" id="btnEditSiswa"> Update Data </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End of Modal Edit Nasabah -->
+    <!-- End of Modal Edit Siswa -->
 
     <!-- Modal Delete Nasabah -->
-    <div class="modal fade" tabindex="" role="dialog" id="modalHapusNasabah">
+    <div class="modal fade" tabindex="" role="dialog" id="modalHapusSiswa">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

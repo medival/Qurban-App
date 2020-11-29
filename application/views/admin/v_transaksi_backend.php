@@ -428,6 +428,7 @@
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
+                    console.table(data);
                     var html = '';
                     var number = 1;
                     for (var i = 0; i < data.length; i++) {

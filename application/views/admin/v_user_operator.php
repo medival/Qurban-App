@@ -10,8 +10,8 @@ $this->load->view('_partials/header');
                 <h3><?= $title; ?></h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalTambahUser" id="tambahUser">
-                            <i class="fa fa-user-plus"></i> Tambah User
+                        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalTambahOperator" id="tambahOperator">
+                            <i class="fa fa-user-plus"></i> Tambah Operator
                         </button>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ $this->load->view('_partials/header');
 </div>
 
 <!-- Modal Tambah User -->
-<div class="modal fade" tabindex="" role="dialog" id="modalTambahUser">
+<div class="modal fade" tabindex="" role="dialog" id="modalTambahOperator">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

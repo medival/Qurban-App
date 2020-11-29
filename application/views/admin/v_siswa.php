@@ -112,6 +112,7 @@ $this->load->view('_partials/header');
                             <label for="" class=" col-form-label"> Tanggal Lahir </label>
                             <div class="col-sm">
                                 <input type="varchar" class="form-control inputTanggalLahir" id="inputTanggalLahir" placeholder="YYYY-MM-DD" required name="inputTanggalLahir">
+                                <div class="text-muted"> Format YYYY-MM-DD</div>
                                 <div class="invalid-feedback">
                                     Masukan tanggal lahir calon nasabah?
                                 </div>

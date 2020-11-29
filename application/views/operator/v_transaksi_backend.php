@@ -1,10 +1,9 @@
 <script>
     $(document).ready(function() {
-
         show_transaksi();
 
         $('#table1').dataTable({
-            "pageLength": 50
+            "pageLength": 50,
         });
 
         $('.findNasabah').select2({
@@ -62,10 +61,6 @@
         $('#modalRekap').on('hidden.bs.modal', function() {
             $('#inputNISRekap').val("");
             $('#userRekap').html('username');
-        })
-
-        $('#titleTransaksi').on('click', function() {
-            console.log('wkwkw');
         })
 
         $('#findNasabahKredit').on('change', function() {
@@ -138,6 +133,7 @@
         function getrekapp() {
             var nis = $('#findRekapNasabah').val();
             var nama = $('#findRekapNasabah').text();
+            console.log(nis);
 
             var baseUrl = "<?php echo base_url('operator/getrekapdata/'); ?>" + nis;
             $.ajax({
@@ -365,7 +361,7 @@
                 success: function(data) {
                     $('#modalAktivasi').modal('hide');
                     $('#idAktivasi').html("Username");
-                    alert('sccc');
+                    // alert('sccc');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("data exist");
@@ -407,14 +403,13 @@
         }
 
         function carinasabah() {
-
             $.ajax({
                 type: "ajax",
                 url: '<?= base_url('operator/getnonmember') ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    console.log(data);
+                    console.log(data)
                     var html = '';
                     var ini = '<option></option>';
                     var i;
@@ -429,15 +424,14 @@
         function show_transaksi() {
             $.ajax({
                 type: 'ajax',
-                url: '<?= base_url('operator/gettransaksidata'); ?>',
+                url: '<?= base_url('operator/getalltransaksi'); ?>',
                 async: false,
                 dataType: "JSON",
                 success: function(data) {
-                    // console.log(data);
+                    console.table(data);
                     var html = '';
                     var number = 1;
                     for (var i = 0; i < data.length; i++) {
-                        // console.log(data);
                         if (data[i].kredit_debet == "kredit") {
                             var debet = "-";
                             var kredit = CurrencyID(data[i].nominal);
@@ -461,6 +455,11 @@
                             '<td class="text-right">' + `${kredit}` + '</td>' +
                             '<td class="text-right">' + `${debet}` + '</td>' +
                             '<td class="text-right">' + `${saldo}` + '</td>' +
+                            // '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-file-alt"></i> </a> ' +
+                            // '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary" data-nis="' + data[i].nis + '"> <i class="fa fa-user"></i> </a></td> ' +
+                            // '</td> ' +
+                            // '<td>' +
+                            // '</td>' +
                             '</tr>'
                     }
                     $('#tb_transaksi').html(html);

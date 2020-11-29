@@ -20,13 +20,11 @@ class Operator extends MY_Controller
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
-        // var_dump($id_ruang);
         $data = array(
             'title'         => 'Dashboard',
             'sess'          => $user_data,
             'info'          => $this->operator_model->info_dashboard($id_ruang)
         );
-        // var_dump($data);
         $this->load->view('operator/v_index', $data);
     }
 
@@ -38,7 +36,7 @@ class Operator extends MY_Controller
         );
 
         $this->load->view('operator/v_transaksi', $data);
-        // $this->load->view('operator/v_transaksi_backend');
+        $this->load->view('operator/v_transaksi_backend');
     }
 
     public function siswa()
@@ -46,11 +44,9 @@ class Operator extends MY_Controller
         $data = array(
             'title' => 'Siswa',
             'sess' => $this->session->all_userdata(),
-            // 'siswa' =>  
         );
-        // var_dump($data);
         $this->load->view('operator/v_siswa', $data);
-        // $this->load->view('operator/v_siswa_backend');
+        $this->load->view('operator/v_siswa_backend');
     }
 
     public function changepassword()
@@ -69,7 +65,7 @@ class Operator extends MY_Controller
             'title' => 'Change Password',
             'sess'  => $this->session->all_userdata()
         );
-        $this->load->view('operator/v_changepassword', $data);
+        $this->load->view('change_password/v_changepassword', $data);
     }
 
     public function getlisttransaksi()
@@ -84,7 +80,7 @@ class Operator extends MY_Controller
         echo json_encode($data);
     }
 
-    public function getMemberList()
+    public function getNasabahAktif()
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
@@ -126,7 +122,6 @@ class Operator extends MY_Controller
             'nip' => $nip
         );
         $data2 = array(
-            // 'nis' => $nis,
             'saldo' => $saldo_akhir,
             'nip' => $nip
         );
@@ -140,8 +135,6 @@ class Operator extends MY_Controller
         $nis = $this->input->post('nis');
         $nominal = $this->input->post('nominal');
         $nip = $this->input->post('nip');
-        // $nis = 5386;
-        // $nominal = 1000;
         $result = $this->db->query("SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis = " . $nis)->result();
@@ -152,7 +145,6 @@ class Operator extends MY_Controller
                 $saldo_akhir = $saldo_tabungan - $nominal;
             } else if (($saldo_tabungan <= 0)) {
                 $saldo_akhir = $saldo_tabungan;
-                // $nominal = 0;
                 redirect('operator/transaksi');
             } else if (($nominal > $saldo_tabungan)) {
                 $nominal = 0;
@@ -193,7 +185,7 @@ class Operator extends MY_Controller
         echo json_encode($data);
     }
 
-    public function gettransaksidata()
+    public function getalltransaksi()
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
@@ -203,7 +195,7 @@ class Operator extends MY_Controller
     }
 
 
-    public function data_nasabah()
+    public function getAllDataSiswa()
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
@@ -211,25 +203,25 @@ class Operator extends MY_Controller
         echo json_encode($data);
     }
 
-    public function inputnasabah()
+    public function inputDataSiswa()
     {
         $data = $this->nasabah_model->input();
         echo json_encode($data);
     }
 
-    public function updatenasabah()
+    public function updateDataSiswa()
     {
         $data = $this->nasabah_model->update();
         echo json_encode($data);
     }
 
-    public function deletenasabah()
+    public function deleteDataSiswa()
     {
         $data = $this->nasabah_model->delete();
         echo json_encode($data);
     }
 
-    public function getruangkelas()
+    public function getAllRuangKelas()
     {
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
@@ -249,7 +241,6 @@ class Operator extends MY_Controller
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
         $data = $this->nasabah_model->getnonmember($id_ruang);
-        // var_dump($data);
         echo json_encode($data);
     }
 
@@ -262,7 +253,6 @@ class Operator extends MY_Controller
             $result = $this->auth_model->changepassword($newPassword);
             return $result;
         }
-        // $this->load->view('admin/v_changepassword', $data);
     }
 }
 
