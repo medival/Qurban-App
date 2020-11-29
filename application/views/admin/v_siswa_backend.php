@@ -139,7 +139,6 @@
             var kontak_orangtua = $(this).data('kontak_orangtua');
             var id_ruang = $(this).data('id_ruang');
 
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $('#modalEditNasabah').modal('show');
             $('[name="editNIS"]').val(nis);
             $('[name="editNama"]').val(nama);
@@ -148,7 +147,6 @@
             $('[name="editTanggalLahir"]').val(epochtodate(tanggal_lahir));
             $('[name="editNamaOrtu"]').val(nama_ortu);
             $('[name="editKontakOrangTua"]').val(kontak_orangtua);
-            // console.log(jenis_kelamin);
             if (jenis_kelamin == "L") {
                 document.getElementById("editLakiLaki").checked = true;
             } else if (jenis_kelamin == "P") {
@@ -171,7 +169,6 @@
             var tanggal_lahir1 = datetoepoch(tanggal_lahir);
             var id_ruang = $('#ekelas').find(':selected').val();
 
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir1, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $.ajax({
                 type: 'POST',
                 url: "<?= base_url('admin/updatenasabah'); ?>",
@@ -247,7 +244,6 @@
                 }
             });
             return false;
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
         })
 
         function show_nasabah() {
@@ -273,7 +269,6 @@
                             '<td>' + ` ${data[i].kelas} ` + `${data[i].ruang}` + '</td>' +
                             '<td>' + ` ${data[i].operator} ` + '</td>' +
                             '<td>' + epochtodate(data[i].created_at) + '</td>' +
-                            // '<td>' + `${aktif}` + '</td >' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editNasabah" data-nis="' + data[i].nis + '" data-nama="' + data[i].nama + '" data-jenis_kelamin="' + data[i].jenis_kelamin + '" data-tempat_lahir="' + data[i].tempat_lahir + '" data-tanggal_lahir="' + data[i].tanggal_lahir + '" data-alamat="' + data[i].alamat + '" data-nama_ortu="' + data[i].nama_ortu + '" data-kontak_orangtua="' + `${data[i].kontak_orangtua}` + '" data-id_ruang="' + `${data[i].id_ruang}` + '"> <i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteNasabah" data-nis="' + data[i].nis + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';

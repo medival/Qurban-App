@@ -140,7 +140,6 @@
             var kontak_orangtua = $(this).data('kontak_orangtua');
             var id_ruang = $(this).data('id_ruang');
 
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $('#modalEditSiswa').modal('show');
             $('[name="editNIS"]').val(nis);
             $('[name="editNama"]').val(nama);
@@ -149,7 +148,6 @@
             $('[name="editTanggalLahir"]').val(epochtodate(tanggal_lahir));
             $('[name="editNamaOrtu"]').val(nama_ortu);
             $('[name="editKontakOrangTua"]').val(kontak_orangtua);
-            // console.log(jenis_kelamin);
             if (jenis_kelamin == "L") {
                 document.getElementById("editLakiLaki").checked = true;
             } else if (jenis_kelamin == "P") {
@@ -172,7 +170,6 @@
             var tanggal_lahir1 = datetoepoch(tanggal_lahir);
             var id_ruang = $('#ekelas').find(':selected').val();
 
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir1, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
             $.ajax({
                 type: 'POST',
                 url: "<?= base_url('operator/updateDataSiswa'); ?>",
@@ -248,7 +245,6 @@
                 }
             });
             return false;
-            // console.log(nis, nama, alamat, tempat_lahir, tanggal_lahir, nama_ortu, kontak_orangtua, id_ruang, jenis_kelamin)
         })
 
         function show_nasabah() {

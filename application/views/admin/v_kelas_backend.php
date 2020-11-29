@@ -41,7 +41,6 @@
                     kelas: kelas
                 },
                 success: function(data) {
-                    // $('[name="inputkelas"]').val("");
                     $('#modalTambahKelas').modal('hide');
                     show_kelas();
                 }
@@ -72,8 +71,6 @@
                     kelas: kelas
                 },
                 success: function(data) {
-                    // $('[name="editIdKelas"]').val("");
-                    // $('[name="editKelas"]').val("");
                     $("#modalEditKelas").modal('hide');
                     show_kelas();
                 }
@@ -96,7 +93,6 @@
                             '<td style="width: 2rem">' + no++ + '</td>' +
                             '<td>' + `${data[i].id_kelas}` + '</td>' +
                             '<td>' + `${data[i].kelas}` + '</td>' +
-                            // '<td>' + "Walikelas" + '</td>' +
                             '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editkelas" data-id_kelas="' + data[i].id_kelas + '" data-kelas="' + data[i].kelas + '"><i class="fa fa-file-alt"></i> </a> ' +
                             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deletekelas" data-id_kelas="' + data[i].id_kelas + '"> <i class="fa fa-trash"></i> </a></td> ' +
                             '</tr>';

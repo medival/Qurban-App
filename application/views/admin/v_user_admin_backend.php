@@ -4,18 +4,6 @@
 
         $('#table1').dataTable();
 
-        // var cleaveNIP = new Cleave('.inputNIP', {
-        //     numericOnly: true,
-        //     blocks: [3, 2, 7],
-        //     delimiter: '.'
-        // })
-
-        // var cleaveNIP2 = new Cleave('.editNIP', {
-        //     numericOnly: true,
-        //     blocks: [3, 2, 7],
-        //     delimiter: '.'
-        // })
-
         $('.inputRole').select2({
             placeholder: "Pilih Hak Akses",
             allowClear: true
@@ -27,7 +15,6 @@
         })
 
         $('#tambahUser').on('click', function() {
-            getkelaslist();
             getrole();
         })
 
@@ -101,7 +88,6 @@
             var role = $('#eRole').find(':selected').val();
             var id_ruang = $('#eRuang').find(':selected').val();
 
-            // console.log(id, nip, name, id_ruang, email, role)
             $.ajax({
                 type: 'post',
                 url: '<?= base_url('admin/edituser'); ?>',
@@ -165,72 +151,6 @@
             $('[name="editIdKelas"]').val(id_kelas);
             $('[name="editKelas"]').val(kelas);
         })
-
-        $('#btnUpdateKelas').on('click', function() {
-            var kelas = $('#editKelas').val();
-            var id_kelas = $('#editIdKelas').val();
-
-            $.ajax({
-                type: 'POST',
-                url: '<?= base_url('admin/updatedatakelas'); ?>',
-                dataType: 'JSON',
-                data: {
-                    id_kelas: id_kelas,
-                    kelas: kelas
-                },
-                success: function(data) {
-                    // $('[name="editIdKelas"]').val("");
-                    // $('[name="editKelas"]').val("");
-                    $("#modalEditKelas").modal('hide');
-                    show_kelas();
-                }
-            })
-            return false;
-        })
-
-        function show_kelas() {
-            $.ajax({
-                type: "ajax",
-                url: "<?php echo base_url('admin/getkelaslist'); ?>",
-                async: false,
-                dataType: "JSON",
-                success: function(data) {
-                    var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
-                        html += '<tr>' +
-                            '<td>' + i + '</td>' +
-                            '<td>' + `${data[i].id_kelas}` + '</td>' +
-                            '<td>' + `${data[i].kelas}` + '</td>' +
-                            '<td>' + "Walikelas" + '</td>' +
-                            '<td> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-primary editkelas" data-id_kelas="' + data[i].id_kelas + '" data-kelas="' + data[i].kelas + '"><i class="fa fa-file-alt"></i> </a> <a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deletekelas" data-id_kelas="' + data[i].id_kelas + '"> <i class="fa fa-trash"></i> </a></td> ' +
-                            '</tr>';
-                    }
-                    $('#table_kelas').html(html);
-                }
-            })
-            return false;
-        }
-
-        function getkelaslist() {
-            $.ajax({
-                type: "ajax",
-                url: '<?= base_url('admin/getAllruangkelas') ?>',
-                async: false,
-                dataType: "JSON",
-                success: function(data) {
-                    var html = '';
-                    var i;
-                    var ini = '<option></option>';
-                    for (i = 0; i < data.length; i++) {
-                        html += '<option value="' + `${data[i].id_ruang}` + '"> ' + `${data[i].kelas}` + ' ' +
-                            `${data[i].ruang}` + '</option>'
-                    }
-                    $('#pkelas').html(ini + html);
-                    $('#eRuang').html(ini + html);
-                }
-            })
-        }
 
         function getrole() {
             $.ajax({

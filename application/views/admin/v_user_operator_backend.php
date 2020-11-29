@@ -119,7 +119,6 @@
             var role = $('#eRole').find(':selected').val();
             var id_ruang = $('#eRuang').find(':selected').val();
 
-            // console.log(id, nip, name, id_ruang, email, role)
             $.ajax({
                 type: 'post',
                 url: '<?= base_url('admin/edituser'); ?>',
@@ -203,8 +202,6 @@
                     kelas: kelas
                 },
                 success: function(data) {
-                    // $('[name="editIdKelas"]').val("");
-                    // $('[name="editKelas"]').val("");
                     $("#modalEditKelas").modal('hide');
                     show_kelas();
                 }

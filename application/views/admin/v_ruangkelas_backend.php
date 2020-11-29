@@ -18,7 +18,6 @@
 
         $('#btnDeleteRuangan').on('click', function() {
             var id_ruang = $('#deleteid_ruang').val();
-            // console.log(id_ruang);
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('admin/deleteruangkelas'); ?>',
@@ -54,7 +53,6 @@
         $('#btnAddRuangan').on('click', function() {
             var id_kelas = $('#pkelas').find(":selected").val();
             var ruang = $('#txtinputruang').val();
-            // console.log(`${ruang} ${id_kelas}`);
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('admin/inputruangkelas') ?>',
@@ -86,17 +84,14 @@
                     var ini = '<option></option>';
                     var i;
                     for (i = 0; i < data.length; i++) {
-                        // ini;
                         html += '<option value="' + data[i].id_kelas + '">' + data[i].kelas + ' </option>';
                     }
                     $('#pkelas').html(ini + html);
                     $('#ekelas').html(ini + html);
-                    // show_kelas();
                 }
             })
             return false;
         }
-
 
         $('#table1').on('click', '.editruangkelas', function() {
             func_pilihkelas();
@@ -112,7 +107,6 @@
         })
 
         $('#btnEditRuangan').on('click', function() {
-
             var id_ruang = $('#editidruang').val();
             var ruang = $('#editruang').val();
             var id_kelas = $('#ekelas').find(':selected').val();
@@ -134,7 +128,6 @@
                 }
             })
             return false;
-            // console.log(ruang, id_ruang, id_kelas)
         })
 
         function show_kelas() {
