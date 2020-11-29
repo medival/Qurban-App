@@ -18,12 +18,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </li>
 
       <!-- Enable this if needed -->
-      <li class="dropdown <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>">
-        <a href="<?php echo base_url('admin/transaksi'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>"><i class="fas fa-coins"></i> <span>Transaksi</span></a>
-      </li>
       <li class="<?php echo $this->uri->segment(2) == 'siswa' ? 'active' : ''; ?>">
         <a class="nav-link" href="<?php echo base_url("admin/siswa"); ?> ">
           <i class="fas fa-users fa-fw"></i> <span>Siswa</span></a>
+      </li>
+      <li class="dropdown <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>">
+        <a href="<?php echo base_url('admin/transaksi'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>"><i class="fas fa-coins"></i> <span>Transaksi</span></a>
       </li>
       <!-- Enable this if needed -->
 
