@@ -111,32 +111,16 @@ $this->load->view('_partials/header');
             <div class="modal-body">
                 <form action="#" class="needs-validation" novalidate="">
                     <p class="text-muted"> Informasi Pribadi </p>
-                    <!-- <div class="form-group">
-                        <label for="" class=" col-form-label">NIP</label>
-                        <div class="col-sm">
-                            <input type="hidden" class="form-control editid" name="editid" id="editid">
-                            <input type="text" class="form-control editNIP" name="editNIP" id="editNIP" placeholder="123.45.678910" required minlength="12">
-                            <div class="invalid-feedback">
-                                Masukan NIP lengkap operator?
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="form-group">
                         <label for="" class=" col-form-label">Nama Lengkap</label>
                         <div class="col-sm">
                             <input type="text" class="form-control" name="editNama" id="editNama" required>
+                            <input type="hidden" class="form-control" name="editid" id="editid" required>
                             <div class="invalid-feedback">
                                 Masukan nama lengkap admin?
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <label class="col-form-label"> Kelas </label>
-                        <div class="col-10">
-                            <select class="form-control select2 editRuang required" style="width: 26.25rem" id="eRuang">
-                            </select>
-                        </div>
-                    </div> -->
                     <div class="form-group">
                         <label for="" class=" col-form-label">Email</label>
                         <div class="col-sm">

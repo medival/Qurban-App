@@ -37,7 +37,40 @@ if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 
 <?php
-
+  if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "siswa")) {
+  ?>
+  <script src="<?= base_url(); ?>assets/js/admin/siswa.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "kelas")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/admin/kelas.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "ruangkelas")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/admin/ruangkelas.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "transaksi")) { 
+  ?>
+  <script src="<?= base_url();?>assets/js/admin/transaksi.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "adminstrator")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/admin/userman-admin.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "admin") && ($this->uri->segment(2) == "operator")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/admin/userman-operator.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "operator") && ($this->uri->segment(2) == "siswa")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/operator/siswa.js"></script>
+  <?php
+  } else if (($this->uri->segment(1) == "operator") && ($this->uri->segment(2) == "transaksi")) {
+  ?>
+  <script src="<?= base_url();?>assets/js/operator/transaksi.js"></script>
+  <?php
+  }
+  ?>
 ?>
 </body>
 

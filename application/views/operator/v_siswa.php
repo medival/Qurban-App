@@ -31,7 +31,7 @@ $this->load->view('_partials/header');
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="table_nasabah">
+                        <tbody id="tableSiswa">
 
                         </tbody>
                     </table>
@@ -58,7 +58,7 @@ $this->load->view('_partials/header');
                             <div class="col-sm">
                                 <input type="text" class="form-control inputNIS" name="inputNIS" id="inputNIS" placeholder="NIS" required>
                                 <div class="invalid-feedback">
-                                    Masukan NIS lengkap calon nasabah?
+                                    Masukan NIS lengkap calon siswa?
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@ $this->load->view('_partials/header');
                             <div class="col-sm">
                                 <input type="text" class="form-control" name="inputNama" id="inputNama" placeholder="Nama" required>
                                 <div class="invalid-feedback">
-                                    Masukan nama lengkap calon nasabah?
+                                    Masukan nama lengkap calon siswa?
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ $this->load->view('_partials/header');
                             <div class="col-sm">
                                 <textarea class="form-control" id="inputAlamat" name="inputAlamat" placeholder="Alamat" required></textarea>
                                 <div class="invalid-feedback">
-                                    Oops! masukan alamat nasabah
+                                    Oops! masukan alamat siswa
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ $this->load->view('_partials/header');
                                 </div>
                             </div>
                             <div class="invalid-feedback">
-                                Oops! masukan jenis kelamin calon nasabah
+                                Oops! masukan jenis kelamin calon siswa
                             </div>
                         </div>
 
@@ -103,7 +103,7 @@ $this->load->view('_partials/header');
                             <div class="col-sm">
                                 <input type="text" class="form-control" name="inputTempatLahir" id="inputTempatLahir" placeholder="Tempat Lahir" required>
                                 <div class="invalid-feedback">
-                                    Masukan tempat lahir calon nasabah?
+                                    Masukan tempat lahir calon siswa?
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ $this->load->view('_partials/header');
                                 <input type="varchar" class="form-control inputTanggalLahir" id="inputTanggalLahir" placeholder="YYYY-MM-DD" required name="inputTanggalLahir">
                                 <div class="text-muted"> Format YYYY-MM-DD</div>
                                 <div class="invalid-feedback">
-                                    Masukan tanggal lahir calon nasabah?
+                                    Masukan tanggal lahir calon siswa?
                                 </div>
                             </div>
                         </div>
@@ -303,7 +303,7 @@ $this->load->view('_partials/header');
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="btnDeleteNasabah"> Hapus Data </button>
+                    <button type="button" class="btn btn-danger" id="btnDeleteSiswa"> Hapus Data </button>
                 </div>
             </div>
         </div>

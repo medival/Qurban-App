@@ -36,7 +36,6 @@ class Operator extends MY_Controller
         );
 
         $this->load->view('operator/v_transaksi', $data);
-        $this->load->view('operator/v_transaksi_backend');
     }
 
     public function siswa()
@@ -46,7 +45,6 @@ class Operator extends MY_Controller
             'sess' => $this->session->all_userdata(),
         );
         $this->load->view('operator/v_siswa', $data);
-        $this->load->view('operator/v_siswa_backend');
     }
 
     public function changepassword()
