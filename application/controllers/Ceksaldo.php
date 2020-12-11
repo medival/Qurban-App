@@ -16,7 +16,6 @@ class Ceksaldo extends CI_Controller
             'title' => 'Cek Saldo'
         );
         $this->load->view('nasabah/v_ceksaldo', $data);
-        $this->load->view('nasabah/v_ceksaldo_backend');
     }
 
     public function getrekap($nis)
