@@ -19,7 +19,7 @@ $this->load->view('_partials/header');
                             <?php echo $this->session->flashdata('alert', true); ?>
                         </div>
                         <div class="login-brand mt-5">
-                            <img src="<?= base_url(); ?>assets/img/qurban_app.svg" alt="logo" width="120" class="shadow-light rounded-circle">
+                            <img src="<?= base_url(); ?>assets/img/logo.png" alt="logo" width="120" class="shadow-light rounded-circle">
                         </div>
                         <div class="card card-primary">
                             <div class="card-header">
@@ -60,6 +60,12 @@ $this->load->view('_partials/header');
                         <div class="simple-footer">
                             Copyright &copy; Qurban App <?= date('Y');?>
                         </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        Skripsi Tabungan Qurban <br> <div class="bullet"></div>
+                        Yusuf Sugiarto <div class="bullet"></div> STI201702547 <div class="bullet"></div>
+                    </div>
+                </div>
                     </div>
                 </div>
             </div>

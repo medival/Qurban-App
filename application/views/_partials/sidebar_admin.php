@@ -10,7 +10,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <a href="<?php echo base_url('admin'); ?>">Qur</a>
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Manajemen</li>
+      <li class="menu-header">MANAJEMEN ADMIN</li>
       <li class="<?php echo $this->uri->segment(2) == '' ? 'active' : ''; ?>">
         <a class="nav-link" href="<?php echo base_url("admin"); ?> ">
           <i class="fas fa-tachometer-alt fa-fw"></i> <span>Dashboard</span>
