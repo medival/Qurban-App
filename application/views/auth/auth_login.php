@@ -58,14 +58,12 @@ $this->load->view('_partials/header');
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; Qurban App <?= date('Y');?>
+                            <div class="col-12 text-center">
+                                Copyright &copy; <?= date('Y') ?> <br> 
+                                Skripsi Tabungan Qurban <br>
+                                Yusuf Sugiarto <div class="bullet"></div> STI201702547
+                            </div>
                         </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        Skripsi Tabungan Qurban <br> <div class="bullet"></div>
-                        Yusuf Sugiarto <div class="bullet"></div> STI201702547 <div class="bullet"></div>
-                    </div>
-                </div>
                     </div>
                 </div>
             </div>
