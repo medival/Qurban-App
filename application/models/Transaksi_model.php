@@ -16,9 +16,9 @@ class Transaksi_model extends CI_Model
     public function aktivasiuser()
     {
         $post = $this->input->post();
-        $this->nis =  $post['nis'];
+        $this->nis = $post['nis'];
         $this->saldo = 0;
-        $this->nip = NULL;
+        $this->nip = null;
 
         $result = $this->db->insert($this->_table_tabungan, $this);
         return $result;
@@ -37,7 +37,7 @@ class Transaksi_model extends CI_Model
             'totalNasabah' => $totalNasabah[0]['jmlNasabah'],
             'totalOperator' => $totalOperator[0]['jmlOperator'],
             'totalTransaksi' => $totalTransaksi[0]['jmlTransaksi'],
-            'totalSiswa' => $totalSiswa[0]['jmlSiswa']
+            'totalSiswa' => $totalSiswa[0]['jmlSiswa'],
         );
         return $data;
     }
@@ -61,7 +61,7 @@ class Transaksi_model extends CI_Model
         $saldo = $this->db->query(" SELECT saldo
                                     FROM tb_tabungan
                                     WHERE nis = $nis")->result();
-        $nip =  $this->db->query("  SELECT nip
+        $nip = $this->db->query("  SELECT nip
                                     FROM tb_user AS u
                                     JOIN tb_ruang  AS r
                                     ON r.id_ruang = u.id_ruang
@@ -70,7 +70,7 @@ class Transaksi_model extends CI_Model
                                     WHERE s.nis = $nis")->result();
         $result = array(
             'saldo' => $saldo,
-            'nip' => $nip
+            'nip' => $nip,
         );
         return $result;
     }

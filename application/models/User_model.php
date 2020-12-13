@@ -20,13 +20,13 @@ class User_model extends CI_Model
         $role = $this->input->post('role');
 
         $data = array(
-            'nip'   => $nip,
-            'name'  => $nama,
+            'nip' => $nip,
+            'name' => $nama,
             'id_ruang' => $id_ruang,
             'email' => $email,
             'password' => $password,
             'created_at' => $created_at,
-            'role' => $role
+            'role' => $role,
         );
         // var_dump($data);
         $result = $this->db->insert('tb_user', $data);
@@ -58,7 +58,7 @@ class User_model extends CI_Model
             'name' => $name,
             'email' => $email,
             'role' => $role,
-            'id_ruang' => $id_ruang
+            'id_ruang' => $id_ruang,
         );
 
         $query = $this->db->update('tb_user', $data, array('id' => $id));
@@ -97,13 +97,13 @@ class User_model extends CI_Model
             $is_active = 1;
         }
         $data = array(
-            'is_active' => $is_active
+            'is_active' => $is_active,
         );
-        $result = $this->db->update('tb_user', $data,  array('id' => $id));
+        $result = $this->db->update('tb_user', $data, array('id' => $id));
         return $result;
     }
 
-     public function getadminstratorlist()
+    public function getadminstratorlist()
     {
         $query = $this->db->query("SELECT u.id, u.name, u.role, u.email, u.is_active, u.created_at
                                     FROM tb_user AS u

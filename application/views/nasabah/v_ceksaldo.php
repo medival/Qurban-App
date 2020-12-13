@@ -17,14 +17,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   <!-- CSS Libraries -->
   <?php
-  if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement") || ($this->uri->segment(2) == "adminstrator")) { ?>
+if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement") || ($this->uri->segment(2) == "adminstrator")) {?>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/select.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/prism.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/select2.min.css">
   <?php
-  } ?>
+}?>
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
@@ -37,8 +37,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="main-wrapper container">
       <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand main-navbar">
-        <a href="<?= base_url('/ceksaldo'); ?>" class="navbar-brand" style="z-index: 99; margin: 2.5rem auto 0 15rem"> QURBAN </a>
-        <a href="<?= base_url(); ?>" class="btn btn-light btn-lg" style="margin: 2.5rem 15rem 0 auto; width: 7rem"> Login  </a>
+        <a href="<?=base_url('/ceksaldo');?>" class="navbar-brand" style="z-index: 99; margin: 2.5rem auto 0 15rem"> QURBAN </a>
+        <a href="<?=base_url();?>" class="btn btn-light btn-lg" style="margin: 2.5rem 15rem 0 auto; width: 7rem"> Login  </a>
       </nav>
         <!-- Main Content -->
         <div class="main-content">
@@ -76,9 +76,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
     <footer class="main-footer">
         <div class="footer-left" style="margin-left: 15rem">
-            Copyright &copy; <?= date('Y') ?> <div class="bullet"></div>  Skripsi Tabungan Qurban <div class="bullet"></div> Yusuf Sugiarto <div class="bullet"></div> STI201702547 
+            Copyright &copy; <?=date('Y')?> <div class="bullet"></div>  Skripsi Tabungan Qurban <div class="bullet"></div> Yusuf Sugiarto <div class="bullet"></div> STI201702547
         </div>
     </footer>
 </div>
 
-<?php $this->load->view('_partials/js'); ?>
+<?php $this->load->view('_partials/js');?>

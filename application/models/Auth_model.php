@@ -2,11 +2,10 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
 class Auth_model extends CI_Model
 {
-    public $table       = 'tb_user';
-    public $id          = 'tb_user.id';
+    public $table = 'tb_user';
+    public $id = 'tb_user.id';
 
     public function __construct()
     {
@@ -59,9 +58,9 @@ class Auth_model extends CI_Model
         $user_data = $this->session->all_userdata();
         $id = $user_data['id'];
         $query = array(
-            'password' => $password
+            'password' => $password,
         );
-        return  $this->db->update('tb_user', $query, array('id' => $id));
+        return $this->db->update('tb_user', $query, array('id' => $id));
     }
 
     public function logout($date, $id)

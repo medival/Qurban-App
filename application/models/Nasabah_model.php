@@ -33,7 +33,7 @@ class Nasabah_model extends CI_Model
         $data = array(
             'infobasic' => $infoBasic,
             'infoTransaksi' => $infoTransaksi,
-            'jumlahtransaksi' => $jumlahtransaksi
+            'jumlahtransaksi' => $jumlahtransaksi,
         );
 
         return $data;
@@ -73,7 +73,7 @@ class Nasabah_model extends CI_Model
 
     public function getAll($id_ruang)
     {
-        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, u.name, s.id_ruang, r.id_kelas, k.kelas, r.ruang
+        $hasil = $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.tempat_lahir, s.tanggal_lahir, s.alamat, s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, u.name, s.id_ruang, r.id_kelas, k.kelas, r.ruang
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
@@ -85,10 +85,9 @@ class Nasabah_model extends CI_Model
         return $hasil->result();
     }
 
-
     public function getAllNasabah()
     {
-        $hasil =  $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang, u.name AS operator
+        $hasil = $this->db->query("SELECT s.nis, s.nama, s.jenis_kelamin, s.created_at, s.tempat_lahir, s.tanggal_lahir, s.alamat,s.nama_ortu ,s.kontak_orangtua, s.is_active, s.created_at, s.id_ruang, r.id_kelas, k.kelas, r.ruang, u.name AS operator
                                     FROM tb_siswa AS s
                                     JOIN tb_ruang AS r
                                     ON s.id_ruang = r.id_ruang
@@ -103,16 +102,16 @@ class Nasabah_model extends CI_Model
     public function input()
     {
         $post = $this->input->post();
-        $this->nis =  $post['nis'];
-        $this->nama =  trim($post['nama']);
-        $this->alamat =  trim($post['alamat']);
-        $this->tempat_lahir =  trim($post['tempat_lahir']);
-        $this->tanggal_lahir =  strtotime($post['tanggal_lahir']);
-        $this->jenis_kelamin =  $post['jenis_kelamin'];
-        $this->nama_ortu =  trim($post['nama_ortu']);
-        $this->kontak_orangtua =  trim($post['kontak_orangtua']);
-        $this->id_ruang =  $post['id_ruang'];
-        $this->created_at =  strtotime("now");
+        $this->nis = $post['nis'];
+        $this->nama = trim($post['nama']);
+        $this->alamat = trim($post['alamat']);
+        $this->tempat_lahir = trim($post['tempat_lahir']);
+        $this->tanggal_lahir = strtotime($post['tanggal_lahir']);
+        $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->nama_ortu = trim($post['nama_ortu']);
+        $this->kontak_orangtua = trim($post['kontak_orangtua']);
+        $this->id_ruang = $post['id_ruang'];
+        $this->created_at = strtotime("now");
 
         $result = $this->db->insert('tb_siswa', $this);
         return $result;
@@ -121,15 +120,15 @@ class Nasabah_model extends CI_Model
     public function update()
     {
         $post = $this->input->post();
-        $this->nis =  $post['nis'];
-        $this->nama =  trim($post['nama']);
-        $this->alamat =  trim($post['alamat']);
-        $this->tempat_lahir =  trim($post['tempat_lahir']);
-        $this->tanggal_lahir =  $post['tanggal_lahir'];
-        $this->jenis_kelamin =  $post['jenis_kelamin'];
-        $this->nama_ortu =  trim($post['nama_ortu']);
-        $this->kontak_orangtua =  trim($post['kontak_orangtua']);
-        $this->id_ruang =  $post['id_ruang'];
+        $this->nis = $post['nis'];
+        $this->nama = trim($post['nama']);
+        $this->alamat = trim($post['alamat']);
+        $this->tempat_lahir = trim($post['tempat_lahir']);
+        $this->tanggal_lahir = $post['tanggal_lahir'];
+        $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->nama_ortu = trim($post['nama_ortu']);
+        $this->kontak_orangtua = trim($post['kontak_orangtua']);
+        $this->id_ruang = $post['id_ruang'];
 
         $result = $this->db->update('tb_siswa', $this, array('nis' => $post['nis']));
         return $result;
@@ -138,7 +137,7 @@ class Nasabah_model extends CI_Model
     public function delete()
     {
         $post = $this->input->post();
-        $this->nis =  $post['nis'];
+        $this->nis = $post['nis'];
 
         $result = $this->db->delete('tb_siswa', array('nis' => $post['nis']));
         return $result;

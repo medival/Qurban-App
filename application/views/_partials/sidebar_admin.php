@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <li class="<?php echo $this->uri->segment(2) == 'kelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/kelas'); ?>">Kelas</a></li>
         </ul>
       </li>
-      <li class="dropdown <?php echo $this->uri->segment(2) == 'adminstrator'|| $this->uri->segment(2) =='operator' ? 'active' : ''; ?>">
+      <li class="dropdown <?php echo $this->uri->segment(2) == 'adminstrator' || $this->uri->segment(2) == 'operator' ? 'active' : ''; ?>">
         <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i> <span>User Management</span></a>
         <ul class="dropdown-menu">
           <li class="<?php echo $this->uri->segment(2) == 'adminstrator' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/adminstrator'); ?>">Adminstrator </a></li>
@@ -42,7 +42,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </ul>
       </li>
       <li class="">
-        <a href="<?= base_url("auth/logout"); ?>" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        <a href="<?=base_url("auth/logout");?>" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
       </li>
     </ul>
   </aside>

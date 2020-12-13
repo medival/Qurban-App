@@ -16,14 +16,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   <!-- CSS Libraries -->
   <?php
-  if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement") || ($this->uri->segment(2) == "adminstrator")) { ?>
+if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "operator") || ($this->uri->segment(2) == "usermanagement") || ($this->uri->segment(2) == "adminstrator")) {?>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/datatables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/select.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/prism.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/select2.min.css">
   <?php
-  } ?>
+}?>
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
@@ -32,10 +32,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <?php
 if ($this->uri->segment(1) == "operator") {
-  $this->load->view('_partials/layout');
-  $this->load->view('_partials/sidebar_operator');
-} elseif ($this->uri->segment(1) != "auth") {
-  $this->load->view('_partials/layout');
-  $this->load->view('_partials/sidebar_admin');
+    $this->load->view('_partials/layout');
+    $this->load->view('_partials/sidebar_operator');
+} elseif (($this->uri->segment(1) != "auth")) {
+    $this->load->view('_partials/layout');
+    $this->load->view('_partials/sidebar_admin');
 }
 ?>

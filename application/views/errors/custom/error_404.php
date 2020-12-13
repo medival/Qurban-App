@@ -1,17 +1,17 @@
 <?php
-	defined('BASEPATH') or exit('No direct script access allowed');
-	switch ($sess["role"]) {
-		case '1':
-			$url = "admin";
-			break;
-		
-		case '2':
-			$url = "operator";
-			break;
-		default:
-			# code...
-			break;
-	}
+defined('BASEPATH') or exit('No direct script access allowed');
+switch ($sess["role"]) {
+    case '1':
+        $url = "admin";
+        break;
+
+    case '2':
+        $url = "operator";
+        break;
+    default:
+        # code...
+        break;
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <link href="<?php echo base_url(); ?>assets/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-  <title>404 &mdash; <?= $title ?></title>
+  <title>404 &mdash; <?=$title?></title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,8 +29,8 @@
   <!-- CSS Libraries -->
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="<?= base_url();?>/assets/css/style.css">
-  <link rel="stylesheet" href="<?= base_url();?>/assets/css/components.css">
+  <link rel="stylesheet" href="<?=base_url();?>/assets/css/style.css">
+  <link rel="stylesheet" href="<?=base_url();?>/assets/css/components.css">
 </head>
 
 <body>
@@ -45,7 +45,7 @@
             </div>
             <div class="page-search" visible>
               <div class="mt-3">
-                <a href="<?= base_url($url);?>">Back to Home</a>
+                <a href="<?=base_url($url);?>">Back to Home</a>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
         <div class="simple-footer mt-5">
            <footer class="main-footer">
 				<div class="footer-left">
-					Copyright &copy; <?= date('Y') ?> <div class="bullet"></div> Skripsi Tabungan Qurban <div class="bullet"></div> Yusuf Sugiarto <div class="bullet"></div> STI201702547
+					Copyright &copy; <?=date('Y')?> <div class="bullet"></div> Skripsi Tabungan Qurban <div class="bullet"></div> Yusuf Sugiarto <div class="bullet"></div> STI201702547
 				</div>
 			</footer>
         </div>
@@ -67,13 +67,13 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="<?= base_url();?>/assets/js/stisla.js"></script>
+  <script src="<?=base_url();?>/assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
 
   <!-- Template JS File -->
-  <script src="<?= base_url();?>/assets/js/scripts.js"></script>
-  <script src="<?= base_url();?>/assets/js/custom.js"></script>
+  <script src="<?=base_url();?>/assets/js/scripts.js"></script>
+  <script src="<?=base_url();?>/assets/js/custom.js"></script>
 
   <!-- Page Specific JS File -->
 </body>

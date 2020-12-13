@@ -21,9 +21,9 @@ class Operator extends MY_Controller
         $user_data = $this->session->all_userdata();
         $id_ruang = $user_data['id_ruang'];
         $data = array(
-            'title'         => 'Dashboard',
-            'sess'          => $user_data,
-            'info'          => $this->operator_model->info_dashboard($id_ruang)
+            'title' => 'Dashboard',
+            'sess' => $user_data,
+            'info' => $this->operator_model->info_dashboard($id_ruang),
         );
         $this->load->view('operator/v_index', $data);
     }
@@ -32,7 +32,7 @@ class Operator extends MY_Controller
     {
         $data = array(
             'title' => 'Transaksi',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
 
         $this->load->view('operator/v_transaksi', $data);
@@ -61,7 +61,7 @@ class Operator extends MY_Controller
         }
         $data = array(
             'title' => 'Change Password',
-            'sess'  => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
         $this->load->view('change_password/v_changepassword', $data);
     }
@@ -117,11 +117,11 @@ class Operator extends MY_Controller
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
         $data2 = array(
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
         $this->db->insert('tb_transaksi', $data);
         $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
@@ -158,14 +158,14 @@ class Operator extends MY_Controller
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
 
         $this->db->insert('tb_transaksi', $inputtbtransaksi);
 
         $inputtbtabungan = array(
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
 
         $this->db->update('tb_tabungan', $inputtbtabungan, array('nis' => $nis));
@@ -191,7 +191,6 @@ class Operator extends MY_Controller
         $data = $this->transaksi_model->gettransaksi($id_ruang);
         echo json_encode($data);
     }
-
 
     public function getAllDataSiswa()
     {

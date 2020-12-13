@@ -33,7 +33,7 @@ class Admin extends MY_Controller
             'info' => $this->transaksi_model->infoDashboard(),
             'title' => "Dashboard",
             'sess' => $this->session->all_userdata(),
-            'data' => $result
+            'data' => $result,
         );
         $this->load->view('admin/v_index', $data);
     }
@@ -42,7 +42,7 @@ class Admin extends MY_Controller
     {
         $data = array(
             'title' => 'Data Siswa',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
         $this->load->view('admin/v_siswa', $data);
     }
@@ -52,7 +52,7 @@ class Admin extends MY_Controller
         $data = array(
             'title' => 'Data Ruang Kelas',
             'kelas' => $this->kelas_model->getAll(),
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
 
         $this->load->view('admin/v_ruangkelas', $data);
@@ -62,7 +62,7 @@ class Admin extends MY_Controller
     {
         $data = array(
             'title' => 'Data Kelas',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
         $this->load->view('admin/v_kelas', $data);
     }
@@ -71,9 +71,8 @@ class Admin extends MY_Controller
     {
         $data = array(
             'title' => 'Transaksi',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
-
         $this->load->view('admin/v_transaksi', $data);
     }
 
@@ -81,9 +80,8 @@ class Admin extends MY_Controller
     {
         $data = array(
             'title' => 'Management Operator',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
-
         $this->load->view('admin/v_user_operator', $data);
     }
 
@@ -91,9 +89,8 @@ class Admin extends MY_Controller
     {
         $data = array(
             'title' => 'Management Adminstrator',
-            'sess' => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
-
         $this->load->view('admin/v_user_admin', $data);
     }
 
@@ -111,7 +108,7 @@ class Admin extends MY_Controller
         }
         $data = array(
             'title' => 'Change Password',
-            'sess'  => $this->session->all_userdata()
+            'sess' => $this->session->all_userdata(),
         );
         $this->load->view('change_password/v_changepassword', $data);
     }
@@ -252,12 +249,12 @@ class Admin extends MY_Controller
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
         $data2 = array(
-            // 'nis' => $nis,
+            'nis' => $nis,
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
         $this->db->insert('tb_transaksi', $data);
         $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
@@ -294,14 +291,14 @@ class Admin extends MY_Controller
             'kredit_debet' => $kredit_debet,
             'nominal' => $nominal,
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
 
         $this->db->insert('tb_transaksi', $inputtbtransaksi);
 
         $inputtbtabungan = array(
             'saldo' => $saldo_akhir,
-            'nip' => $nip
+            'nip' => $nip,
         );
 
         $this->db->update('tb_tabungan', $inputtbtabungan, array('nis' => $nis));
@@ -390,8 +387,9 @@ class Admin extends MY_Controller
         }
         echo json_encode($data);
     }
-    
-    public function getDataKelas($id_ruang) {
+
+    public function getDataKelas($id_ruang)
+    {
         $data = $this->admin_dashboard_model->getDetailKelas($id_ruang);
         echo json_encode($data);
     }

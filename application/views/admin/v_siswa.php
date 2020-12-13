@@ -7,11 +7,11 @@ $this->load->view('_partials/header');
     <section class="section">
         <div class="card card-primary">
             <div class="card-header">
-                <h3> <?= $title; ?> </h3>
+                <h3> <?=$title;?> </h3>
                 <div class="card-body">
                     <div class="buttons">
-                        <button href="<?= base_url(''); ?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
-                            <i class="fa fa-user-plus"></i> Tambah <?= $title ?>
+                        <button href="<?=base_url('');?>" class="btn btn-outline-primary btn-icon icon-left" data-toggle="modal" data-target="#modalTambahNasabah" id="btnModalAddNasabah">
+                            <i class="fa fa-user-plus"></i> Tambah <?=$title?>
                         </button>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ $this->load->view('_partials/header');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Edit <?= $title ?> </h5>
+                    <h5 class="modal-title"> Edit <?=$title?> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -290,7 +290,7 @@ $this->load->view('_partials/header');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Hapus <?= $title ?> </h5>
+                    <h5 class="modal-title"> Hapus <?=$title?> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -311,4 +311,4 @@ $this->load->view('_partials/header');
     <!-- End of Modal Delete Nasabah -->
 </div>
 
-<?php $this->load->view('_partials/footer'); ?>
+<?php $this->load->view('_partials/footer');?>

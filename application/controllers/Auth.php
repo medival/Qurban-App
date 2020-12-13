@@ -19,8 +19,8 @@ class Auth extends MY_Controller
     public function check_account()
     {
         //validasi login
-        $email      = $this->input->post('email');
-        $password   = $this->input->post('password');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
 
         //ambil data dari database untuk validasi login
         $query = $this->auth_model->check_account($email, $password);
@@ -34,16 +34,16 @@ class Auth extends MY_Controller
         } else {
             //membuat session dengan nama userData yang artinya nanti data ini bisa di ambil sesuai dengan data yang login
             $userdata = array(
-                'is_login'    => true,
-                'id'          => $query->id,
-                'nip'         => $query->nip,
-                'role'        => $query->role,
-                'username'    => $query->username,
-                'name'        => $query->name,
-                'id_ruang'    => $query->id_ruang,
-                'email'       => $query->email,
-                'created_at'  => $query->created_at,
-                'last_login'  => $query->last_login,
+                'is_login' => true,
+                'id' => $query->id,
+                'nip' => $query->nip,
+                'role' => $query->role,
+                'username' => $query->username,
+                'name' => $query->name,
+                'id_ruang' => $query->id_ruang,
+                'email' => $query->email,
+                'created_at' => $query->created_at,
+                'last_login' => $query->last_login,
             );
             $this->session->set_userdata($userdata);
             return true;
@@ -52,7 +52,7 @@ class Auth extends MY_Controller
     public function login()
     {
         $data = array(
-            'title'     => 'Login'
+            'title' => 'Login',
         );
 
         //melakukan pengalihan halaman sesuai dengan levelnya

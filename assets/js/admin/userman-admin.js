@@ -20,7 +20,6 @@ $(document).ready(function () {
 
   $("#table1").on("click", ".is_active", function () {
     var id = $(this).data("id");
-    // var baseUrl = '<?= base_url('admin/userkontrol/') ?>' + id;
 
     console.log(baseUrl);
     $.ajax({

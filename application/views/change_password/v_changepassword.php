@@ -20,11 +20,11 @@ $this->load->view('_partials/header');
                     </div>
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4> <?= $title ?></h4>
+                            <h4> <?=$title?></h4>
                         </div>
                         <div class="card-body">
                             <!-- <p class="text-muted">Masukan kata sandi baru </p> -->
-                            <form method="post" action="<?= base_url('operator/changepassword'); ?>" class="needs-validation" novalidate="">
+                            <form method="post" action="<?=base_url('operator/changepassword');?>" class="needs-validation" novalidate="">
                                 <div class="form-group">
                                     <label for="email">New Password </label>
                                     <input id="newPassword" type="password" class="form-control" name="newPassword" tabindex="2" required autofocus minlength="5">
@@ -46,7 +46,7 @@ $this->load->view('_partials/header');
         </div>
     </section>
 </div>
-<?php $this->load->view('_partials/footer'); ?>
+<?php $this->load->view('_partials/footer');?>
 <script>
     $('#myalert').delay(2500).slideUp('slow');
 </script>

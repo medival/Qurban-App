@@ -6,7 +6,7 @@ $this->load->view('_partials/header');
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1> <?= $title; ?></h1>
+            <h1> <?=$title;?></h1>
         </div>
 
         <div class="section-body">
@@ -21,7 +21,7 @@ $this->load->view('_partials/header');
                                 <h4> Total Saldo</h4>
                             </div>
                             <div class="card-body">
-                                <?= "Rp. " . number_format($info['totalSaldo']) ?>
+                                <?="Rp. " . number_format($info['totalSaldo'])?>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ $this->load->view('_partials/header');
                                 <h4> Total Nasabah </h4>
                             </div>
                             <div class="card-body">
-                                <?= $info['totalNasabah'] ?>
+                                <?=$info['totalNasabah']?>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ $this->load->view('_partials/header');
                                 <h4>Total Siswa</h4>
                             </div>
                             <div class="card-body">
-                                <?= $info['totalSiswa'] ?>
+                                <?=$info['totalSiswa']?>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ $this->load->view('_partials/header');
                                 <h4>Total Operator</h4>
                             </div>
                             <div class="card-body">
-                                <?= $info['totalOperator'] ?>
+                                <?=$info['totalOperator']?>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ $this->load->view('_partials/header');
                                 <h4> Transaksi </h4>
                             </div>
                             <div class="card-body">
-                                <?= $info['totalTransaksi'] ?>
+                                <?=$info['totalTransaksi']?>
                             </div>
                         </div>
                     </div>
@@ -98,33 +98,33 @@ $this->load->view('_partials/header');
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled list-unstyled-border ml-4 mb-4 mr-5" id="report">
-                        <?php foreach($data as $row) : ?>
-                            <?php if(!$row['namaOperator']) {
-                                $namaOperator = "(Kosong)";
-                            } else {
-                                $namaOperator = ($row['namaOperator']->name);
-                            }
-                            if(!$row['ruangKelas']) {
-                                $ruangKelas = "(Kosong)";
-                            } else {
-                                $ruangKelas = $row['ruangKelas']->kelas;
-                            }
-                            ?>
+                        <?php foreach ($data as $row): ?>
+                            <?php if (!$row['namaOperator']) {
+    $namaOperator = "(Kosong)";
+} else {
+    $namaOperator = ($row['namaOperator']->name);
+}
+if (!$row['ruangKelas']) {
+    $ruangKelas = "(Kosong)";
+} else {
+    $ruangKelas = $row['ruangKelas']->kelas;
+}
+?>
 
                             <li class="media">
                                 <div class="media-body">
-                                    <div class="float-right"><div class="font-weight-600"> <?= $row['jumlahSiswaKelas']->jmlSiswaKelas ." Siswa";?></div></div>
-                                        <div class="media-title"> <?= $ruangKelas?> <div class="bullet"></div> <?= $namaOperator ?>  </div>
+                                    <div class="float-right"><div class="font-weight-600"> <?=$row['jumlahSiswaKelas']->jmlSiswaKelas . " Siswa";?></div></div>
+                                        <div class="media-title"> <?=$ruangKelas?> <div class="bullet"></div> <?=$namaOperator?>  </div>
                                             <div class="budget-price mt-1">
-                                                <div class="budget-price-square bg-primary" data-width="<?= $row['presentase']; ?>"></div>
-                                                <div class="budget-price-label"> <?= "Rp. " . number_format($row['jumlahSaldoKelas']->jmlSaldoKelas); ?> </div>
+                                                <div class="budget-price-square bg-primary" data-width="<?=$row['presentase'];?>"></div>
+                                                <div class="budget-price-label"> <?="Rp. " . number_format($row['jumlahSaldoKelas']->jmlSaldoKelas);?> </div>
                                         </div>
                                     </div>
                             </li>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                     </ul>
                 </div>
             </div>
     </section>
 </div>
-<?php $this->load->view('_partials/footer'); ?>
+<?php $this->load->view('_partials/footer');?>

@@ -64,7 +64,7 @@ class Kelas_model extends CI_Model
     public function deleteruang()
     {
         $post = $this->input->post();
-        $this->id_ruang =  $post['id_ruang'];
+        $this->id_ruang = $post['id_ruang'];
 
         $result = $this->db->delete('tb_ruang', array('id_ruang' => $post['id_ruang']));
         return $result;
@@ -80,7 +80,7 @@ class Kelas_model extends CI_Model
 
         $data = array(
             'id_kelas' => $id_kelas,
-            'ruang' => $ruang
+            'ruang' => $ruang,
         );
         // var_dump($data);
         $data = $this->db->insert('tb_ruang', $data);
@@ -98,7 +98,7 @@ class Kelas_model extends CI_Model
     public function postupdatekelas()
     {
         $post = $this->input->post();
-        $this->id_kelas =  $post['id_kelas'];
+        $this->id_kelas = $post['id_kelas'];
         $this->kelas = $post['kelas'];
 
         return $this->db->update('tb_kelas', $this, array('id_kelas' => $post['id_kelas']));
@@ -107,7 +107,7 @@ class Kelas_model extends CI_Model
     public function postdeletekelas()
     {
         $post = $this->input->post();
-        $this->id_kelas =  $post['id_kelas'];
+        $this->id_kelas = $post['id_kelas'];
 
         $data = $this->db->delete('tb_kelas', array('id_kelas' => $post['id_kelas']));
         return $data;

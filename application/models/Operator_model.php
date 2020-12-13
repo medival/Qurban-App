@@ -32,10 +32,10 @@ class Operator_model extends CI_Model
                                         FROM tb_siswa
                                         WHERE id_ruang = $id_ruang")->row();
         $info = array(
-            'memberAktif'       => $memberAktif,
-            'totalSaldo'        => $totalSaldo,
-            'jumlahtransaksi'   => $jumlahTransaksi,
-            'jumlahSiswa'       => $jumlahSiswa
+            'memberAktif' => $memberAktif,
+            'totalSaldo' => $totalSaldo,
+            'jumlahtransaksi' => $jumlahTransaksi,
+            'jumlahSiswa' => $jumlahSiswa,
         );
         return $info;
     }
@@ -53,11 +53,11 @@ class Operator_model extends CI_Model
     public function input()
     {
         $post = $this->input->post();
-        $this->nip =  $post['nip'];
+        $this->nip = $post['nip'];
         $this->nama = trim($post['nama']);
-        $this->jenis_kelamin =  $post['jenis_kelamin'];
-        $this->id_ruang =  $post['id_ruang'];
-        $this->created_at =  strtotime("now");
+        $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->id_ruang = $post['id_ruang'];
+        $this->created_at = strtotime("now");
 
         $result = $this->db->insert($this->_tb_operator, $this);
         return $result;
@@ -68,8 +68,8 @@ class Operator_model extends CI_Model
         $post = $this->input->post();
         $this->nip = $post['nip'];
         $this->nama = trim($post['nama']);
-        $this->jenis_kelamin =  $post['jenis_kelamin'];
-        $this->id_ruang =  $post['id_ruang'];
+        $this->jenis_kelamin = $post['jenis_kelamin'];
+        $this->id_ruang = $post['id_ruang'];
 
         $result = $this->db->update($this->_tb_operator, $this, array('nip' => $post['nip']));
         return $result;

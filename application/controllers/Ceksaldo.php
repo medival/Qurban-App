@@ -13,7 +13,7 @@ class Ceksaldo extends CI_Controller
     public function index()
     {
         $data = array(
-            'title' => 'Cek Saldo'
+            'title' => 'Cek Saldo',
         );
         $this->load->view('nasabah/v_ceksaldo', $data);
     }

@@ -7,7 +7,7 @@ $this->load->view('_partials/header');
     <section class="section">
         <div class="card card-primary">
             <div class="card-header">
-                <h3><?= $title; ?></h3>
+                <h3><?=$title;?></h3>
                 <div class="card-body">
                     <div class="buttons">
                         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAktivasi" id="btnModalAktivasi">
@@ -274,4 +274,4 @@ $this->load->view('_partials/header');
 </div>
 <!-- End of Modal Rekap -->
 
-<?php $this->load->view('_partials/footer'); ?>
+<?php $this->load->view('_partials/footer');?>
