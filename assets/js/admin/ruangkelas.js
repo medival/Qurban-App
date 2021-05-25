@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const baseUrl = "http://localhost/apptabungan/";
+  const baseUrl = "http://18.139.1.42/qurban-app/";
   show_kelas();
 
   $("#table1").dataTable();
