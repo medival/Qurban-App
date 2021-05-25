@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 date_default_timezone_set('Asia/Jakarta');
-$config['base_url'] = 'http://localhost/apptabungan/';
+$config['base_url'] = 'http://54.255.206.254/qurban-app/';
 
 /*
 |--------------------------------------------------------------------------
