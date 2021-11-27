@@ -24,8 +24,8 @@ $this->load->view('_partials/header');
                                 <th>No</th>
                                 <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Walikelas</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Status</th>
                                 <th>Terdaftar</th>
                                 <!-- <th>Status</th> -->
                                 <th>Aksi</th>
@@ -145,13 +145,6 @@ $this->load->view('_partials/header');
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-form-label"> Kelas </label>
-                            <div class="col-10">
-                                <select class="form-control select2 pkelas" style="width: 26.25rem" id="pkelas">
-                                </select>
-                            </div>
-                        </div>
                         <div class="modal-footer bg-whitesmoke br">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" id="btnAddNasabah"> Simpan Data </button>
@@ -265,13 +258,6 @@ $this->load->view('_partials/header');
                                         Oops! tambahkan kontak telefon
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label"> Kelas </label>
-                            <div class="col-10">
-                                <select class="form-control select2" style="width: 26.25rem" id="ekelas">
-                                </select>
                             </div>
                         </div>
                         <div class="modal-footer bg-whitesmoke br">

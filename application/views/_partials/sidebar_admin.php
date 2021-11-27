@@ -22,6 +22,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <a class="nav-link" href="<?php echo base_url("admin/siswa"); ?> ">
           <i class="fas fa-users fa-fw"></i> <span>Siswa</span></a>
       </li>
+      <!-- Enable this if needed -->
+      <li class="<?php echo $this->uri->segment(2) == 'tahun' ? 'active' : ''; ?>">
+        <a class="nav-link" href="<?php echo base_url("admin/tahun"); ?> ">
+          <i class="fas fa-book fa-fw"></i> <span>Tahun Ajaran</span></a>
+      </li>
       <li class="dropdown <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>">
         <a href="<?php echo base_url('admin/transaksi'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'transaksi' ? 'active' : ''; ?>"><i class="fas fa-coins"></i> <span>Transaksi</span></a>
       </li>
@@ -32,6 +37,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <ul class="dropdown-menu">
           <li class="<?php echo $this->uri->segment(2) == 'ruangkelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/ruangkelas'); ?>">Ruang Kelas </a></li>
           <li class="<?php echo $this->uri->segment(2) == 'kelas' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/kelas'); ?>">Kelas</a></li>
+          <li class="<?php echo $this->uri->segment(2) == 'kelas_siswa' ? 'active' : ''; ?>"><a href="<?php echo base_url('admin/kelas_siswa'); ?>">Kelas Siswa</a></li>
         </ul>
       </li>
       <li class="dropdown <?php echo $this->uri->segment(2) == 'adminstrator' || $this->uri->segment(2) == 'operator' ? 'active' : ''; ?>">

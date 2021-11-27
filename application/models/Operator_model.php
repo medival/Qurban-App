@@ -13,24 +13,13 @@ class Operator_model extends CI_Model
 
     public function info_dashboard($id_ruang)
     {
-        $memberAktif = $this->db->query("SELECT COUNT(*) as jmlMemberAktif
-                                        FROM tb_tabungan AS tb
-                                        JOIN tb_siswa AS s
-                                        ON tb.nis = s.nis
-                                        WHERE s.id_ruang = $id_ruang")->row();
-        $totalSaldo = $this->db->query("SELECT SUM(tb.saldo) AS jmlSaldo
-                                        FROM tb_tabungan AS tb
-                                        JOIN tb_siswa AS s
-                                        ON tb.nis = s.nis
-                                        WHERE s.id_ruang = $id_ruang")->row();
-        $jumlahTransaksi = $this->db->query("SELECT COUNT(*) AS jmlTransaksi
-                                        FROM tb_transaksi AS t
-                                        JOIN tb_siswa AS s
-                                        ON t.nis = s.nis
-                                        WHERE s.id_ruang = $id_ruang")->row();
-        $jumlahSiswa = $this->db->query("SELECT COUNT(*) AS jmlSiswa
-                                        FROM tb_siswa
-                                        WHERE id_ruang = $id_ruang")->row();
+        $memberAktif = $this->db->query("SELECT COUNT(*) as jmlMemberAktif FROM tb_tabungan AS tb JOIN tb_siswa AS s ON tb.nis = s.nis JOIN tb_kelas_siswa ks ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
+
+        $totalSaldo = $this->db->query("SELECT SUM(tb.saldo) AS jmlSaldo FROM tb_tabungan AS tb JOIN tb_siswa AS s ON tb.nis = s.nis JOIN tb_kelas_siswa ks ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
+
+        $jumlahTransaksi = $this->db->query("SELECT COUNT(*) AS jmlTransaksi FROM tb_transaksi AS t JOIN tb_siswa AS s ON t.nis = s.nis JOIN tb_kelas_siswa ks ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
+
+        $jumlahSiswa = $this->db->query("SELECT COUNT(*) AS jmlSiswa FROM tb_siswa s JOIN tb_kelas_siswa ks ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
         $info = array(
             'memberAktif' => $memberAktif,
             'totalSaldo' => $totalSaldo,

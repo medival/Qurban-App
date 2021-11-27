@@ -19,8 +19,9 @@ $operator = "operator";
 
 <!-- JS Libraies -->
 <?php
-if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == $operator) || ($this->uri->segment(2) == "adminstrator")) {?>
+if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == "tahun") || ($this->uri->segment(2) == "kelas_siswa") ||($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == $operator) || ($this->uri->segment(2) == "adminstrator")) {?>
   <script src="<?php echo base_url(); ?>assets/js-plugin/select2.full.min.js"></script>
+  
   <script src="<?php echo base_url(); ?>assets/js-plugin/datatables.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js-plugin/dataTables.bootstrap4.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js-plugin/dataTables.select.min.js"></script>
@@ -32,9 +33,10 @@ if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi
 <?php
 }?>
 
+
 <!-- Page Specific JS File -->
 <?php
-if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == $operator) || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "adminstrator")) {?>
+if (($this->uri->segment(2) == "siswa") || ($this->uri->segment(2) == "transaksi") || ($this->uri->segment(2) == "rekap") || ($this->uri->segment(2) == "ruangkelas") || ($this->uri->segment(2) == $operator) || ($this->uri->segment(2) == "kelas") || ($this->uri->segment(2) == "tahun") ||($this->uri->segment(2) == "kelas_siswa") || ($this->uri->segment(2) == "adminstrator")) {?>
   <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
 <?php }?>
@@ -49,6 +51,14 @@ if (($this->uri->segment(1) == $admin) && ($this->uri->segment(2) == "siswa")) {
   <script src="<?=base_url();?>assets/js/admin/siswa.js"></script>
   <?php
 
+} else if (($this->uri->segment(1) == $admin) && ($this->uri->segment(2) == "tahun")) {
+    ?>
+  <script src="<?=base_url();?>assets/js/admin/tahun.js"></script>
+  <?php
+} else if (($this->uri->segment(1) == $admin) && ($this->uri->segment(2) == "kelas_siswa")) {
+    ?>
+  <script src="<?=base_url();?>assets/js/admin/kelas_siswa.js"></script>
+  <?php
 } else if (($this->uri->segment(1) == $admin) && ($this->uri->segment(2) == "kelas")) {
     ?>
   <script src="<?=base_url();?>assets/js/admin/kelas.js"></script>

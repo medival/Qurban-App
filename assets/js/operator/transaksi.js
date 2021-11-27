@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const baseUrl = "http://54.255.206.254/qurban-app/";
+  const baseUrl = "http://localhost/apptabungan/";
   show_transaksi();
 
   $("#table1").dataTable({
@@ -310,6 +310,7 @@ $(document).ready(function () {
         },
         success: function (data) {
           $("#modalKredit").modal("hide");
+          window.open(`${baseUrl}operator/printInvoice`,'_blank');
           show_transaksi();
         },
       });
@@ -451,7 +452,7 @@ $(document).ready(function () {
       async: false,
       dataType: "JSON",
       success: function (data) {
-        console.table(data);
+        console.log(data);
         var html = "";
         var number = 1;
         for (var i = 0; i < data.length; i++) {
@@ -498,12 +499,16 @@ $(document).ready(function () {
     });
   }
 
+  
   $("#btnCetakPDF").on("click", function () {
     var fileName = $("#infoNama").text();
+    var judul = "Daftar Rekap Tabungan Qurban SD Al Irsyad Al Islamiyyah 01 Purwokerto - ";
     if (fileName == "Username" || fileName == "-") {
-      var fileName = new Date();
+      var fileName1 = new Date();
+      fileName = judul+fileName1;
       cetakPDF(fileName);
     } else {
+      fileName = judul+fileName;
       cetakPDF(fileName);
     }
   });

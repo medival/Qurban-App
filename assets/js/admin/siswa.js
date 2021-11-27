@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const baseUrl = "http://54.255.206.254/qurban-app/";
+  const baseUrl = "http://localhost/apptabungan/";
   show_nasabah();
 
   $("#table1").dataTable({
@@ -34,10 +34,6 @@ $(document).ready(function () {
     blocks: [4, 4, 4],
   });
 
-  $(".pkelas").select2({
-    placeholder: "Pilih Kelas",
-    allowClear: true,
-  });
 
   $("#modalTambahNasabah").on("hidden.bs.modal", function () {
     $("#editNIS").val("");
@@ -50,9 +46,6 @@ $(document).ready(function () {
     $('[name="edit_jenis_kelamin"]').checked = false;
   });
 
-  $("#btnModalAddNasabah").on("click", function () {
-    pilihkelas();
-  });
 
   function epochtodate(epoch) {
     // Months array
@@ -95,31 +88,6 @@ $(document).ready(function () {
     return new Date(date).getTime() / 1000;
   }
 
-  function pilihkelas() {
-    $.ajax({
-      type: "ajax",
-      url: `${baseUrl}admin/getAllruangkelas`,
-      async: false,
-      dataType: "JSON",
-      success: function (data) {
-        var html = "";
-        var ini = "<option></option>";
-        var i;
-        for (i = 0; i < data.length; i++) {
-          html +=
-            '<option value="' +
-            data[i].id_ruang +
-            '"> ' +
-            data[i].kelas +
-            " " +
-            data[i].ruang +
-            " </option>";
-        }
-        $("#pkelas").html(ini + html);
-        $("#ekelas").html(html);
-      },
-    });
-  }
   $("#table_nasabah").on("click", ".deleteNasabah", function () {
     var nis = $(this).data("nis");
 
@@ -146,7 +114,7 @@ $(document).ready(function () {
   });
 
   $("#table_nasabah").on("click", ".editNasabah", function () {
-    pilihkelas();
+
 
     var nis = $(this).data("nis");
     var nama = $(this).data("nama");
@@ -156,7 +124,6 @@ $(document).ready(function () {
     var tanggal_lahir = $(this).data("tanggal_lahir");
     var nama_ortu = $(this).data("nama_ortu");
     var kontak_orangtua = $(this).data("kontak_orangtua");
-    var id_ruang = $(this).data("id_ruang");
 
     $("#modalEditNasabah").modal("show");
     $('[name="editNIS"]').val(nis);
@@ -171,7 +138,6 @@ $(document).ready(function () {
     } else if (jenis_kelamin == "P") {
       document.getElementById("editPerempuan").checked = true;
     }
-    document.getElementById("ekelas").value = id_ruang;
   });
 
   $("#btnEditNasabah").on("click", function () {
@@ -188,7 +154,6 @@ $(document).ready(function () {
       'input[name="edit_jenis_kelamin"]:checked'
     ).value;
     var tanggal_lahir1 = datetoepoch(tanggal_lahir);
-    var id_ruang = $("#ekelas").find(":selected").val();
 
     $.ajax({
       type: "POST",
@@ -203,7 +168,6 @@ $(document).ready(function () {
         tanggal_lahir: tanggal_lahir1,
         nama_ortu: nama_ortu,
         kontak_orangtua: kontak_orangtua,
-        id_ruang: id_ruang,
       },
       success: function (data) {
         $('[name="editNIS"]').val("");
@@ -214,8 +178,8 @@ $(document).ready(function () {
         $('[name="editNamaOrtu"]').val("");
         $('[name="editKontakOrangTua"]').val("");
         $('[name="edit_jenis_kelamin"]').checked = false;
-        $("#modalEditNasabah").modal("hide");
         show_nasabah();
+        $("#modalEditNasabah").modal("hide");
       },
     });
     return false;
@@ -234,7 +198,6 @@ $(document).ready(function () {
     var jenis_kelamin = document.querySelector(
       'input[name="jenis_kelamin"]:checked'
     ).value;
-    var id_ruang = $("#pkelas").find(":selected").val();
 
     $.ajax({
       type: "POST",
@@ -248,7 +211,6 @@ $(document).ready(function () {
         tanggal_lahir: tanggal_lahir,
         nama_ortu: nama_ortu,
         kontak_orangtua: kontak_orangtua,
-        id_ruang: id_ruang,
         jenis_kelamin: jenis_kelamin,
       },
       success: function (data) {
@@ -262,7 +224,6 @@ $(document).ready(function () {
         $('[name="inputKontakOrangTua"]').val("");
         $('[name="inputKontakOrangTua"]').val("");
         $('input[name="jenis_kelamin"]').prop("checked", false);
-        $("#pkelas").select2("val", "");
         show_nasabah();
       },
     });
@@ -279,7 +240,14 @@ $(document).ready(function () {
         var html = "";
         var i;
         var no = 1;
+        var jk = "";
         for (i = 0; i < data.length; i++) {
+
+          if(data[i].jenis_kelamin == "L"){
+            jk = "Laki-laki";
+          }else{
+            jk = "Perempuan";
+          }
           if (data[i].is_active == "1") {
             var aktif = "Aktif";
           } else if (data[i].is_active == "0") {
@@ -297,11 +265,10 @@ $(document).ready(function () {
             `${data[i].nama}` +
             "</td>" +
             "<td>" +
-            ` ${data[i].kelas} ` +
-            `${data[i].ruang}` +
+            `${jk}` +
             "</td>" +
             "<td>" +
-            ` ${data[i].operator} ` +
+            ` ${aktif} ` +
             "</td>" +
             "<td>" +
             epochtodate(data[i].created_at) +
@@ -322,8 +289,6 @@ $(document).ready(function () {
             data[i].nama_ortu +
             '" data-kontak_orangtua="' +
             `${data[i].kontak_orangtua}` +
-            '" data-id_ruang="' +
-            `${data[i].id_ruang}` +
             '"> <i class="fa fa-file-alt"></i> </a> ' +
             '<a href="javascript:void(0);" class="btn btn-icon icon-left btn-outline-danger deleteNasabah" data-nis="' +
             data[i].nis +

@@ -22,18 +22,10 @@ class Admin_Dashboard_model extends CI_Model
     public function getDetailKelas($id_ruang)
     {
         // Jumlah Siswa
-        $jumlahSiswaKelas = $this->db->query("SELECT COUNT(*) as jmlSiswaKelas
-											FROM tb_ruang AS r
-											JOIN tb_siswa AS s
-											ON s.id_ruang = r.id_ruang
-											WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahSiswaKelas = $this->db->query("SELECT COUNT(*) as jmlSiswaKelas FROM tb_ruang r JOIN tb_kelas_siswa ks ON r.id_ruang = ks.id_ruang JOIN tb_siswa s ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
 
         // Jumlah Saldo Kelas
-        $jumlahSaldoKelas = $this->db->query("SELECT SUM(tb.saldo) as jmlSaldoKelas
-											FROM tb_tabungan AS tb
-											JOIN tb_siswa AS s
-											ON s.nis = tb.nis
-											WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahSaldoKelas = $this->db->query("SELECT SUM(tb.saldo) as jmlSaldoKelas FROM tb_tabungan tb JOIN tb_siswa s ON s.nis = tb.nis JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang r ON ks.id_ruang = r.id_ruang WHERE ks.id_ruang = $id_ruang;")->row();
         // Jumlah Semua Saldo
         $jumlahSemuaSaldo = $this->db->query("SELECT SUM(tb.saldo) as jmlSemuaSaldo
 											FROM tb_tabungan AS tb")->row();

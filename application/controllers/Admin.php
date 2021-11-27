@@ -9,7 +9,9 @@ class Admin extends MY_Controller
         parent::__construct();
         $this->load->model('nasabah_model');
         $this->load->model('kelas_model');
+        $this->load->model('tahun_model');
         $this->load->model('operator_model');
+        $this->load->model('ksiswa_model');
         $this->load->model('transaksi_model');
         $this->load->model('user_model');
         $this->load->model('auth_model');
@@ -66,6 +68,8 @@ class Admin extends MY_Controller
         );
         $this->load->view('admin/v_kelas', $data);
     }
+
+    
 
     public function transaksi()
     {
@@ -258,6 +262,7 @@ class Admin extends MY_Controller
         );
         $this->db->insert('tb_transaksi', $data);
         $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
+        $this->session->set_userdata('invoice', $nis);
         echo json_encode($data);
     }
 
@@ -393,6 +398,99 @@ class Admin extends MY_Controller
         $data = $this->admin_dashboard_model->getDetailKelas($id_ruang);
         echo json_encode($data);
     }
+
+    public function printInvoice()
+    {
+        $nis = $this->session->userdata('invoice');
+        $data['dataTransaksi'] = $this->transaksi_model->getTransaksiByNis($nis);
+        //var_dump($data);
+        $this->load->view('invoice/v_invoice',$data);
+    }
+
+
+    /* Data Tahun Ajaran*/
+    public function tahun()
+    {
+        $data = array(
+            'title' => 'Data Tahun Ajaran',
+            'sess' => $this->session->all_userdata(),
+        );
+        $this->load->view('admin/v_tahun', $data);
+    }
+    
+    public function inputtahun()
+    {
+        $data = $this->tahun_model->addtahun();
+        echo json_encode($data);
+    }
+    public function gettahunlist()
+    {
+        $data = $this->tahun_model->pilih();
+        echo json_encode($data);
+    }
+
+    public function updatedatatahun()
+    {
+        $data = $this->tahun_model->postupdatetahun();
+        echo json_encode($data);
+    }
+
+    public function deletetahun()
+    {
+        $data = $this->tahun_model->postdeletetahun();
+        echo json_encode($data);
+    }
+    /* End data Tahun Ajaran */
+
+
+    
+    /* Data Kelas Siswa*/
+    public function getsiswalist()
+    {
+        $data = $this->ksiswa_model->siswalist();
+        echo json_encode($data);
+    }
+
+    public function getksiswaid()
+    {
+        $id_ksiswa = $this->input->post('id_ksiswa');
+        $data = $this->ksiswa_model->getksiswaid($id_ksiswa);
+        echo json_encode($data);
+    }
+
+    public function kelas_siswa()
+    {
+        $data = array(
+            'title' => 'Data Kelas Siswa',
+            'sess' => $this->session->all_userdata(),
+            'dataSiswa' => $this->ksiswa_model->siswalist(),
+        );
+        $this->load->view('admin/v_kelas_siswa', $data);
+    }
+    
+    public function inputksiswa()
+    {
+        $data = $this->ksiswa_model->addksiswa();
+        echo json_encode($data);
+    }
+    public function getksiswalist()
+    {
+        $data = $this->ksiswa_model->pilih();
+        echo json_encode($data);
+    }
+
+    public function updatedataksiswa()
+    {
+        $data = $this->ksiswa_model->postupdateksiswa();
+        echo json_encode($data);
+    }
+
+    public function deleteksiswa()
+    {
+        $data = $this->ksiswa_model->postdeleteksiswa();
+        echo json_encode($data);
+    }
+    /* End data Kelas Siswa */
 }
 
 /* End of file: Admin.php */

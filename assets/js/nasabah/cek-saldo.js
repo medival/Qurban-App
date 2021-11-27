@@ -3,7 +3,7 @@ $("#btnSearch").on("click", function () {
 });
 
 function getrekapp() {
-  const baseUrl = "http://54.255.206.254/qurban-app/";
+  const baseUrl = "http://localhost/apptabungan/";
   var nis = $("#inputNIS").val();
 
   $.ajax({
