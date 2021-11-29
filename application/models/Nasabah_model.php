@@ -13,7 +13,7 @@ class Nasabah_model extends CI_Model
 
     public function getsummary($nis)
     {
-        $infoBasic = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang, u.name AS nama_operator, s.created_at FROM tb_siswa AS s JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang AS r ON ks.id_ruang = r.id_ruang JOIN tb_kelas AS k ON r.id_kelas = k.id_kelas JOIN tb_user AS u ON u.id_ruang = r.id_ruang JOIN tb_tahun ta ON ks.id_tahun = ta.id_tahun WHERE s.nis = $nis ORDER BY ta.id_tahun DESC LIMIT 1;")->result();
+        $infoBasic = $this->db->query("SELECT s.nis, s.nama, k.kelas, r.ruang, s.created_at FROM tb_siswa AS s JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang AS r ON ks.id_ruang = r.id_ruang JOIN tb_kelas AS k ON r.id_kelas = k.id_kelas JOIN tb_tahun ta ON ks.id_tahun = ta.id_tahun WHERE s.nis = $nis ORDER BY ta.id_tahun DESC LIMIT 1")->result();
 
         $infoTransaksi = $this->db->query("SELECT t.tanggal AS lasttransaksi, tb.saldo
                                                 FROM tb_tabungan as tb
@@ -46,7 +46,7 @@ class Nasabah_model extends CI_Model
 
     public function Allnonmember()
     {
-        $result = $this->db->query("SELECT s.nis, s.nama FROM tb_siswa s JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang r ON ks.id_ruang = r.id_ruang WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan);)")->result();
+        $result = $this->db->query("SELECT s.nis, s.nama FROM tb_siswa s JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang r ON ks.id_ruang = r.id_ruang WHERE s.nis NOT IN(SELECT nis FROM tb_tabungan);")->result();
         return $result;
     }
 

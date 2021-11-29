@@ -3,7 +3,7 @@ $("#btnSearch").on("click", function () {
 });
 
 function getrekapp() {
-  const baseUrl = "http://localhost/apptabungan/";
+  const baseUrl = "http://34.101.238.50/apptabungan/";
   var nis = $("#inputNIS").val();
 
   $.ajax({

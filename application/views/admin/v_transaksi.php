@@ -41,7 +41,6 @@ $this->load->view('_partials/header');
                             NIS - <label class="font-weight-bold" id="infoNIS">-</label> <br>
                             Username - <label class="font-weight-bold" id="infoNama">-</label><br>
                             Kelas - <label class="font-weight-bold" id="infoKelas">-</label><br>
-                            Wali Kelas - <label class="font-weight-bold" id="infoOperator">-</label><br>
                         </div>
                         <div class="col-md-6 text-md-right">
 

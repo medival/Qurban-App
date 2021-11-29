@@ -15,7 +15,7 @@ class Admin extends MY_Controller
         $this->load->model('transaksi_model');
         $this->load->model('user_model');
         $this->load->model('auth_model');
-        $this->load->model('admin_dashboard_model');
+        $this->load->model('Admin_Dashboard_model');
 
         $this->check_login();
         if ($this->session->userdata('role') != "1") {
@@ -25,10 +25,10 @@ class Admin extends MY_Controller
 
     public function index()
     {
-        $results = $this->admin_dashboard_model->getAllRuangKelas();
+        $results = $this->Admin_Dashboard_model->getAllRuangKelas();
         $result = array();
         foreach ($results as $row) {
-            $result[] = $this->admin_dashboard_model->getDetailKelas($row->id_ruang);
+            $result[] = $this->Admin_Dashboard_model->getDetailKelas($row->id_ruang);
         }
 
         $data = array(
@@ -385,17 +385,17 @@ class Admin extends MY_Controller
 
     public function getAllReportKelas()
     {
-        $results = $this->admin_dashboard_model->getAllRuangKelas();
+        $results = $this->Admin_Dashboard_model->getAllRuangKelas();
         $data = array();
         foreach ($results as $row) {
-            $data[] = $this->admin_dashboard_model->getDetailKelas($row->id_ruang);
+            $data[] = $this->Admin_Dashboard_model->getDetailKelas($row->id_ruang);
         }
         echo json_encode($data);
     }
 
     public function getDataKelas($id_ruang)
     {
-        $data = $this->admin_dashboard_model->getDetailKelas($id_ruang);
+        $data = $this->Admin_Dashboard_model->getDetailKelas($id_ruang);
         echo json_encode($data);
     }
 

@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost/apptabungan/";
+var baseUrl = "http://34.101.238.50/apptabungan/";
 
 
 $(document).ready(function () {
