@@ -125,6 +125,7 @@ class Operator extends MY_Controller
         );
         $this->db->insert('tb_transaksi', $data);
         $this->db->update('tb_tabungan', $data2, array('nis' => $nis));
+        $this->session->set_userdata('invoice', $nis);
         echo json_encode($data);
     }
 
@@ -250,6 +251,14 @@ class Operator extends MY_Controller
             $result = $this->auth_model->changepassword($newPassword);
             return $result;
         }
+    }
+
+    public function printInvoice()
+    {
+        $nis = $this->session->userdata('invoice');
+        $data['dataTransaksi'] = $this->transaksi_model->getTransaksiByNis($nis);
+        //var_dump($data);
+        $this->load->view('invoice/v_invoice',$data);
     }
 }
 

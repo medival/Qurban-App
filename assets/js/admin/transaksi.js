@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const baseUrl = "http://localhost/apptabungan/";
+  const baseUrl = "http://34.101.238.50/apptabungan/";
   show_transaksi();
 
   $("#table1").dataTable({
@@ -215,7 +215,6 @@ $(document).ready(function () {
           var infoNama = data["infobasic"][0]["nama"];
           var infoKelas =
             data["infobasic"][0]["kelas"] + data["infobasic"][0]["ruang"];
-          var infoOperator = data["infobasic"][0]["nama_operator"];
           var infoCreatedAt = epochtodate(data["infobasic"][0]["created_at"]);
           var infoTerakhirTransaksi = epochtodate(
             data["infoTransaksi"][0]["lasttransaksi"]
@@ -226,7 +225,6 @@ $(document).ready(function () {
         $("#infoNIS").html(infoNIS);
         $("#infoNama").html(infoNama);
         $("#infoKelas").html(infoKelas);
-        $("#infoOperator").html(infoOperator);
         $("#infoCreatedAt").html(infoCreatedAt);
         $("#infoTerakhirTransaksi").html(infoTerakhirTransaksi);
         $("#infoJumlahTransaksi").html(infoJumlahTransaksi);
@@ -256,11 +254,7 @@ $(document).ready(function () {
         var i;
         for (i = 0; i < data.length; i++) {
           html +=
-            '<option value="' +
-            data[i].nis +
-            '"> ' +
-            `${data[i].nama}` +
-            "</option>";
+            `<option value=${data[i].nis}>${data[i].nis} - ${data[i].nama}</option>`;
         }
         $("#findNasabahKredit").html(ini + html);
         $("#findNasabahDebet").html(ini + html);
@@ -312,6 +306,9 @@ $(document).ready(function () {
         success: function (data) {
           $("#modalKredit").modal("hide");
           show_transaksi();
+
+          //console.log(data);
+          window.open(`${baseUrl}admin/printInvoice`,'_blank');
         },
       });
       return false;
@@ -499,10 +496,13 @@ $(document).ready(function () {
 
   $("#btnCetakPDF").on("click", function () {
     var fileName = $("#infoNama").text();
+    var judul = "Daftar Rekap Tabungan Qurban SD Al Irsyad Al Islamiyyah 01 Purwokerto - ";
     if (fileName == "Username" || fileName == "-") {
-      var fileName = new Date();
+      var fileName1 = new Date();
+      fileName = judul+fileName1;
       cetakPDF(fileName);
     } else {
+      fileName = judul+fileName;
       cetakPDF(fileName);
     }
   });
@@ -510,11 +510,35 @@ $(document).ready(function () {
   function cetakPDF(fileName) {
     var doc = new jsPDF("p", "pt");
     var res = doc.autoTableHtmlToJson(document.getElementById("table1"));
-    doc.autoTable(res.columns, res.data, {
+
+    var header = function(data) {
+      doc.setFontSize(14);
+      doc.setTextColor(40);
+      doc.setFontStyle('normal');
+      //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+      doc.text("Daftar Rekap Tabungan Qurban \n",200, 35 );
+      doc.text("SD Al Irsyad Al Islamiyyah 01 Purwokerto",165, 55 );
+      
+    };
+
+ /*    doc.autoTable(res.columns, res.data, {
       margin: {
-        top: 40,
+        top: 80,
+        buttom:80,
       },
-    });
+    }); */
+
+    
+
+    var options = {
+      beforePageContent: header,
+      margin: {
+        top: 80
+      },/* 
+      startY: doc.autoTableEndPosY() + 20 */
+    };
+    doc.autoTable(res.columns, res.data, options);
+
     doc.save(fileName + ".pdf");
   }
 });

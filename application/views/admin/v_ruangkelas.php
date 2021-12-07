@@ -9,10 +9,10 @@ $this->load->view('_partials/header');
             <div class="card-header">
                 <h3><?=$title;?></h3>
                 <div class="card-body">
-                    <div class="buttons">
+                    <div class="buttons"><!-- 
                         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalTambahKelas">
                             <i class="fa fa-user-plus"></i> Tambah Kelas
-                        </button>
+                        </button> -->
 
                         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalTambahRuangan" id="btnModalTambahRuangan">
                             <i class="fa fa-university"></i> Tambah Ruang

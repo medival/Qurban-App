@@ -22,45 +22,47 @@ class Admin_Dashboard_model extends CI_Model
     public function getDetailKelas($id_ruang)
     {
         // Jumlah Siswa
-        $jumlahSiswaKelas = $this->db->query("SELECT COUNT(*) as jmlSiswaKelas
-											FROM tb_ruang AS r
-											JOIN tb_siswa AS s
-											ON s.id_ruang = r.id_ruang
-											WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahSiswaKelas = $this->db->query("SELECT COUNT(*) as jmlSiswaKelas FROM tb_ruang r JOIN tb_kelas_siswa ks ON r.id_ruang = ks.id_ruang JOIN tb_siswa s ON s.nis = ks.nis WHERE ks.id_ruang = $id_ruang;")->row();
 
         // Jumlah Saldo Kelas
-        $jumlahSaldoKelas = $this->db->query("SELECT SUM(tb.saldo) as jmlSaldoKelas
-											FROM tb_tabungan AS tb
-											JOIN tb_siswa AS s
-											ON s.nis = tb.nis
-											WHERE s.id_ruang = $id_ruang")->row();
+        $jumlahSaldoKelas = $this->db->query("SELECT COALESCE(SUM(tb.saldo), 0)  as jmlSaldoKelas FROM tb_tabungan tb JOIN tb_siswa s ON s.nis = tb.nis JOIN tb_kelas_siswa ks ON s.nis = ks.nis JOIN tb_ruang r ON ks.id_ruang = r.id_ruang WHERE ks.id_ruang = $id_ruang;")->row();
         // Jumlah Semua Saldo
-        $jumlahSemuaSaldo = $this->db->query("SELECT SUM(tb.saldo) as jmlSemuaSaldo
-											FROM tb_tabungan AS tb")->row();
+        $jumlahSemuaSaldo = $this->db->query("SELECT COALESCE(SUM(tb.saldo), 0)  as jmlSemuaSaldo
+                                            FROM tb_tabungan AS tb")->row();
 
         // Nama Operator
         $namaOperator = $this->db->query("SELECT u.name
-										FROM tb_user as u
-										JOIN tb_ruang as r
-										ON u.id_ruang = r.id_ruang
-										WHERE r.id_ruang = $id_ruang")->row();
+                                        FROM tb_user as u
+                                        JOIN tb_ruang as r
+                                        ON u.id_ruang = r.id_ruang
+                                        WHERE r.id_ruang = $id_ruang")->row();
 
         // Kelas
         $ruangKelas = $this->db->query("SELECT concat(k.kelas , r.ruang) AS kelas
-										FROM tb_user as u
-										JOIN tb_ruang as r
-										ON u.id_ruang = r.id_ruang
-										JOIN tb_kelas as k
-										ON r.id_kelas = k.id_kelas
-										WHERE r.id_ruang = $id_ruang")->row();
+                                        FROM tb_user as u
+                                        JOIN tb_ruang as r
+                                        ON u.id_ruang = r.id_ruang
+                                        JOIN tb_kelas as k
+                                        ON r.id_kelas = k.id_kelas
+                                        WHERE r.id_ruang = $id_ruang")->row();
+/* 
+        if($jumlahSaldoKelas == null){
+            return $jumlahSaldoKelas = 0;
+        } */
         // Save to Array
+        $prosentase = 0;
+        if($jumlahSaldoKelas->jmlSaldoKelas == 0 || $jumlahSemuaSaldo->jmlSemuaSaldo == 0){
+            $prosentase = "0 %";
+        }else{
+            $prosentase = round($jumlahSaldoKelas->jmlSaldoKelas * 100 / $jumlahSemuaSaldo->jmlSemuaSaldo) . "%";
+        }
         $infoKelas = array(
             'jumlahSiswaKelas' => $jumlahSiswaKelas,
             'jumlahSaldoKelas' => $jumlahSaldoKelas,
             'jumlahSemuaSaldo' => $jumlahSemuaSaldo,
             'namaOperator' => $namaOperator,
             'ruangKelas' => $ruangKelas,
-            'presentase' => round($jumlahSaldoKelas->jmlSaldoKelas * 100 / $jumlahSemuaSaldo->jmlSemuaSaldo) . "%",
+            'presentase' => $prosentase,
         );
 
         return $infoKelas;

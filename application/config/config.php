@@ -24,7 +24,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 date_default_timezone_set('Asia/Jakarta');
-$config['base_url'] = 'http://localhost/apptabungan/';
+$config['base_url'] = 'http://34.101.238.50/apptabungan/';
+//$config['base_url']  =  "http://".$_SERVER['HTTP_HOST'];
+
+//$config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])).'/';
+
 
 /*
 |--------------------------------------------------------------------------
